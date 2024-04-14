@@ -1,5 +1,7 @@
 # IHM PROJECT (L3 Project ENI)
-https://img.shields.io/badge/React-Js-cyan
+![React.js](https://img.shields.io/badge/React-Js-cyan)
+![Laravel.io](https://img.shields.io/badge/Laravel-PHP-red)
+![Tailwindcss.com](https://img.shields.io/badge/Tailwind-Css-indigo)
 
 
 This project is within the educational framework.
