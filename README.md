@@ -1,8 +1,5 @@
 # IHM PROJECT (L3 Project ENI)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/username/repo.svg)](https://github.com/username/repo/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/username/repo.svg)](https://github.com/username/repo/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/username/repo.svg)](https://github.com/username/repo/pulls)
+https://img.shields.io/badge/React-Js-cyan
 
 
 This project is within the educational framework.
@@ -27,12 +24,8 @@ https://github.com/wharton-git/venteConcurentielle.git
 cd venteConcurentielle
 ```
 
-4. Install all node Dependencies
+3. Install all node Dependencies
 
-```sh
-npm i
-```
-Or
 ```sh
 npm install
 ```
