@@ -1,0 +1,19 @@
+   
+
+
+    <!-- Controller -->
+
+    
+}
+
+<!-- API -->
+
+Route::get('/all', [ProduitController::class, 'index']);
+
+<!-- SCHEMA Migraation -->
+
+
+
+        <!-- SEED -->
+
+        
