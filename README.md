@@ -1,25 +1,15 @@
 # IHM PROJECT (L3 Project ENI)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/username/repo.svg)](https://github.com/username/repo/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/username/repo.svg)](https://github.com/username/repo/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/username/repo.svg)](https://github.com/username/repo/pulls)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 This project is within the educational framework.
 HMI project in the 3rd year of a Computer Science degree at ENI Fianarantsoa
 Based on React + Vite and Laravel in BackEnd
 
-# GUIDE 
-
-Clone The Repository
-
-# My Awesome Website
-
-Welcome to My Awesome Website! This project is a simple demonstration of using HTML, CSS, and JavaScript to create a basic website.
-
-## Features
-
-- Homepage with a welcome message
-- About page with information about the project
-- Contact page with a form to send messages
+### BackEnd Link : [Laravel](https://test.io/)
 
 ## Setup
 
@@ -28,5 +18,27 @@ To run this project locally, follow these steps:
 1. Clone the repository:
 
 ```sh
-git clone https://github.com/username/my-awesome-website.git
+https://github.com/wharton-git/venteConcurentielle.git
+```
 
+2. Navigate into the Project Directory
+
+```sh
+cd venteConcurentielle
+```
+
+4. Install all node Dependencies
+
+```sh
+npm i
+```
+Or
+```sh
+npm install
+```
+
+4. Run the project
+
+```sh
+npm run dev
+```
