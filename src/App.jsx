@@ -20,8 +20,13 @@ function App() {
   const [filtredData, setFiltredData] = useState(produits)
   const [cartItem, setCartItem] = useState([])
   const [totalItems, setTotalItems] = useState(0);
+  const [categories, setCategories] = useState([])
 
-
+  const fetchCategories = () => {
+    url.post('/type')
+      .then(res => setCategories(res.data))
+      .catch(e => console.log(e))
+  }
   const fetchProduits = () => {
     url.get('/all')
       .then(res => {
@@ -42,30 +47,41 @@ function App() {
     console.log('Valeur Filtré : ' + filtredResult)
   }
 
+  const handleCategoriesChange = (categories) => {
+    if (categories != "all") {
+      const filtredResult = produits.filter(item => item.type.toLowerCase().includes(categories.toLowerCase()));
+      setFiltredData(filtredResult)
+    }else {
+      setFiltredData(produits)
+    }
+  }
+
   const addToCart = (prod) => {
     setCartItem([...cartItem, prod])
   }
 
-  // const getTotalQuantity = () => {
-  //   return cartItem.reduce((total, item) => total + item.quantity, 0);
-  // };
-
-  // Fonction pour supprimer un produit du panier
   const removeFromCart = (index) => {
     const newCartItems = [...cartItem];
     newCartItems.splice(index, 1);
     setCartItem(newCartItems);
   };
 
-  // Fonction pour mettre à jour la quantité d'un produit dans le panier
   const updateQuantity = (index, quantity) => {
     const newCartItems = [...cartItem];
     newCartItems[index].quantity = quantity;
     setCartItem(newCartItems);
   };
 
+  const filtredCategories = (types) => {
+    // console.log(types);
+    const filtredResult = produits.filter(item => item.type.toLowerCase().includes(types.toLowerCase()));
+    setFiltredData(filtredResult)
+    // console.log(filtredResult);
+  }
+
   useEffect(() => {
     fetchProduits()
+    fetchCategories()
 
     const total = cartItem.reduce((acc, item) => acc + item.quantity, 0);
     setTotalItems(total);
@@ -74,21 +90,21 @@ function App() {
   return (
     <>
       <Router>
-        <div className='fixed w-screen top-0 z-10'>
-          <div className='flex bg-indigo-500 text-white px-4 py-2'>
-            <div className='w-24 px-3 py-2'>
+        <div className='fixed w-screen top-0 z-10 shadow-lg'>
+          <div className='flex bg-indigo-500 text-white px-4 pt-2'>
+            <div className='w-24 px-3 pt-2'>
               <img src={Logo} />
             </div>
             <div className='grid grid-cols-1 w-full'>
               <Search onSearchChange={handleSearchChange} totalItems={totalItems} />
-              <Navbar />
+              <Navbar categories={categories} filtredCat={filtredCategories} />
             </div>
           </div>
         </div>
         <FakeHeader />
         <Routes>
           <Route path={'/'} element={<Home />} />
-          <Route path={'/view'} element={<View data={filtredData} addToCart={addToCart} />} />
+          <Route path={'/view'} element={<View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} />} />
           <Route path={'/test'} element={<Test />} />
           <Route path={'/cart'} element={<Cart items={cartItem} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />} />
           <Route path={'/add'} element={<Add />} />

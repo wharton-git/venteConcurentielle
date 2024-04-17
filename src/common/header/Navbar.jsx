@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import Categories from './Categories'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronCircleDown, faChevronCircleUp, faHome, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faChevronCircleDown, faChevronCircleUp, faHome, faPhone, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({categories, filtredCat}) => {
 
     const [dropdown, setDropdown] = useState(false)
 
@@ -18,25 +18,29 @@ const Navbar = () => {
 
     return (
         <>
-            <div className='flex justify-between'>
-                <button className='px-2 py-1 m-1' onClick={() => setDropdown(!dropdown)}>
+            <div className='flex justify-between mt-2'>
+                <button className='px-2 py-1 mx-1' onClick={() => setDropdown(!dropdown)}>
                     Categories
                     {dropdown ? <FontAwesomeIcon icon={faChevronCircleDown} /> : <FontAwesomeIcon icon={faChevronCircleUp} />}
                 </button>
-                <div className=''>
-                    <Link to='/' className='px-2 py-1 m-1'>
+                <div className='flex items-center'>
+                    <Link to='/' className='px-2 py-1 mx-1  hover:bg-indigo-600 rounded-lg transition-all'>
                         <FontAwesomeIcon icon={faHome} />
                         Home
                     </Link>
-                    <button className='px-2 py-1 m-1'>
+                    <Link to='/user' className='px-2 py-1 mx-1  hover:bg-indigo-600 rounded-lg transition-all'>
+                        <FontAwesomeIcon icon={faUser} />
+                        Profil
+                    </Link>
+                    <Link to='/contact' className='px-2 py-1 mx-1  hover:bg-indigo-600 rounded-lg transition-all'>
                         <FontAwesomeIcon icon={faPhone} />
                         Contact
-                    </button>
+                    </Link>
                 </div>
             </div>
             {dropdown ?
                 <div >
-                    <Categories />
+                    <Categories categories={categories} filtredCat={filtredCat} />
                 </div>
                 :
                 <div>

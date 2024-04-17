@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Logo from './assets/images/Logo.svg'
 import url from "./Api/http"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -10,9 +9,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './Style/Css/Swipper.css'
 
-// import './styles.css';
-
-// import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { faAdd, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
