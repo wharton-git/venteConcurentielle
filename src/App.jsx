@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Cookie from 'js-cookie';
 
 import FakeHeader from './components/fakeHeader'
 import url from './Api/http'
@@ -7,11 +8,12 @@ import View from './components/View'
 import Test from './Tests/Test'
 import Add from './components/Add'
 import Home from './Home'
-import Search from './common/header/Search';
-import Navbar from './common/header/Navbar';
+import Search from './common/header/Search'
+import Navbar from './common/header/Navbar'
+import Login from './common/Auth/Login'
 import Cart from './components/Cart'
 import Logo from './assets/images/Logo_R_Market.svg'
-import './Style/Css/Style.css';
+import './Style/Css/Style.css'
 
 function App() {
 
@@ -19,12 +21,17 @@ function App() {
   const [produits, setProduits] = useState([])
   const [filtredData, setFiltredData] = useState(produits)
   const [cartItem, setCartItem] = useState([])
-  const [totalItems, setTotalItems] = useState(0);
+  const [totalItems, setTotalItems] = useState(0)
   const [categories, setCategories] = useState([])
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [user, setUser] = useState([])
 
   const fetchCategories = () => {
     url.post('/type')
-      .then(res => setCategories(res.data))
+      .then(res => {
+        setCategories(res.data)
+        console.log(categories)
+      })
       .catch(e => console.log(e))
   }
   const fetchProduits = () => {
@@ -35,7 +42,6 @@ function App() {
         console.log(produits)
       })
       .catch(err => console.error('Erreur : ', err));
-
   }
 
   const handleSearchChange = (searchValue) => {
@@ -51,7 +57,7 @@ function App() {
     if (categories != "all") {
       const filtredResult = produits.filter(item => item.type.toLowerCase().includes(categories.toLowerCase()));
       setFiltredData(filtredResult)
-    }else {
+    } else {
       setFiltredData(produits)
     }
   }
@@ -79,9 +85,26 @@ function App() {
     // console.log(filtredResult);
   }
 
+  const refreshData = () => {
+    fetchProduits()
+    fetchCategories()
+    console.log("refreshData");
+  }
+
+  const updateUserLoginStatus = (status) => {
+    setIsUserLoggedIn(status);
+  }
+
   useEffect(() => {
     fetchProduits()
     fetchCategories()
+
+    const verifyjwt = Cookie.get('jwt')
+    if (!verifyjwt) {
+      setIsUserLoggedIn(false);
+    }else {
+      setIsUserLoggedIn(true);
+    }
 
     const total = cartItem.reduce((acc, item) => acc + item.quantity, 0);
     setTotalItems(total);
@@ -97,17 +120,18 @@ function App() {
             </div>
             <div className='grid grid-cols-1 w-full'>
               <Search onSearchChange={handleSearchChange} totalItems={totalItems} />
-              <Navbar categories={categories} filtredCat={filtredCategories} />
+              <Navbar categories={categories} filtredCat={filtredCategories}  isUserLoggedIn={isUserLoggedIn} />
             </div>
           </div>
         </div>
         <FakeHeader />
         <Routes>
           <Route path={'/'} element={<Home />} />
+          <Route path={'/login'} element={<Login setIsUserLoggedIn={setIsUserLoggedIn}/>} />
           <Route path={'/view'} element={<View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} />} />
           <Route path={'/test'} element={<Test />} />
           <Route path={'/cart'} element={<Cart items={cartItem} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />} />
-          <Route path={'/add'} element={<Add />} />
+          <Route path={'/add'} element={<Add refresh={refreshData} />} />
         </Routes>
         {/* <Footer /> */}
       </Router>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function ProductForm() {
+function ProductForm({refresh}) {
     const [product, setProduct] = useState({
         designation: '',
         description: '',
@@ -37,6 +37,7 @@ function ProductForm() {
                 }
             });
             alert('Product added successfully!');
+            refresh()
         } catch (error) {
             console.error('Error adding product:', error);
         }

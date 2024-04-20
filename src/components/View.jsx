@@ -6,6 +6,7 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
 
     const [quantities, setQuantities] = useState({});
 
+    console.log(type);
 
     const handleAddToCart = (prod) => {
         addToCart({ ...prod, quantity: quantities[prod.id] || 1 }); // Ajouter la quantité lors de l'ajout au panier
@@ -24,10 +25,11 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
     const cmdSideBar = document.querySelector('.cmdSideBar')
 
     const handleClick = () => {
-        viewSideMenu.classList.toggle('cacheSideMenu');
-        cmdSideBar.classList.toggle('changePlace');
+        if (viewSideMenu && cmdSideBar) {
+            viewSideMenu.classList.toggle('cacheSideMenu');
+            cmdSideBar.classList.toggle('changePlace');
+        }
     };
-
 
     return (
         <>
@@ -47,8 +49,8 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
                         </div>
                         {type.map((cat, index) => (
                             <div className='flex'>
-                                <input type="radio" value={cat.type} name='type' className='pr-10 bg-blue-800' onClick={handleCategories} />
-                                <label htmlFor="">{cat.type}</label>
+                                <input type="radio" value={cat} name='type' className='pr-10 bg-blue-800' onClick={handleCategories} />
+                                <label htmlFor="">{cat}</label>
                             </div>
 
                         ))}
