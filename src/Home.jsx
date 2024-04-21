@@ -76,9 +76,23 @@ function Home() {
                     <Swiper
 
                         loop={true}
-                        slidesPerView={3}
+                        slidesPerView={1}
                         spaceBetween={10}
 
+                        breakpoints={{
+                            640: {
+                                slidesPerView: 2,
+                                spaceBetween: 20,
+                            },
+                            768: {
+                                slidesPerView: 4,
+                                spaceBetween: 40,
+                            },
+                            1024: {
+                                slidesPerView: 5,
+                                spaceBetween: 50,
+                            },
+                        }}
 
                         modules={[Pagination]}
                         className="mySwiper"
@@ -121,115 +135,6 @@ function Home() {
                 </div>
             </div>
 
-            <div className=' m-10 shadow-xl rounded-lg p-3'>
-                <Link to='/view'>
-                    <span className='mx-4'>
-                        View All
-                    </span>
-                    <FontAwesomeIcon icon={faChevronRight} size='xs' />
-                </Link>
-                <div className='w-5/6 m-auto px-4 py-2'>
-                    <Swiper
-
-                        loop={true}
-                        slidesPerView={3}
-                        spaceBetween={10}
-
-
-                        modules={[Pagination]}
-                        className="mySwiper"
-
-                    >
-                        {produits.map((prod, index) => (
-                            <SwiperSlide>
-                                <div className='relative shadow-xl w-52 rounded-lg'>
-                                    <div className='flex justify-between mx-3'>
-                                        <div>50% off</div>
-                                        <div>💖</div>
-                                    </div>
-                                    <div className='m-auto'>
-                                        <img src={"http://localhost:8000/images/" + prod.image} alt="" />
-                                    </div>
-                                    <div className='mt-2 p-2 text-white bg-indigo-500 rounded-b-lg'>
-                                        <div>
-                                            {prod.designation}
-                                        </div>
-                                        <div className='flex justify-between mx-3'>
-                                            <div>Prix :</div>
-                                            <div>$ {prod.prix}</div>
-                                        </div>
-                                        <div className='flex justify-between mx-3'>
-                                            <div>Stock :</div>
-                                            <div> {prod.stock}</div>
-                                        </div>
-                                        <div className='flex justify-between mx-3'>
-                                            <button className='border-2 rounded-md border-white px-2 py-1'>
-                                                <FontAwesomeIcon icon={faAdd} color='white' />
-                                            </button>
-                                            <input type="number" name="qte" id="qte" className='mx-4 w-full rounded-lg text-black px-3' placeholder='Quantité' />
-                                        </div>
-                                    </div>
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </div>
-            </div>
-
-            <div className=' m-10 shadow-xl rounded-lg p-3'>
-                <Link to='/view'>
-                    <span className='mx-4'>
-                        View All
-                    </span>
-                    <FontAwesomeIcon icon={faChevronRight} size='xs' />
-                </Link>
-                <div className='w-5/6 m-auto px-4 py-2'>
-                    <Swiper
-
-                        loop={true}
-                        slidesPerView={3}
-                        spaceBetween={10}
-
-
-                        modules={[Pagination]}
-                        className="mySwiper"
-
-                    >
-                        {produits.map((prod, index) => (
-                            <SwiperSlide>
-                                <div className='relative shadow-xl w-52 rounded-lg'>
-                                    <div className='flex justify-between mx-3'>
-                                        <div>50% off</div>
-                                        <div>💖</div>
-                                    </div>
-                                    <div className='m-auto'>
-                                        <img src={"http://localhost:8000/images/" + prod.image} alt="" />
-                                    </div>
-                                    <div className='mt-2 p-2 text-white bg-indigo-500 rounded-b-lg'>
-                                        <div>
-                                            {prod.designation}
-                                        </div>
-                                        <div className='flex justify-between mx-3'>
-                                            <div>Prix :</div>
-                                            <div>$ {prod.prix}</div>
-                                        </div>
-                                        <div className='flex justify-between mx-3'>
-                                            <div>Stock :</div>
-                                            <div> {prod.stock}</div>
-                                        </div>
-                                        <div className='flex justify-between mx-3'>
-                                            <button className='border-2 rounded-md border-white px-2 py-1'>
-                                                <FontAwesomeIcon icon={faAdd} color='white' />
-                                            </button>
-                                            <input type="number" name="qte" id="qte" className='mx-4 w-full rounded-lg text-black px-3' placeholder='Quantité' />
-                                        </div>
-                                    </div>
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </div>
-            </div>
         </>
     );
 }

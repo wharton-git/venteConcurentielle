@@ -3,7 +3,7 @@ import url from './../../Api/http';
 import Cookie from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
-const Logout = ({ setIsUserLoggedIn }) => {
+const Logout = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -13,18 +13,24 @@ const Logout = ({ setIsUserLoggedIn }) => {
                 Authorization: 'Bearer ' + jwt,
             }
         })
-        .then(() => {
-            Cookie.remove('jwt');
-            setIsUserLoggedIn(false); 
-            navigate('/'); 
-        })
-        .catch(error => {
-            console.error('Erreur de déconnexion :', error);
-        });
+            .then(() => {
+                Cookie.remove('jwt');
+                Cookie.remove('log');
+                navigate('/');
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Erreur de déconnexion :', error);
+            });
     }
 
     return (
-        <button onClick={handleLogout}>Déconnexion</button>
+        <button
+            className='text-white'
+            onClick={handleLogout}
+        >
+            Déconnexion
+        </button>
     );
 }
 

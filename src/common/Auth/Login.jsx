@@ -16,7 +16,10 @@ const Login = ({ setIsUserLoggedIn }) => {
     };
 
     const handleLogin = () => {
-        url.post('/auth/login', { email: email, password: password })
+        url.post('/auth/login', {
+            email: email,
+            password: password
+        })
             .then(authResponse => {
                 const jwt = authResponse.data.access_token;
                 Cookie.set('jwt', jwt);

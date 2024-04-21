@@ -8,8 +8,7 @@ import View from './components/View'
 import Test from './Tests/Test'
 import Add from './components/Add'
 import Home from './Home'
-import Search from './common/header/Search'
-import Navbar from './common/header/Navbar'
+import Nav from './components/Navbar'
 import Login from './common/Auth/Login'
 import Cart from './components/Cart'
 import Logo from './assets/images/Logo_R_Market.svg'
@@ -95,16 +94,20 @@ function App() {
     setIsUserLoggedIn(status);
   }
 
+  const verifyStateLog = () => {
+    const verifyjwt = Cookie.get('jwt')
+    if (!verifyjwt) {
+      setIsUserLoggedIn(false);
+    } else {
+      setIsUserLoggedIn(true);
+    }
+  }
+
   useEffect(() => {
     fetchProduits()
     fetchCategories()
 
-    const verifyjwt = Cookie.get('jwt')
-    if (!verifyjwt) {
-      setIsUserLoggedIn(false);
-    }else {
-      setIsUserLoggedIn(true);
-    }
+    verifyStateLog()
 
     const total = cartItem.reduce((acc, item) => acc + item.quantity, 0);
     setTotalItems(total);
@@ -113,26 +116,30 @@ function App() {
   return (
     <>
       <Router>
-        <div className='fixed w-screen top-0 z-10 shadow-lg'>
+        {/* <div className='fixed w-screen top-0 z-10 shadow-lg'>
           <div className='flex bg-indigo-500 text-white px-4 pt-2'>
             <div className='w-24 px-3 pt-2'>
               <img src={Logo} />
             </div>
             <div className='grid grid-cols-1 w-full'>
-              <Search onSearchChange={handleSearchChange} totalItems={totalItems} />
-              <Navbar categories={categories} filtredCat={filtredCategories}  isUserLoggedIn={isUserLoggedIn} />
+              <Navbar categories={categories} filtredCat={filtredCategories} isUserLoggedIn={isUserLoggedIn} />
             </div>
           </div>
+        </div> */}
+        <div className='fixed z-20'>
+          <Nav totalItems={totalItems} onSearchChange={handleSearchChange} isUserLoggedIn={isUserLoggedIn} />
         </div>
         <FakeHeader />
-        <Routes>
-          <Route path={'/'} element={<Home />} />
-          <Route path={'/login'} element={<Login setIsUserLoggedIn={setIsUserLoggedIn}/>} />
-          <Route path={'/view'} element={<View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} />} />
-          <Route path={'/test'} element={<Test />} />
-          <Route path={'/cart'} element={<Cart items={cartItem} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />} />
-          <Route path={'/add'} element={<Add refresh={refreshData} />} />
-        </Routes>
+        <div className=''>
+          <Routes>
+            <Route path={'/'} element={<Home />} />
+            <Route path={'/login'} element={<Login setIsUserLoggedIn={setIsUserLoggedIn} />} />
+            <Route path={'/view'} element={<View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} />} />
+            <Route path={'/test'} element={<Test />} />
+            <Route path={'/cart'} element={<Cart items={cartItem} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />} />
+            <Route path={'/add'} element={<Add refresh={refreshData} />} />
+          </Routes>
+        </div>
         {/* <Footer /> */}
       </Router>
     </>

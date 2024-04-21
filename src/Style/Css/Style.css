@@ -5,6 +5,7 @@
 }
 
 body {
+  background-color: white;
   font-family: "Century Gothic", sans-serif;
 }
 
@@ -15,6 +16,86 @@ a {
 
 li {
   list-style: none;
+}
+
+.sideMenu {
+  animation: montrer 0.5s ease-in-out forwards;
+  -webkit-animation: montrer 0.5s ease-in-out forwards;
+}
+
+.cacheSideMenu {
+  animation: cacher 0.5s ease-in-out forwards;
+  -webkit-animation: cacher 0.5s ease-in-out forwards;
+}
+
+.cmdSideBar {
+  animation: moveUp 0.5s ease-in-out forwards;
+  -webkit-animation: moveUp;
+}
+
+.changePlace {
+  animation: moveDown 1s ease-in-out forwards;
+  -webkit-animation: moveDown 1s ease-in-out forwards;
+}
+
+.cardProd::-webkit-scrollbar {
+  background: whitesmoke;
+  width: 5px;
+}
+
+.cardProd::-webkit-scrollbar-thumb {
+  background: #6366f1;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+@keyframes cacher {
+  from {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    width: 120px;
+    padding-inline: 12px;
+    overflow: visible;
+  }
+  to {
+    transform: translateX(-200px);
+    -webkit-transform: translateX(-200px);
+    -moz-transform: translateX(-200px);
+    -ms-transform: translateX(-200px);
+    -o-transform: translateX(-200px);
+    width: 0;
+    padding-inline: 0;
+    overflow: hidden;
+  }
+}
+@keyframes montrer {
+  to {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    width: 120px;
+    padding-inline: 12px;
+    overflow: visible;
+  }
+  from {
+    /* display: block; */
+    transform: translateX(-200px);
+    -webkit-transform: translateX(-200px);
+    -moz-transform: translateX(-200px);
+    -ms-transform: translateX(-200px);
+    -o-transform: translateX(-200px);
+    width: 0;
+    padding-inline: 0;
+    overflow: hidden;
+  }
 }
 
 /*# sourceMappingURL=Style.css.map */

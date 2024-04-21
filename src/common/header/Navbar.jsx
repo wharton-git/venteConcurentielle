@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faHome, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
-import NavAlt from './../../components/NavAlternative'
+import NavAlt from '../../components/Navbar'
 
 const Navbar = ({ categories, filtredCat, isUserLoggedIn }) => {
     const [dropdown, setDropdown] = useState(false);
@@ -94,9 +94,6 @@ const Navbar = ({ categories, filtredCat, isUserLoggedIn }) => {
                     </div>
                 </div>
             </div>
-
-            <NavAlt />
-
         </>
     );
 };
