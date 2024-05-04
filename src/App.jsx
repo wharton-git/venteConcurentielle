@@ -10,8 +10,8 @@ import Add from './components/Add'
 import Home from './Home'
 import Nav from './components/Navbar'
 import Login from './common/Auth/Login'
+import Register from './common/Auth/Register'
 import Cart from './components/Cart'
-import Logo from './assets/images/Logo_R_Market.svg'
 import './Style/Css/Style.css'
 
 function App() {
@@ -72,10 +72,15 @@ function App() {
   };
 
   const updateQuantity = (index, quantity) => {
-    const newCartItems = [...cartItem];
-    newCartItems[index].quantity = quantity;
-    setCartItem(newCartItems);
-  };
+    if (quantity >= 0 || isNaN(quantity)) {
+        const newCartItems = [...cartItem];
+        newCartItems[index].quantity = quantity;
+        setCartItem(newCartItems);
+    } else {
+        alert("La quantité ne peut pas être négative");
+    }
+};
+
 
   const filtredCategories = (types) => {
     // console.log(types);
@@ -134,6 +139,7 @@ function App() {
           <Routes>
             <Route path={'/'} element={<Home />} />
             <Route path={'/login'} element={<Login setIsUserLoggedIn={setIsUserLoggedIn} />} />
+            <Route path={'/register'} element={<Register setIsUserLoggedIn={setIsUserLoggedIn} />} />
             <Route path={'/view'} element={<View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} />} />
             <Route path={'/test'} element={<Test />} />
             <Route path={'/cart'} element={<Cart items={cartItem} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />} />

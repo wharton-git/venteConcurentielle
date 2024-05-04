@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import url from './../../Api/http'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Cookie from 'js-cookie'
 
 
@@ -22,22 +22,9 @@ const Login = ({ setIsUserLoggedIn }) => {
         })
             .then(authResponse => {
                 const jwt = authResponse.data.access_token;
-                Cookie.set('jwt', jwt);
+                Cookie.set('jwt', jwt, {expires: 60});
                 setIsUserLoggedIn(true);
-                Cookie.set('log', true);
-
-                url.post('/auth/me', {}, {
-                    headers: {
-                        Authorization: 'Bearer ' + jwt,
-                    }
-                })
-                    .then(userInfo => {
-                        console.log(userInfo.data);
-                    })
-                    .catch(userInfoError => {
-                        console.log(userInfoError.message);
-                    });
-
+                Cookie.set('log', true, {expires: 60});
                 navigate('/');
             })
             .catch(authError => {
@@ -70,6 +57,9 @@ const Login = ({ setIsUserLoggedIn }) => {
                         <button type="submit" onClick={handleSubmit} className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Connexion
                         </button>
+                        <div className='my-2 text-center'>
+                            Pas de Compte ? <Link to='/register' className='text-indigo-600 hover:text-indigo-800 drop-shadow-sm'>Créer un compte</Link>
+                        </div>
                     </div>
                 </form>
             </div>

@@ -65,7 +65,7 @@ function Home() {
             </div>
 
 
-            <div className=' m-10 shadow-xl rounded-lg p-3'>
+            <div className='m-10 shadow-xl rounded-lg p-3'>
                 <Link to='/view'>
                     <span className='mx-4'>
                         View All
@@ -135,7 +135,7 @@ function Home() {
                 </div>
             </div>
 
-            <div className=' m-10 shadow-xl rounded-lg p-3'>
+            <div className='m-10 shadow-xl rounded-lg p-3'>
                 <Link to='/view'>
                     <span className='mx-4'>
                         View All

@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 import Logout from './../common/Auth/Logout'
 
+import Logo from './../assets/images/Logo_R_Market.svg'
+
 function Navbar({ totalItems, onSearchChange, isUserLoggedIn }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -24,11 +26,8 @@ function Navbar({ totalItems, onSearchChange, isUserLoggedIn }) {
                 <div className="max-w-screen mx-auto flex justify-between items-center">
                     <div className="flex-shrink-0">
                         <Link to='/' className="text-white text-xl font-bold">
-                            <span>
-                                Mon Site
-                            </span>
-                            <span className='hidden md:inline'>
-                                Ecommerce
+                            <span className=''>
+                                R. Market
                             </span>
                         </Link>
                     </div>
@@ -50,12 +49,12 @@ function Navbar({ totalItems, onSearchChange, isUserLoggedIn }) {
                         <div className="flex items-center">
                             <div className=" relative bg-transparent rounded-full mr-5">
                                 <input type="text" placeholder="Recherche..."
-                                    className="peer text-white cursor-pointer relative z-10 h-8 w-6 rounded-full border bg-transparent outline-none pl-6 focus:w-32 md:focus:w-60 transition-all focus:cursor-text focus:border-gray-100 focus:pr-4"
+                                    className="peer text-white cursor-pointer relative z-10 h-8 rounded-full border bg-transparent outline-none pl-6 w-32 md:w-60 transition-all focus:cursor-text focus:border-gray-100 focus:pr-4"
                                     onChange={handleInputChange}
                                 />
                                 <Link to='/view'>
                                     <FontAwesomeIcon icon={faSearch} size='xl'
-                                        className='text-white cursor-pointer inset-y-0 my-auto left-0  border-r border-transparent stroke-gray-500 w-12 peer-focus:border-gray-100 peer-focus:stroke-gray-100 peer-focus:z-30' />
+                                        className='text-white cursor-pointer px-3' />
                                 </Link>
 
                             </div>
@@ -93,7 +92,7 @@ function Navbar({ totalItems, onSearchChange, isUserLoggedIn }) {
                             <li><Link to='/' className="block py-2 px-4 hover:bg-gray-700">Accueil</Link></li>
                             <li><Link to='/view' className="block py-2 px-4 hover:bg-gray-700">Produits</Link></li>
                             <li><Link to='/user' className="block py-2 px-4 hover:bg-gray-700">Mon Compte</Link></li>
-                            <li><Link to='/logout' className="block py-2 px-4 hover:bg-gray-700">Déconnexion</Link></li>
+                            <Logout />
                         </ul>
                     </div>
                 )}

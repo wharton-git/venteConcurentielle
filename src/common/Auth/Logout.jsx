@@ -16,7 +16,7 @@ const Logout = () => {
             .then(() => {
                 Cookie.remove('jwt');
                 Cookie.remove('log');
-                navigate('/');
+                navigate('/login');
                 window.location.reload();
             })
             .catch(error => {

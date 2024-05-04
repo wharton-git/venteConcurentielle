@@ -6,8 +6,6 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
 
     const [quantities, setQuantities] = useState({});
 
-    console.log(type);
-
     const handleAddToCart = (prod) => {
         addToCart({ ...prod, quantity: quantities[prod.id] || 1 }); // Ajouter la quantité lors de l'ajout au panier
     };
@@ -26,9 +24,13 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
 
     const handleClick = () => {
         if (viewSideMenu && cmdSideBar) {
-            viewSideMenu.classList.toggle('cacheSideMenu');
-            cmdSideBar.classList.toggle('changePlace');
+            if (viewSideMenu.classList.contains('cacheSideMenu')) {
+                viewSideMenu.classList.remove('cacheSideMenu');
+            }else {
+                viewSideMenu.classList.add('cacheSideMenu');
+            }
         }
+
     };
 
     return (
@@ -42,7 +44,7 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
                     >
                         <FontAwesomeIcon icon={faBars} />
                     </div>
-                    <div className='sideMenu ml-3 mt-14 capitalize transition-all grid grid-cols-1 py-6 bg-white rounded-lg shadow-lg'>
+                    <div className={`sideMenu ml-3 mt-14 capitalize transition-all grid grid-cols-1 py-6 bg-white rounded-lg shadow-lg`}>
                         <div className='flex'>
                             <input type="radio" value="all" name='type' className='pr-10 bg-blue-800' onClick={handleCategories} />
                             <label htmlFor="">All</label>

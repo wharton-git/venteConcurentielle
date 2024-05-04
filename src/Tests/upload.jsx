@@ -28,11 +28,11 @@ const upload = () => {
 
     return (
         <div>
-            <div className='bg-gray-300 w-2/4 mx-auto text-center py-4 rounded-xl my-2'>
-                <form onSubmit={submitData}>
-                    <input type="file" className='m-4 bg-indigo-300 rounded-md' onChange={e => handleChange(e.target.files)} /> <br />
-                    <button type="submit" onClick={submitData} className='px-3 py-1 bg-indigo-400 rounded-md text-white hover:bg-indigo-500 transition-all'>Upload</button>
-                </form>
+            <div className='bg-blue-400 w-2/4 mx-auto'>
+                DIV
+            </div>
+            <div className='bg-red-400'>
+                DIV2
             </div>
         </div>
     )
