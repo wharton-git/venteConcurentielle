@@ -90,7 +90,7 @@ function Navbar({ totalItems, onSearchChange, isUserLoggedIn }) {
                             <li><Link to='/' className="block py-2 px-4 hover:bg-gray-700">Accueil</Link></li>
                             <li><Link to='/view' className="block py-2 px-4 hover:bg-gray-700">Produits</Link></li>
                             <li><Link to='/user' className="block py-2 px-4 hover:bg-gray-700">Mon Compte</Link></li>
-                            <Logout />
+                            <li className="block py-2 px-4 hover:bg-gray-700"><Logout  /></li>
                         </ul>
                     </div>
                 )}

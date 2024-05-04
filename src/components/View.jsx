@@ -8,7 +8,7 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
     const [showcategory, setShowCategory] = useState(true);
 
     const handleAddToCart = (prod) => {
-        addToCart({ ...prod, quantity: quantities[prod.id] || 1 }); // Ajouter la quantité lors de l'ajout au panier
+        addToCart({ ...prod, quantity: quantities[prod.id] || 1 });
     };
 
     const handleQuantityChange = (id, event) => {
@@ -20,20 +20,8 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
         onCategorieChange(e.target.value)
     }
 
-    const viewSideMenu = document.querySelector('.sideMenu')
-    const cmdSideBar = document.querySelector('.cmdSideBar')
-
     const handleClick = () => {
-        // if (viewSideMenu && cmdSideBar) {
-        //     if (viewSideMenu.classList.contains('cacheSideMenu')) {
-        //         viewSideMenu.classList.remove('cacheSideMenu');
-        //     }else {
-        //         viewSideMenu.classList.add('cacheSideMenu');
-        //     }
-        // }
-
         setShowCategory(!showcategory)
-
     };
 
     return (
