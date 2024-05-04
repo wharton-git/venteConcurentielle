@@ -62,7 +62,7 @@ function Navbar({ totalItems, onSearchChange, isUserLoggedIn }) {
                                     <span className='absolute text-xs left-2 bottom-0 px-1 bg-red-300 rounded-full' id='compteur-card'>{displayTotalItems}</span>
                                 </Link>
                             </div>
-                            <div className="hidden md:block mr-4">
+                            <div className="hidden md:block px-3 border-l-2 h-5">
                                 {isUserLoggedIn ? (
                                     <div>
                                         <Logout />
