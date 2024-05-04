@@ -5,6 +5,7 @@ import { faAdd, faBars } from '@fortawesome/free-solid-svg-icons';
 const View = ({ data, addToCart, type, onCategorieChange }) => {
 
     const [quantities, setQuantities] = useState({});
+    const [showcategory, setShowCategory] = useState(true);
 
     const handleAddToCart = (prod) => {
         addToCart({ ...prod, quantity: quantities[prod.id] || 1 }); // Ajouter la quantité lors de l'ajout au panier
@@ -23,13 +24,15 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
     const cmdSideBar = document.querySelector('.cmdSideBar')
 
     const handleClick = () => {
-        if (viewSideMenu && cmdSideBar) {
-            if (viewSideMenu.classList.contains('cacheSideMenu')) {
-                viewSideMenu.classList.remove('cacheSideMenu');
-            }else {
-                viewSideMenu.classList.add('cacheSideMenu');
-            }
-        }
+        // if (viewSideMenu && cmdSideBar) {
+        //     if (viewSideMenu.classList.contains('cacheSideMenu')) {
+        //         viewSideMenu.classList.remove('cacheSideMenu');
+        //     }else {
+        //         viewSideMenu.classList.add('cacheSideMenu');
+        //     }
+        // }
+
+        setShowCategory(!showcategory)
 
     };
 
@@ -44,7 +47,7 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
                     >
                         <FontAwesomeIcon icon={faBars} />
                     </div>
-                    <div className={`sideMenu ml-3 mt-14 capitalize transition-all grid grid-cols-1 py-6 bg-white rounded-lg shadow-lg`}>
+                    <div className={`sideMenu ${!showcategory && `cacheSideMenu`} ml-3 mt-14 capitalize transition-all grid grid-cols-1 py-6 bg-white rounded-lg shadow-lg`}>
                         <div className='flex'>
                             <input type="radio" value="all" name='type' className='pr-10 bg-blue-800' onClick={handleCategories} />
                             <label htmlFor="">All</label>

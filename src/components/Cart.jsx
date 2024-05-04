@@ -20,7 +20,9 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
 
     const calculateSubtotal = () => {
         const subtotal = items.reduce((total, item) => {
+
             return total + (item.prix * item.quantity);
+            
         }, 0);
 
         return subtotal.toFixed(2);
@@ -110,6 +112,8 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
 
     return (
         <>
+        {/* Modal de Payement */}
+
             {activeModal && (
                 <div
                     // onClick={() => handleDisactiveModal()}
@@ -220,6 +224,8 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                     </div>
                 </div>
             )}
+
+            {/* Contenu Cart.jsx */}
             <div>
                 <h1 className='my-[3%] text-2xl font-bold text-center'>PANIER</h1>
                 <div className='py-3 rounded-lg md:mx-auto transition-all'>
