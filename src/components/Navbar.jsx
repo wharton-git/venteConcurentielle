@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 
 import Logout from './../common/Auth/Logout'
 
-import Logo from './../assets/images/Logo_R_Market.svg'
-
 function Navbar({ totalItems, onSearchChange, isUserLoggedIn }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
