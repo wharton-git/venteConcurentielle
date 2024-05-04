@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -65,7 +65,6 @@ function Navbar({ totalItems, onSearchChange, isUserLoggedIn }) {
                             <div className="hidden md:block mr-4">
                                 {isUserLoggedIn ? (
                                     <div>
-                                        <span className="text-white mr-2">Bienvenue, Utilisateur!</span>
                                         <Logout />
                                     </div>
                                 ) : (

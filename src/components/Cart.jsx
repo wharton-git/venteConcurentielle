@@ -22,7 +22,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
         const subtotal = items.reduce((total, item) => {
 
             return total + (item.prix * item.quantity);
-            
+
         }, 0);
 
         return subtotal.toFixed(2);
@@ -96,6 +96,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                     alert("Une Erreur S'est Produite, veuiller vous reconnecter !")
                     Cookie.remove('jwt')
                     Cookie.remove('log')
+                    Cookies.remove('name')
                     navigate('/login');
                 });
 

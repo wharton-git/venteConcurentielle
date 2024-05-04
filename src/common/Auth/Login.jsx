@@ -25,6 +25,21 @@ const Login = ({ setIsUserLoggedIn }) => {
                 Cookie.set('jwt', jwt, {expires: 60});
                 setIsUserLoggedIn(true);
                 Cookie.set('log', true, {expires: 60});
+
+                url.post('/auth/me', {}, {
+                    headers: {
+                        Authorization: 'Bearer ' + jwt,
+                    }
+                })
+                    .then(userInfo => {
+                        console.log(userInfo.data);
+                        Cookie.set('name', userInfo.data.name, { expires: 60});
+                    })
+    
+                    .catch(userInfoError => {
+                        console.log(userInfoError.message);
+                    });
+
                 navigate('/');
             })
             .catch(authError => {

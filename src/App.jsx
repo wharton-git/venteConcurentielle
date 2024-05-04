@@ -11,6 +11,7 @@ import Home from './Home'
 import Nav from './components/Navbar'
 import Login from './common/Auth/Login'
 import Register from './common/Auth/Register'
+import Dashboard from './components/Dashboard'
 import Cart from './components/Cart'
 import './Style/Css/Style.css'
 
@@ -138,6 +139,7 @@ function App() {
         <div className=''>
           <Routes>
             <Route path={'/'} element={<Home />} />
+            <Route path={'/dashboard'} element={<Dashboard />} />
             <Route path={'/login'} element={<Login setIsUserLoggedIn={setIsUserLoggedIn} />} />
             <Route path={'/register'} element={<Register setIsUserLoggedIn={setIsUserLoggedIn} />} />
             <Route path={'/view'} element={<View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} />} />

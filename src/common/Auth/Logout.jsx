@@ -14,8 +14,9 @@ const Logout = () => {
             }
         })
             .then(() => {
-                Cookie.remove('jwt');
-                Cookie.remove('log');
+                Cookie.remove('jwt')
+                Cookie.remove('log')
+                Cookie.remove('name')
                 navigate('/login');
                 window.location.reload();
             })
