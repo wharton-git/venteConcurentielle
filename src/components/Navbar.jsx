@@ -92,15 +92,6 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
         console.log("refreshData");
     }
 
-    const verifyStateLog = () => {
-        const verifyjwt = Cookie.get('jwt')
-        if (!verifyjwt) {
-            setIsUserLoggedIn(false);
-        } else {
-            setIsUserLoggedIn(true);
-        }
-    }
-
     useEffect(() => {
         fetchProduits()
         fetchCategories()

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard, faMobile, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AtSignIcon, HandCoinsIcon, MapPinIcon, UserRound } from 'lucide-react';
@@ -19,6 +19,11 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
     const [otherPaid, setOtherPaid] = useState(false)
     const [cardMode, setCardMode] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [errorCart, setErrorCart] = useState(false)
+
+    useEffect(() => {
+        setErrorCart(false)
+    }, [])
 
     const navigate = useNavigate()
 
@@ -106,11 +111,10 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
             }, 500);
         } catch (userInfoError) {
             console.log(userInfoError.message);
-            alert("Une Erreur S'est Produite, veuillez vous reconnecter !");
+            setErrorCart(true);
             Cookie.remove('jwt');
             Cookie.remove('log');
-            Cookies.remove('name');
-            navigate('/login');
+            Cookie.remove('name');
         }
     };
 
@@ -121,7 +125,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
             {/* Loading Page*/}
 
             {loading && (
-                <Loading/>
+                <Loading errorState={errorCart} loading={setLoading}/>
             )}
 
             {/* Modal de Payement */}

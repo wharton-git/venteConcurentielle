@@ -14,20 +14,12 @@ function App() {
 
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
-  const verifyStateLog = () => {
-    const verifyjwt = Cookie.get('jwt')
-    if (!verifyjwt) {
-      setIsUserLoggedIn(false);
-    } else {
-      setIsUserLoggedIn(true);
-    }
-  }
-
   useEffect(() => {
+    const verifyjwt = Cookie.get('jwt');
+    setIsUserLoggedIn(!!verifyjwt);
 
-    verifyStateLog()
+  }, []);
 
-  }, [])
 
   return (
     <>

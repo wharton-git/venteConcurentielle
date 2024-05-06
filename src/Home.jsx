@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './Style/Css/Swipper.css'
 
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 import { faAdd, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
@@ -17,10 +17,13 @@ function Home() {
 
     const [produits, setProduits] = useState([])
 
-    const fetchProduits = () => {
-        url.get('/all')
-            .then(res => setProduits(res.data))
-            .catch(err => console.error('Erreur : ', err));
+    const fetchProduits = async () => {
+        try {
+            const listProduits = await url.get('/all')
+            setProduits(listProduits.data)
+        } catch (error) {
+            console.error('Erreur : ', error);
+        }
     }
 
     useEffect(() => {
