@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
+import { MenuIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Cookie from 'js-cookie';
 
 import url from './../Api/http'
 
-import Logout from './../common/Auth/Logout'
 import Home from './../Home'
 import Add from './Add'
-import View from './View';
+import View from './View'
 import Cart from './Cart'
+import Sidebar from './Sidebar'
 
-function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
+
+function Navbar({ isUserLoggedIn, route }) {
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [produits, setProduits] = useState([])
@@ -20,6 +21,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
     const [cartItem, setCartItem] = useState([])
     const [categories, setCategories] = useState([])
     const [totalItems, setTotalItems] = useState(0)
+    const [sidebarOn, setSidebarOn] = useState(false)
 
     const displayTotalItems = isNaN(totalItems) ? 0 : totalItems;
 
@@ -30,6 +32,10 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
+
+    const hideSidebar = () => {
+        setSidebarOn(false)
+    }
 
     const fetchCategories = () => {
         url.post('/type')
@@ -102,42 +108,30 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
 
     return (
         <>
-            <div className='fixed z-10 top-0'>
+            <div className='fixed z-10 top-0' onMouseLeave={() => { setIsMobileMenuOpen(false) }}>
                 <nav className="bg-gray-800 w-screen p-4">
                     <div className="max-w-screen mx-auto flex justify-between items-center">
-                        <div className="flex-shrink-0">
-                            <Link to='/' className="text-white text-xl font-bold">
+                        <div className="flex items-center">
+                            <div className='text-white mr-4' onClick={() => { setSidebarOn(!sidebarOn) }} >
+                                <MenuIcon />
+                            </div>
+                            <Link to='/' className="text-white md:text-xl font-bold transition-all">
                                 <span className=''>
                                     R. Market
                                 </span>
                             </Link>
                         </div>
-                        <div className="hidden md:block">
-                            <ul className="flex space-x-4 text-white">
-                                <li>
-                                    <Link to='/' className="hover:text-gray-300">Accueil</Link>
-                                </li>
-                                <li>
-                                    <Link to='/view' className="hover:text-gray-300">Produits</Link>
-                                </li>
-                                <li>
-                                    <Link to='/user' className="hover:text-gray-300">Mon Compte</Link>
-                                </li>
-                            </ul>
-                        </div>
-                        {/* Burger menu icon for mobile */}
                         <div className="flex items-center">
                             <div className="flex items-center">
                                 <div className=" relative bg-transparent rounded-full mr-5">
                                     <input type="text" placeholder="Recherche..."
-                                        className="peer text-white cursor-pointer relative z-10 h-8 rounded-full border bg-transparent outline-none pl-6 w-32 md:w-60 transition-all focus:cursor-text focus:border-gray-100 focus:pr-4"
+                                        className="peer text-white cursor-pointer relative z-10 h-8 rounded-full border bg-transparent outline-none sm:pl-6 pl-2 w-24 sm:w-80 transition-all focus:cursor-text focus:border-gray-100 focus:pr-4"
                                         onChange={handleInputChange}
                                     />
                                     <Link to='/view'>
                                         <FontAwesomeIcon icon={faSearch} size='xl'
                                             className='text-white cursor-pointer px-3' />
                                     </Link>
-
                                 </div>
                                 <div className='mr-5'>
                                     <Link to='/cart' className="text-white relative">
@@ -145,41 +139,19 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
                                         <span className='absolute text-xs left-2 bottom-0 px-1 bg-red-300 rounded-full' id='compteur-card'>{displayTotalItems}</span>
                                     </Link>
                                 </div>
-                                <div className="hidden md:block px-3 border-l-2 h-5">
-                                    {isUserLoggedIn ? (
-                                        <div>
-                                            <Logout />
-                                        </div>
-                                    ) : (
-                                        <div className='text-white'>
-                                            <Link to='/login'>Se Connecter</Link>
-                                        </div>
-                                    )}
-                                </div>
-
-                            </div>
-                            <div className='md:hidden'>
-                                <button onClick={toggleMobileMenu} className="text-white hover:text-gray-300 focus:outline-none">
-                                    <FontAwesomeIcon icon={faBars} />
-                                </button>
                             </div>
                         </div>
                     </div>
-                    {/* Mobile menu */}
-                    {isMobileMenuOpen && (
-                        <div className="md:hidden">
-                            <ul className="text-white">
-                                <li><Link to='/' className="block py-2 px-4 hover:bg-gray-700">Accueil</Link></li>
-                                <li><Link to='/view' className="block py-2 px-4 hover:bg-gray-700">Produits</Link></li>
-                                <li><Link to='/user' className="block py-2 px-4 hover:bg-gray-700">Mon Compte</Link></li>
-                                <li className="block py-2 px-4 hover:bg-gray-700"><Logout /></li>
-                            </ul>
-                        </div>
-                    )}
                 </nav>
             </div>
 
             <div className="mt-[64px]"></div>
+
+            <div className={`fixed top-0 pt-[64px] z-[2] w-screen h-screen bg-black bg-opacity-65 text-white ${!sidebarOn && `hidden`} `} onMouseEnter={() => {hideSidebar()}}>
+            </div>
+            <div className={`fixed top-0 pt-[64px] z-[3] bg-gray-800 w-60 h-full -translate-x-96 ${sidebarOn && `translate-x-0`} transition-all`}>
+                <Sidebar isUserLoggedIn={isUserLoggedIn} />
+            </div>
 
             {route == 'home' && <Home />}
             {route == 'add' && <Add refresh={refreshData} />}

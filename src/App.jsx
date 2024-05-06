@@ -29,13 +29,13 @@ function App() {
 
           <Route path={'/test'} element={<Test />} />
 
-            <Route path={'/'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'home'} />} />
+            <Route path={'/'} element={<Nav isUserLoggedIn={isUserLoggedIn} route={'home'} />} />
             <Route path={'/dashboard'} element={<Dashboard />} />
             <Route path={'/login'} element={<Login setIsUserLoggedIn={setIsUserLoggedIn} />} />
             <Route path={'/register'} element={<Register setIsUserLoggedIn={setIsUserLoggedIn} />} />
-            <Route path={'/view'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'view'} />} />
-            <Route path={'/cart'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'cart'} />} />
-            <Route path={'/add'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'add'} />} />
+            <Route path={'/view'} element={<Nav isUserLoggedIn={isUserLoggedIn} route={'view'} />} />
+            <Route path={'/cart'} element={<Nav isUserLoggedIn={isUserLoggedIn} route={'cart'} />} />
+            <Route path={'/add'} element={<Nav isUserLoggedIn={isUserLoggedIn} route={'add'} />} />
           </Routes>
         </div>
       </Router>
