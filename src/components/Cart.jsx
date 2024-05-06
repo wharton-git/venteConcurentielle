@@ -42,7 +42,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
             setActiveModal(false);
             setAdresseOption(false);
             setOtherPaid(false);
-        },200)
+        }, 200)
         setShowContent(false);
     }
 
@@ -99,9 +99,9 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
 
             setLoading(true);
 
-            const userInfo = await url.post('/auth/me', {}, {
+            const userInfo = await url.post('/me', {}, {
                 headers: {
-                    Authorization: 'Bearer ' + jwt,
+                    Authorization: 'bearer ' + jwt,
                 }
             });
 
@@ -173,68 +173,72 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                                     <div className='w-10 text-center'>
                                         <MapPinIcon />
                                     </div>
-                                    <div>
-                                        {infoUser.adresse}
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <button onClick={() => handleAdresseOptionsToggle()} className='underline text-indigo-600'>Changer l'adresse de Livraison ?</button>
-                            </div>
-                            {adresseOption && (
-                                <div>
-                                    <div className='flex mb-3 items-center'>
-                                        <div className='w-10 text-center'>
-                                            <MapPinIcon />
+                                    <div className='flex space-x-4'>
+                                        <div>
+                                            {infoUser.adresse}
                                         </div>
                                         <div>
-                                            <input
-                                                type="text"
-                                                name="adresse"
-                                                id="adresse"
-                                                className='p-1 my-2 border-black border-2 rounded-lg'
-                                            />
+                                            <button onClick={() => handleAdresseOptionsToggle()} className='underline text-indigo-600'>Changer l'adresse de Livraison ?</button>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                            )}
-
-                            {otherPaid && (
-                                <div className='p-1 my-5'>
-                                    <div className='flex text-center'>
-                                        <div className={`w-full ${cardMode ? `bg-slate-300 text-black` : `bg-slate-700 text-white`}  cursor-pointer transition-all hover:bg-slate-500`} onClick={() => handleMethodPaid('mobile')}>
-                                            <FontAwesomeIcon icon={faMobile} className='mx-2' />
-                                            Mobile Money
-                                        </div>
-                                        <div className={`w-full ${cardMode ? `bg-slate-700 text-white` : `bg-slate-300 text-black`}  cursor-pointer transition-all hover:bg-slate-500`} onClick={() => handleMethodPaid('carte')}>
-                                            <FontAwesomeIcon icon={faCreditCard} className='mx-2' />
-                                            Carte
+                            {
+                                adresseOption && (
+                                    <div>
+                                        <div className='flex mb-3 items-center'>
+                                            <div className='w-10 text-center'>
+                                                <MapPinIcon />
+                                            </div>
+                                            <div>
+                                                <input
+                                                    type="text"
+                                                    name="adresse"
+                                                    id="adresse"
+                                                    className='p-1 my-2 border-black border-2 rounded-lg'
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className=''>
-                                        {
-                                            cardMode ? (
-                                                <div>
-                                                    <input type="text" placeholder='N° carte' className='w-full my-1 py-1 px-2 border-b-2 border-black' />
-                                                    <div className='grid grid-cols-2'>
-                                                        <input type="text" placeholder='CCV' className='my-1 py-1 px-2 border-b-2 border-black ' />
-                                                        <input type="text" placeholder='EXP' className='my-1 py-1 px-2 border-b-2 border-black ml-1' />
+                                )}
+
+                            {
+                                otherPaid && (
+                                    <div className='p-1 my-5'>
+                                        <div className='flex text-center'>
+                                            <div className={`w-full ${cardMode ? `bg-slate-300 text-black` : `bg-slate-700 text-white`}  cursor-pointer transition-all hover:bg-slate-500`} onClick={() => handleMethodPaid('mobile')}>
+                                                <FontAwesomeIcon icon={faMobile} className='mx-2' />
+                                                Mobile Money
+                                            </div>
+                                            <div className={`w-full ${cardMode ? `bg-slate-700 text-white` : `bg-slate-300 text-black`}  cursor-pointer transition-all hover:bg-slate-500`} onClick={() => handleMethodPaid('carte')}>
+                                                <FontAwesomeIcon icon={faCreditCard} className='mx-2' />
+                                                Carte
+                                            </div>
+                                        </div>
+                                        <div className=''>
+                                            {
+                                                cardMode ? (
+                                                    <div>
+                                                        <input type="text" placeholder='N° carte' className='w-full my-1 py-1 px-2 border-b-2 border-black' />
+                                                        <div className='grid grid-cols-2'>
+                                                            <input type="text" placeholder='CCV' className='my-1 py-1 px-2 border-b-2 border-black ' />
+                                                            <input type="text" placeholder='EXP' className='my-1 py-1 px-2 border-b-2 border-black ml-1' />
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ) : (
-
-                                                <div>
-                                                    <input type="text" placeholder='N° Mobile Money' className='my-2 py-1 px-2 w-full border-b-2 border-black' />
-                                                </div>
-                                            )
-                                        }
+                                                ) : (
+                                                    <div>
+                                                        <input type="text" placeholder='N° Mobile Money' className='my-2 py-1 px-2 w-full border-b-2 border-black' />
+                                                    </div>
+                                                )
+                                            }
+                                        </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
                             <div className='mt-3'>
-                                <button onClick={() => validateCommande()} className='bg-gray-800 text-slate-100 py-1 px-3 rounded-lg m-1 hover:bg-gray-900 transition-all' >Payer</button>
+
                                 <button onClick={() => handleOtherPaid()} className='underline text-indigo-600' >{otherPaid ? 'Payer avec le Solde' : 'Autre Methode de Payement ...'}</button>
+                                <button onClick={() => validateCommande()} className='bg-gray-800 text-slate-100 py-1 px-3 rounded-lg m-1 hover:bg-gray-900 transition-all' >Payer</button>
                             </div>
                             <div className='m-0 text-right'>
                                 Solde : <span className='font-bold'> {infoUser.solde} </span> $
@@ -284,6 +288,10 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                                                         placeholder='Quantité'
                                                         onChange={(e) => updateQuantity(index, parseInt(e.target.value))}
                                                     />
+                                                </div>
+                                                <div className='flex justify-between'>
+                                                    <div className='mr-2'><u>P.U.</u> : {item.prix} $</div>
+                                                    <div className='ml-2'><u>Somme</u> : {item.prix * item.quantity} $</div>
                                                 </div>
                                             </div>
                                         </div>

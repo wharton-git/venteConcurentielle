@@ -112,8 +112,8 @@ function Navbar({ isUserLoggedIn, route }) {
                 <nav className="bg-gray-800 w-screen p-4">
                     <div className="max-w-screen mx-auto flex justify-between items-center">
                         <div className="flex items-center">
-                            <div className='text-white mr-4' onClick={() => { setSidebarOn(!sidebarOn) }} >
-                                <MenuIcon />
+                            <div className={`text-white mr-4`} onClick={() => { setSidebarOn(!sidebarOn) }} >
+                                <MenuIcon className={`${sidebarOn && `rotate-90`} transition-all`}/>
                             </div>
                             <Link to='/' className="text-white md:text-xl font-bold transition-all">
                                 <span className=''>
