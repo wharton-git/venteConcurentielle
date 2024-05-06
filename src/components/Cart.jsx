@@ -38,9 +38,12 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
     };
 
     const handleDisactiveModal = () => {
-        setActiveModal(false);
-        setAdresseOption(false);
-        setOtherPaid(false);
+        setTimeout(() => {
+            setActiveModal(false);
+            setAdresseOption(false);
+            setOtherPaid(false);
+        },200)
+        setShowContent(false);
     }
 
     const handleAdresseOptionsToggle = () => {
@@ -106,9 +109,10 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
             setActiveModal(true);
 
             setTimeout(() => {
-                setShowContent(true);
-                setLoading(false); 
+                setLoading(false);
+                setShowContent(true)
             }, 500);
+
         } catch (userInfoError) {
             console.log(userInfoError.message);
             setErrorCart(true);
@@ -125,7 +129,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
             {/* Loading Page*/}
 
             {loading && (
-                <Loading errorState={errorCart} loading={setLoading}/>
+                <Loading errorState={errorCart} loading={setLoading} />
             )}
 
             {/* Modal de Payement */}
@@ -133,9 +137,9 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
             {activeModal && (
                 <div
                     // onClick={() => handleDisactiveModal()}
-                    className={`absolute top-0 z-20 h-screen w-screen bg-black bg-opacity-85 flex items-center`}
+                    className={`absolute top-0 z-20 h-screen w-screen bg-black bg-opacity-85 flex items-center `}
                 >
-                    <div className={`bg-white mx-auto rounded-lg w-5/6 md:w-2/4 transition-all p-2 md:p-4 ${classe.modal} ${showContent && classe.showModal}`}>
+                    <div className={`bg-white mx-auto rounded-lg w-5/6 md:w-2/4 relative p-2 md:p-4  ${classe.modal} ${showContent && classe.showModal} transition-all`}>
                         <span
                             onClick={() => handleDisactiveModal()}
                             className='absolute right-4 top-0 md:top-1 text-2xl font-extrabold cursor-pointer p-1 hover:scale-[1.2] transition-all'
@@ -147,7 +151,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                             Payement
                         </div>
 
-                        <div>
+                        <div onMou>
                             <div className=''>
                                 <div className='flex mb-3'>
                                     <div className='w-10 text-center'>
@@ -242,6 +246,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
             )}
 
             {/* Contenu Cart.jsx */}
+
             <div>
                 <h1 className='my-[3%] text-2xl font-bold text-center'>PANIER</h1>
                 <div className='py-3 rounded-lg md:mx-auto transition-all'>
