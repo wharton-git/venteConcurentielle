@@ -18,32 +18,6 @@ body {
 }
 
 
-
-
-/* .testAnimation {
-  animation: fadeShow .5s ease-in-out;
-  -webkit-animation: fadeShow .5s ease-in-out;
-}
-
-@keyframes fadeShow {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-    -webkit-transform: translateY(-20px);
-    -moz-transform: translateY(-20px);
-    -ms-transform: translateY(-20px);
-    -o-transform: translateY(-20px);
-}
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    -webkit-transform: translateY(0);
-    -moz-transform: translateY(0);
-    -ms-transform: translateY(0);
-    -o-transform: translateY(0);
-}
-} */
-
 /* Animation d'apparition */
 @keyframes dropdownShowAnimation {
   from {

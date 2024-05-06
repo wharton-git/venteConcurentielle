@@ -8,6 +8,8 @@ import Register from './common/Auth/Register'
 import Dashboard from './components/Dashboard'
 import './Style/Css/Style.css'
 
+import Test from './Tests/Test'
+
 function App() {
 
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -32,6 +34,9 @@ function App() {
       <Router>
         <div className=''>
           <Routes>
+
+          <Route path={'/test'} element={<Test />} />
+
             <Route path={'/'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'home'} />} />
             <Route path={'/dashboard'} element={<Dashboard />} />
             <Route path={'/login'} element={<Login setIsUserLoggedIn={setIsUserLoggedIn} />} />

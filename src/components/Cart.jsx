@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoins, faContactCard, faCreditCard, faICursor, faLocationPin, faMobile, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCreditCard, faMobile, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { AtSignIcon, HandCoinsIcon, MapPinIcon, UserRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Cookie from 'js-cookie';
 
 import classe from './../Style/Css/style.module.css'
 import url from './../Api/http'
+
+import Loading from './Loading/Loading';
 
 const Cart = ({ items, removeFromCart, updateQuantity }) => {
 
@@ -15,6 +18,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
     const [adresseOption, setAdresseOption] = useState(false)
     const [otherPaid, setOtherPaid] = useState(false)
     const [cardMode, setCardMode] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -51,69 +55,76 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
         }
     };
 
-    const validateCommande = () => {
+    const validateCommande = async () => {
+        try {
+            const id = infoUser.id;
+            const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            const prix = calculateSubtotal();
 
-        const id = infoUser.id;
-        const date = new Date("yyyy-MM-dd HH:mm:ss");
-        const prix = calculateSubtotal()
+            console.log(id);
+            console.log(date);
+            console.log(prix);
 
-        console.log(id);
-        console.log(date);
-        console.log(prix);
+            const response = await url.post('/commande', {
+                user_id: id,
+                date_commande: date,
+                prix_commande: prix
+            });
 
-        url.post('/commande', {
-            user_id: id,
-            date_commande: date,
-            prix_commande: prix
-        })
-        .then (response => {
             console.log(response.data);
-            console.log('Commande passer avec Succes');
-        })
-        .catch (err => {
+            console.log('Commande passée avec succès');
+        } catch (err) {
             console.log(err);
-        });
-    }
+        }
+    };
 
 
-    const passerCommande = () => {
-        const verifyjwt = Cookie.get('jwt')
+    const passerCommande = async () => {
+        const jwt = Cookie.get('jwt');
 
-        if (verifyjwt) {
-            const jwt = Cookie.get('jwt')
+        if (!jwt) {
+            navigate('/login');
+            return;
+        }
 
-            url.post('/auth/me', {}, {
+        try {
+
+            setLoading(true);
+
+            const userInfo = await url.post('/auth/me', {}, {
                 headers: {
                     Authorization: 'Bearer ' + jwt,
                 }
-            })
-                .then(userInfo => {
-                    setInfoUser(userInfo.data);
-                })
+            });
 
-                .catch(userInfoError => {
-                    console.log(userInfoError.message);
-                    alert("Une Erreur S'est Produite, veuiller vous reconnecter !")
-                    Cookie.remove('jwt')
-                    Cookie.remove('log')
-                    Cookies.remove('name')
-                    navigate('/login');
-                });
-
+            setInfoUser(userInfo.data);
             setActiveModal(true);
 
             setTimeout(() => {
                 setShowContent(true);
-            }, 500)
-        }
-        else {
+                setLoading(false); 
+            }, 500);
+        } catch (userInfoError) {
+            console.log(userInfoError.message);
+            alert("Une Erreur S'est Produite, veuillez vous reconnecter !");
+            Cookie.remove('jwt');
+            Cookie.remove('log');
+            Cookies.remove('name');
             navigate('/login');
         }
-    }
+    };
+
 
     return (
         <>
-        {/* Modal de Payement */}
+
+            {/* Loading Page*/}
+
+            {loading && (
+                <Loading/>
+            )}
+
+            {/* Modal de Payement */}
 
             {activeModal && (
                 <div
@@ -127,8 +138,8 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                         >
                             &times;
                         </span>
-                        <div className='font-bold py-1 mb-2 border-b-2 border-black'>
-                            <FontAwesomeIcon icon={faCoins} className='mx-2' />
+                        <div className='font-bold flex items-center py-1 mb-2 border-b-2 border-black'>
+                            <HandCoinsIcon className='mx-2' />
                             Payement
                         </div>
 
@@ -136,7 +147,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                             <div className=''>
                                 <div className='flex mb-3'>
                                     <div className='w-10 text-center'>
-                                        <FontAwesomeIcon icon={faICursor} />
+                                        <UserRound />
                                     </div>
                                     <div>
                                         {infoUser.name}
@@ -144,7 +155,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                                 </div>
                                 <div className='flex mb-3'>
                                     <div className='w-10 text-center'>
-                                        <FontAwesomeIcon icon={faContactCard} />
+                                        <AtSignIcon />
                                     </div>
                                     <div>
                                         {infoUser.email}
@@ -152,7 +163,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                                 </div>
                                 <div className='flex mb-3'>
                                     <div className='w-10 text-center'>
-                                        <FontAwesomeIcon icon={faLocationPin} />
+                                        <MapPinIcon />
                                     </div>
                                     <div>
                                         {infoUser.adresse}
@@ -166,7 +177,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                                 <div>
                                     <div className='flex mb-3 items-center'>
                                         <div className='w-10 text-center'>
-                                            <FontAwesomeIcon icon={faLocationPin} />
+                                            <MapPinIcon />
                                         </div>
                                         <div>
                                             <input
