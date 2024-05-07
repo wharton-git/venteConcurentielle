@@ -56,23 +56,6 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
 
     return (
         <div className=''>
-            {infoCheck && (
-                <div className=''>
-                    <div className=' text-white space-x-3 w-max mx-auto flex items-center'>
-                        <div className='border p-3 rounded-md bg-gray-700'>
-                            <User2Icon />
-                        </div>
-                        <div className=''>
-                            <div className='text-xl'>
-                                {userInfo.name}
-                            </div>
-                            <div className='text-xs'>
-                                {userInfo.email}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
             <ul className="text-white  ">
                 {
                     sideElement.map((list, index) => (
@@ -91,7 +74,23 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
                 }
 
             </ul>
-
+            {infoCheck && (
+                <div className='absolute bottom-10 mb-3'>
+                    <div className=' text-white space-x-3 ml-3 flex items-center'>
+                        <div className='border p-3 rounded-md bg-gray-700'>
+                            <User2Icon />
+                        </div>
+                        <div className=''>
+                            <div className='text-xl'>
+                                {userInfo.name}
+                            </div>
+                            <div className='text-xs'>
+                                {userInfo.email}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
             <div className="absolute bottom-0  w-60 h-10 grid items-center border-t-2">
                 {isUserLoggedIn ? (
                     <div className=''>
