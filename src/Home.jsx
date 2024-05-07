@@ -30,8 +30,6 @@ function Home() {
         fetchProduits()
     }, [])
 
-    console.log(produits)
-
     return (
         <>
 
@@ -53,7 +51,7 @@ function Home() {
 
                     {produits.map((prod, index) => (
                         <SwiperSlide>
-                            <div className='bg-indigo-500 my-4 rounded-md p-3'>
+                            <div key={index} className='bg-indigo-500 my-4 rounded-md p-3'>
                                 <div className='bg-white w-3/4 mx-auto rounded-lg p-3 m-2'>
                                     <img src={"http://localhost:8000/images/" + prod.image} alt="" />
                                 </div>

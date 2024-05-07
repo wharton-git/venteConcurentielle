@@ -80,9 +80,18 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
             });
 
             console.log(response.data);
+
+            const response2 = await url.post('/detailCommande', items);
+            console.log(response2.data);
+            console.log('Detail Sauvegardé !');
+
             console.log('Commande passée avec succès');
+            alert('Commande passée avec succès');
+            navigate('/')
+
         } catch (err) {
             console.log(err);
+            alert(err)
         }
     };
 
@@ -99,7 +108,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
 
             setLoading(true);
 
-            const userInfo = await url.post('/me', {}, {
+            const userInfo = await url.post('/auth/me', {}, {
                 headers: {
                     Authorization: 'bearer ' + jwt,
                 }
@@ -151,7 +160,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                             Payement
                         </div>
 
-                        <div onMou>
+                        <div>
                             <div className=''>
                                 <div className='flex mb-3'>
                                     <div className='w-10 text-center'>
@@ -173,12 +182,12 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                                     <div className='w-10 text-center'>
                                         <MapPinIcon />
                                     </div>
-                                    <div className='flex space-x-4'>
+                                    <div className='md:flex md:space-x-4 transition-all'>
                                         <div>
                                             {infoUser.adresse}
                                         </div>
-                                        <div>
-                                            <button onClick={() => handleAdresseOptionsToggle()} className='underline text-indigo-600'>Changer l'adresse de Livraison ?</button>
+                                        <div className=''>
+                                            <button onClick={() => handleAdresseOptionsToggle()} className='underline text-indigo-600 w-max'>Changer l'adresse de Livraison ?</button>
                                         </div>
                                     </div>
                                 </div>
@@ -235,9 +244,8 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                                         </div>
                                     </div>
                                 )}
-                            <div className='mt-3'>
-
-                                <button onClick={() => handleOtherPaid()} className='underline text-indigo-600' >{otherPaid ? 'Payer avec le Solde' : 'Autre Methode de Payement ...'}</button>
+                            <div className='mt-3 mr-5 text-right space-x-6'>
+                                <button onClick={() => handleOtherPaid()} className='underline text-indigo-600 text-[10px] sm:text-base' >{otherPaid ? 'Payer avec le Solde' : 'Autre Methode de Payement ...'}</button>
                                 <button onClick={() => validateCommande()} className='bg-gray-800 text-slate-100 py-1 px-3 rounded-lg m-1 hover:bg-gray-900 transition-all' >Payer</button>
                             </div>
                             <div className='m-0 text-right'>

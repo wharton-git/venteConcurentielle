@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import url from './../../Api/http'
 import { useNavigate, Link } from 'react-router-dom';
 import Cookie from 'js-cookie'
+import { HomeIcon } from 'lucide-react';
 
 
 const Login = ({ setIsUserLoggedIn }) => {
@@ -22,9 +23,9 @@ const Login = ({ setIsUserLoggedIn }) => {
         })
             .then(authResponse => {
                 const jwt = authResponse.data.access_token;
-                Cookie.set('jwt', jwt, {expires: 60});
+                Cookie.set('jwt', jwt, { expires: 60 });
                 setIsUserLoggedIn(true);
-                Cookie.set('log', true, {expires: 60});
+                Cookie.set('log', true, { expires: 60 });
 
                 url.post('/auth/me', {}, {
                     headers: {
@@ -33,9 +34,9 @@ const Login = ({ setIsUserLoggedIn }) => {
                 })
                     .then(userInfo => {
                         console.log(userInfo.data);
-                        Cookie.set('name', userInfo.data.name, { expires: 60});
+                        Cookie.set('name', userInfo.data.name, { expires: 60 });
                     })
-    
+
                     .catch(userInfoError => {
                         console.log(userInfoError.message);
                     });
@@ -69,9 +70,14 @@ const Login = ({ setIsUserLoggedIn }) => {
                     </div>
 
                     <div>
-                        <button type="submit" onClick={handleSubmit} className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Connexion
-                        </button>
+                        <div className='flex items-center'>
+                            <Link to='/' className="py-2 mr-2 px-4 rounded-md shadow-md text-indigo-600 hover:text-white border border-indigo-600 hover:bg-indigo-600 transition-all">
+                                <HomeIcon size={20}/>
+                            </Link>
+                            <button type="submit" onClick={handleSubmit} className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white shadow-md bg-indigo-600 hover:bg-indigo-700">
+                                Connexion
+                            </button>
+                        </div>
                         <div className='my-2 text-center'>
                             Pas de Compte ? <Link to='/register' className='text-indigo-600 hover:text-indigo-800 drop-shadow-sm'>Créer un compte</Link>
                         </div>

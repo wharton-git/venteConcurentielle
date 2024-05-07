@@ -13,7 +13,7 @@ import Cart from './Cart'
 import Sidebar from './Sidebar'
 
 
-function Navbar({ isUserLoggedIn, route }) {
+function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [produits, setProduits] = useState([])
@@ -29,10 +29,6 @@ function Navbar({ isUserLoggedIn, route }) {
         handleSearchChange(e.target.value)
     }
 
-    const toggleMobileMenu = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
-
     const hideSidebar = () => {
         setSidebarOn(false)
     }
@@ -41,7 +37,6 @@ function Navbar({ isUserLoggedIn, route }) {
         url.post('/type')
             .then(res => {
                 setCategories(res.data)
-                console.log(categories)
             })
             .catch(e => console.log(e))
     }
@@ -50,7 +45,6 @@ function Navbar({ isUserLoggedIn, route }) {
             .then(res => {
                 setProduits(res.data)
                 setFiltredData(res.data)
-                console.log(produits)
             })
             .catch(err => console.error('Erreur : ', err));
     }
@@ -58,8 +52,6 @@ function Navbar({ isUserLoggedIn, route }) {
     const handleSearchChange = (searchValue) => {
         const filtredResult = produits.filter(item => item.designation.toLowerCase().includes(searchValue.toLowerCase()));
         setFiltredData(filtredResult)
-        console.log(filtredResult)
-        console.log('Valeur Filtré : ' + filtredResult)
     }
 
     const handleCategoriesChange = (categories) => {
@@ -108,7 +100,7 @@ function Navbar({ isUserLoggedIn, route }) {
 
     return (
         <>
-            <div className='fixed z-10 top-0' onMouseLeave={() => { setIsMobileMenuOpen(false) }}>
+            <div className='fixed z-10 top-0 shadow-md' onMouseLeave={() => { setIsMobileMenuOpen(false) }}>
                 <nav className="bg-gray-800 w-screen p-4">
                     <div className="max-w-screen mx-auto flex justify-between items-center">
                         <div className="flex items-center">
