@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom'
 
 import './../../Style/Css/Loading.css'
 
-const Loading = ({ errorState, loading }) => {
+const Loading = ({ errorState, loading, setModal }) => {
+
+const closeModal = () => {
+    loading(false)
+    setModal()
+    alert('Modal Closed')
+}
 
     return (
 
@@ -31,7 +37,7 @@ const Loading = ({ errorState, loading }) => {
                             </g>
                         </svg>
                         <div className='text-center'>
-                            <button onClick={() => { loading(false) }} className='bg-white px-3 py-2 hover:text-white hover:bg-black rounded-md transition-all'>
+                            <button onClick={() => {closeModal()}} className='bg-white px-3 py-2 hover:text-white hover:bg-black rounded-md transition-all'>
                                 Annuler
                             </button>
                         </div>

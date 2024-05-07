@@ -138,7 +138,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
             {/* Loading Page*/}
 
             {loading && (
-                <Loading errorState={errorCart} loading={setLoading} />
+                <Loading errorState={errorCart} loading={setLoading} setModal={handleDisactiveModal}/>
             )}
 
             {/* Modal de Payement */}
