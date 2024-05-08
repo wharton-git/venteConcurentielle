@@ -65,6 +65,15 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
 
     const validateCommande = async () => {
         try {
+
+
+            for (const item of items) {
+                if (item.quantity > item.stock) {
+                    alert(`La quantité de ${item.designation} dépasse le stock disponible.`);
+                    return; // Annuler la commande
+                }
+            }
+
             const id = infoUser.id;
             const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
             const prix = calculateSubtotal();
@@ -81,17 +90,26 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
 
             console.log(response.data);
 
-            const response2 = await url.post('/detailCommande', items);
-            console.log(response2.data);
-            console.log('Detail Sauvegardé !');
+            const commandeId = response.data.id; // Récupérer l'ID de la commande
 
+            const detailsCommande = items.map(item => ({
+                id_com: commandeId,
+                article: item.designation,
+                qte: item.quantity,
+                prix_article: item.prix * item.quantity,
+            }));
+
+            const response2 = await url.post('/detailCommande', detailsCommande);
+            console.log(response2.data);
+
+            console.log('Detail Sauvegardé !');
             console.log('Commande passée avec succès');
             alert('Commande passée avec succès');
-            navigate('/')
+            navigate('/');
 
         } catch (err) {
             console.log(err);
-            alert(err)
+            alert(err);
         }
     };
 
@@ -138,7 +156,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
             {/* Loading Page*/}
 
             {loading && (
-                <Loading errorState={errorCart} loading={setLoading} setModal={handleDisactiveModal}/>
+                <Loading errorState={errorCart} loading={setLoading} setModal={handleDisactiveModal} />
             )}
 
             {/* Modal de Payement */}

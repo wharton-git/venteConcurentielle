@@ -77,14 +77,14 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
             {infoCheck && (
                 <div className='absolute bottom-10 mb-3'>
                     <div className=' text-white space-x-3 ml-3 flex items-center'>
-                        <div className='border p-3 rounded-md bg-gray-700'>
+                        <div className='border p-2.5 rounded-md bg-gray-700'>
                             <User2Icon />
                         </div>
                         <div className=''>
-                            <div className='text-xl'>
+                            <div className='text-[1.2rem]'>
                                 {userInfo.name}
                             </div>
-                            <div className='text-xs'>
+                            <div className='text-[.7rem]'>
                                 {userInfo.email}
                             </div>
                         </div>
