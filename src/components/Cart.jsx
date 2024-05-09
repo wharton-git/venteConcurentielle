@@ -249,7 +249,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                                                     <div>
                                                         <input type="text" placeholder='N° carte' className='w-full my-1 py-1 px-2 border-b-2 border-black' />
                                                         <div className='grid grid-cols-2'>
-                                                            <input type="text" placeholder='CCV' className='my-1 py-1 px-2 border-b-2 border-black ' />
+                                                            <input type="text" placeholder='CVV' className='my-1 py-1 px-2 border-b-2 border-black ' />
                                                             <input type="text" placeholder='EXP' className='my-1 py-1 px-2 border-b-2 border-black ml-1' />
                                                         </div>
                                                     </div>
