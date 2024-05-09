@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAdd, faBars } from '@fortawesome/free-solid-svg-icons';
 
-const View = ({ data, addToCart, type, onCategorieChange }) => {
+const View = ({ data, addToCart, type, onCategorieChange, refreshData }) => {
 
     const [quantities, setQuantities] = useState({});
     const [showcategory, setShowCategory] = useState(true);
@@ -22,7 +22,11 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
 
     const handleClick = () => {
         setShowCategory(!showcategory)
-    };
+    }; 
+
+    useEffect(() => {
+        refreshData();
+    }, []);
 
     return (
         <>
@@ -58,7 +62,7 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
                             <div className='transition-all w-20 m-auto hover:w-full'>
                                 <img src={"http://localhost:8000/images/" + prod.image} alt="" />
                             </div>
-                            <div className='transition-all p-2 text-white bg-indigo-500 rounded-b-lg '>
+                            <div className='transition-all p-2 text-white bg-gray-800 rounded-b-lg '>
                                 <div className='flex justify-between'>
                                     <span className='underline capitalize font-bold'>{prod.designation}</span>
                                     <span className=' capitalize px-1 rounded-md'>{prod.type}</span>
@@ -79,7 +83,7 @@ const View = ({ data, addToCart, type, onCategorieChange }) => {
                                         type="number"
                                         name="qte"
                                         id="qte"
-                                        className='mx-4 w-full rounded-lg text-black px-3 border-b-2 border-indigo-700 bg-white'
+                                        className='mx-4 w-full rounded-lg text-black px-3 border-b-2 border-gray-500 bg-white'
                                         placeholder='Quantité'
                                         onChange={(event) => handleQuantityChange(prod.id, event)} // Gérer le changement de quantité
                                     />
