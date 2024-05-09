@@ -5,7 +5,6 @@ import Cookie from 'js-cookie';
 import Nav from './components/Navbar'
 import Login from './common/Auth/Login'
 import Register from './common/Auth/Register'
-import Dashboard from './components/Dashboard'
 import User from './components/User'
 import './Style/Css/Style.css'
 

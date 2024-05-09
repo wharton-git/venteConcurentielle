@@ -13,6 +13,8 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import { faAdd, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
+import Footer from './components/Footer'
+
 function Home() {
 
     const [produits, setProduits] = useState([])
@@ -275,7 +277,7 @@ function Home() {
                     </Swiper>
                 </div>
             </div>
-
+            <Footer/>
         </>
     );
 }
