@@ -2,8 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import wave from './../assets/images/FooterWave.svg'
-import { BadgeDollarSign, CreditCard, FacebookIcon, InstagramIcon, LinkedinIcon, LucidePhone, Phone, Smartphone, X } from 'lucide-react'
-import { MobileStepper } from '@mui/material'
+import { BadgeDollarSign, CreditCard, FacebookIcon, InstagramIcon, LinkedinIcon, Smartphone } from 'lucide-react'
 
 const Footer = () => {
 
