@@ -11,10 +11,11 @@ import './Style/Css/Swipper.css'
 
 import { Autoplay, Pagination } from 'swiper/modules';
 import { faAdd, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { Award, ShieldCheck, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import ShopIllustration from './assets/images/Shopp Illustration noBg.png'
 import Footer from './components/Footer'
-import { Award, ShieldCheck, Tag } from 'lucide-react';
 
 function Home() {
 
@@ -36,6 +37,9 @@ function Home() {
     return (
         <>
             <div>
+                <div className='bg-white'>
+                    <img src={ShopIllustration} alt="" />
+                </div>
                 <div className="grid md:grid-cols-3 w-4/5 mx-auto p-3">
                     <div className=''>
                         <div className='flex items-center text-xl font-bold uppercase'>
