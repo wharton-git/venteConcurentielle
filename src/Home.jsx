@@ -14,6 +14,7 @@ import { faAdd, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 import Footer from './components/Footer'
+import { Award, ShieldCheck, Tag } from 'lucide-react';
 
 function Home() {
 
@@ -34,7 +35,31 @@ function Home() {
 
     return (
         <>
-        
+            <div>
+                <div className="grid md:grid-cols-3 w-4/5 mx-auto p-3">
+                    <div className=''>
+                        <div className='flex items-center text-xl font-bold uppercase'>
+                            <div><Award className='text-blue-500 mr-2' size={30}/></div>
+                            <div>Qualité Garantie</div>
+                        </div>
+                        <div className='ml-10'>Produits rigoureusement sélectionnés pour leur qualité supérieure.</div>
+                    </div>
+                    <div className=''>
+                        <div className='flex items-center text-xl font-bold uppercase'>
+                            <div><Tag className='text-orange-600 mr-2' size={30}/></div>
+                            <div>Offre Journalière</div>
+                        </div>
+                        <div className='ml-10'>Produits rigoureusement sélectionnés pour leur qualité supérieure.</div>
+                    </div>
+                    <div className=''>
+                        <div className='flex items-center text-xl font-bold uppercase'>
+                            <div><ShieldCheck className='text-green-600 mr-2' size={30}/></div>
+                            <div>Payement Sécurisé</div>
+                        </div>
+                        <div className='ml-10'>Produits rigoureusement sélectionnés pour leur qualité supérieure.</div>
+                    </div>
+                </div>
+            </div>
             <div className=' m-10 shadow-xl rounded-lg p-3'>
                 <Link to='/view'>
                     <span className='mx-4'>
@@ -105,7 +130,7 @@ function Home() {
                 </div>
             </div>
 
-            <Footer/>
+            <Footer />
         </>
     );
 }
