@@ -17,7 +17,7 @@ const Footer = () => {
                     <div className="grid md:grid-cols-4 grid-cols-2 mb-3 px-3">
                         <div className='my-2'>
                             <div className='font-bold text-xl mb-2'>R Market</div>
-                            <div className='text-xs'>Avez-vous des requêtes ou des suggestions ?</div>
+                            <div className='text-xs'>R Market : votre nouveau marché en ligne pour une expérience d'achat riche et simplifiée.</div>
                             <div className='flex justify-between w-2/4 my-2'>
                                 <FacebookIcon className='cursor-pointer hover:text-blue-400 transition-all' size={20} />
                                 <LinkedinIcon className='cursor-pointer hover:text-blue-400 transition-all' size={20} />
