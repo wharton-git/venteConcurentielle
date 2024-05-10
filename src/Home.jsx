@@ -11,7 +11,7 @@ import './Style/Css/Swipper.css'
 
 import { Autoplay, Pagination } from 'swiper/modules';
 import { faAdd, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { Award, ShieldCheck, Tag } from 'lucide-react';
+import { ArrowRightIcon, Award, ShieldCheck, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import ShopIllustration from './assets/images/Shopp Illustration noBg.png'
@@ -36,34 +36,55 @@ function Home() {
 
     return (
         <>
-            <div>
-                <div className='bg-white'>
-                    <img src={ShopIllustration} alt="" />
+            <div className=''>
+                <div className='relative overflow-x-hidden'>
+                    <img src={ShopIllustration} alt="" className='mx-auto' />
+                    <div className='absolute w-screen bottom-10 text-center '>
+                        <Link to='/view' className='bg-gray-800 text-white px-3 py-2 rounded-md hover:text-[16px] shadow-lg shadow-gray-500 transition-all'>
+                            Voir les articles . . .
+                        </Link>
+                    </div>
                 </div>
                 <div className="grid md:grid-cols-3 w-4/5 mx-auto p-3">
                     <div className=''>
                         <div className='flex items-center text-xl font-bold uppercase'>
-                            <div><Award className='text-blue-500 mr-2' size={30}/></div>
+                            <div><Award className='text-blue-500 mr-2' size={30} /></div>
                             <div>Qualité Garantie</div>
                         </div>
                         <div className='ml-10'>Produits rigoureusement sélectionnés pour leur qualité supérieure.</div>
                     </div>
                     <div className=''>
                         <div className='flex items-center text-xl font-bold uppercase'>
-                            <div><Tag className='text-orange-600 mr-2' size={30}/></div>
+                            <div><Tag className='text-orange-600 mr-2' size={30} /></div>
                             <div>Offre Journalière</div>
                         </div>
                         <div className='ml-10'>Produits rigoureusement sélectionnés pour leur qualité supérieure.</div>
                     </div>
                     <div className=''>
                         <div className='flex items-center text-xl font-bold uppercase'>
-                            <div><ShieldCheck className='text-green-600 mr-2' size={30}/></div>
+                            <div><ShieldCheck className='text-green-600 mr-2' size={30} /></div>
                             <div>Payement Sécurisé</div>
                         </div>
                         <div className='ml-10'>Produits rigoureusement sélectionnés pour leur qualité supérieure.</div>
                     </div>
                 </div>
             </div>
+
+<div className="">
+    <div className='m-10 shadow-xl rounded-lg p-3'>
+        Top vente
+    </div>
+</div>
+
+<div className="grid sm:grid-cols-2">
+    <div className='m-10 shadow-xl rounded-lg p-3'>
+        Chaussures
+    </div>
+    <div className='m-10 shadow-xl rounded-lg p-3'>
+        Accessoire
+    </div>
+</div>
+
             <div className=' m-10 shadow-xl rounded-lg p-3'>
                 <Link to='/view'>
                     <span className='mx-4'>
@@ -102,7 +123,6 @@ function Home() {
                                 <div className='relative shadow-xl w-52 rounded-lg'>
                                     <div className='flex justify-between mx-3'>
                                         <div>50% off</div>
-                                        <div>💖</div>
                                     </div>
                                     <div className='m-auto'>
                                         <img src={"http://localhost:8000/images/" + prod.image} alt="" />
