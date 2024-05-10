@@ -38,8 +38,8 @@ function Home() {
         <>
             <div className=''>
                 <div className='relative overflow-x-hidden'>
-                    <img src={ShopIllustration} alt="" className='mx-auto' />
-                    <div className='absolute w-screen bottom-10 text-center '>
+                    <img src={ShopIllustration} alt="" className='shopIllustration mx-auto' />
+                    <div className='ctaVoirArticle absolute w-screen bottom-10 text-center '>
                         <Link to='/view' className='bg-gray-800 text-white px-3 py-2 rounded-md hover:text-[16px] shadow-lg shadow-gray-500 transition-all'>
                             Voir les articles . . .
                         </Link>
