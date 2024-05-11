@@ -8,7 +8,7 @@ import Cookie from 'js-cookie';
 import classe from './../Style/Css/style.module.css'
 import url from './../Api/http'
 
-import Loading from './Loading/Loading';
+import Loading from './Screen/Loading';
 
 const Cart = ({ items, removeFromCart, updateQuantity }) => {
 
