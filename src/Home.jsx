@@ -20,6 +20,7 @@ import Footer from './components/Footer'
 function Home() {
 
     const [produits, setProduits] = useState([])
+    const [mostpurchased, setMostPurchased] = useState([])
 
     const fetchProduits = async () => {
         try {
@@ -30,8 +31,18 @@ function Home() {
         }
     }
 
+    const getMostPurchased = async () => {
+        try {
+            const purchased = await url.get('/mostpurchased')
+            setMostPurchased(purchased.data)
+        } catch (error) {
+            console.error('Erreur : ', error);
+        }
+    } 
+
     useEffect(() => {
         fetchProduits()
+        getMostPurchased()
     }, [])
 
     return (
@@ -72,7 +83,17 @@ function Home() {
 
 <div className="">
     <div className='m-10 shadow-xl rounded-lg p-3'>
-        Top vente
+        <div>Top vente</div>
+        <div className='flex justify-between'>
+            {mostpurchased.map(best =>(
+                <div>
+                    <div className=''>
+                        <img src={"http://localhost:8000/images/" + best.image} alt="" />
+                        <div className=''>{best.designation}</div>
+                    </div>
+                </div>
+            ))}
+        </div>
     </div>
 </div>
 
