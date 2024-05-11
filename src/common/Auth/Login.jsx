@@ -3,7 +3,7 @@ import url from './../../Api/http'
 import { useNavigate, Link } from 'react-router-dom';
 import Cookie from 'js-cookie'
 import { HomeIcon } from 'lucide-react';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 
 const Login = ({ setIsUserLoggedIn }) => {
@@ -15,6 +15,18 @@ const Login = ({ setIsUserLoggedIn }) => {
         e.preventDefault();
         handleLogin();
     };
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
 
     const handleLogin = () => {
         url.post('/auth/login', {
@@ -40,7 +52,10 @@ const Login = ({ setIsUserLoggedIn }) => {
                     .catch(userInfoError => {
                         console.log(userInfoError.message);
                     });
-
+                    Toast.fire({
+                        icon: "success",
+                        title: "Connenté avec succès"
+                    });
                 navigate('/');
             })
             .catch(authError => {

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard, faMobile, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AtSignIcon, HandCoinsIcon, MapPinIcon, UserRound } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Cookie from 'js-cookie';
+import Swal from 'sweetalert2';
 
 import classe from './../Style/Css/style.module.css'
 import url from './../Api/http'
@@ -27,15 +28,32 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
 
     const navigate = useNavigate()
 
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+
     const calculateSubtotal = () => {
         const subtotal = items.reduce((total, item) => {
-
             return total + (item.prix * item.quantity);
-
         }, 0);
-
         return subtotal.toFixed(2);
     };
+
+    const deleteCartItem = (selectedItem) => {
+        removeFromCart(selectedItem)
+        Toast.fire({
+            icon: "success",
+            title: "Supprimé"
+        });
+    }
 
     const handleDisactiveModal = () => {
         setTimeout(() => {
@@ -63,34 +81,62 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
         }
     };
 
+    const verifySolde = () => {
+        const solde = infoUser.solde;
+        const subtotal = calculateSubtotal();
+
+        if (solde < subtotal) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     const validateCommande = async () => {
+
         try {
-
-
-            for (const item of items) {
-                if (item.quantity > item.stock) {
-                    alert(`La quantité de ${item.designation} dépasse le stock disponible.`);
-                    return; // Annuler la commande
-                }
-            }
-
             const id = infoUser.id;
             const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
             const prix = calculateSubtotal();
 
-            console.log(id);
-            console.log(date);
-            console.log(prix);
+            if (otherPaid) {
+                await sendCommandeRequests(id, date, prix);
+            } else {
+                const isSoldeEnough = verifySolde();
+                if (isSoldeEnough) {
+                    await sendCommandeRequests(id, date, prix);
+                } else {
+                    Swal.fire({
+                        title: 'Solde insuffisant',
+                        text: 'Oops! votre solde est insuffisant.',
+                        icon: 'warning',
+                        showDenyButton: true,
+                        denyButtonColor: "#197319",
+                        confirmButtonText: "OK",
+                        denyButtonText: `Recharger`
+                    }).then((result) => {
+                        if (result.isDenied) {
+                            navigate("/user")
+                        }
+                    });
+                }
+            }
+        } catch (err) {
+            console.log(err);
+            alert(err);
+        }
+    };
 
+    const sendCommandeRequests = async (id, date, prix) => {
+        try {
             const response = await url.post('/commande', {
                 user_id: id,
                 date_commande: date,
                 prix_commande: prix
             });
 
-            console.log(response.data);
-
-            const commandeId = response.data.id; // Récupérer l'ID de la commande
+            const commandeId = response.data.id;
 
             const detailsCommande = items.map(item => ({
                 id_com: commandeId,
@@ -100,21 +146,44 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
             }));
 
             const response2 = await url.post('/detailCommande', detailsCommande);
+
             console.log(response2.data);
-
-            console.log('Detail Sauvegardé !');
             console.log('Commande passée avec succès');
-            alert('Commande passée avec succès');
-            navigate('/');
 
+            Swal.fire({
+                title: 'Achat Effectué!',
+                text: 'Commande passée avec succès',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/');
+                }
+            });
         } catch (err) {
             console.log(err);
-            alert(err);
+            Swal.fire({
+                title: 'Erreur',
+                text: 'Erreur de validation du commande',
+                icon: 'error',
+            })
         }
     };
 
 
-    const passerCommande = async () => {
+    const openPaymentModal = async () => {
+
+        for (const item of items) {
+            if (item.quantity > item.stock) {
+                Swal.fire({
+                    title: "Stock insuffisant",
+                    text: `La quantité de ${item.designation} dépasse le stock disponible.`,
+                    icon: 'warning',
+                })
+                return;
+            }
+        }
+
         const jwt = Cookie.get('jwt');
 
         if (!jwt) {
@@ -289,7 +358,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                                 </span>
                             </div>
                             <button className='bg-gray-800 text-white px-3 py-2 rounded-lg shadow-md'
-                                onClick={() => passerCommande()}
+                                onClick={() => openPaymentModal()}
                             >Passer la commande</button>
                         </div>
                         <div className='m-3'>
@@ -322,7 +391,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                                             </div>
                                         </div>
                                         <div className=' w-10 flex items-center text-white'>
-                                            <button onClick={() => removeFromCart(index)} className='bg-gray-800 rounded-r-md h-full w-full mx-auto'>
+                                            <button onClick={() => deleteCartItem(index)} className='bg-gray-800 rounded-r-md h-full w-full mx-auto'>
                                                 <FontAwesomeIcon icon={faTrash} size='lg' />
                                             </button>
                                         </div>

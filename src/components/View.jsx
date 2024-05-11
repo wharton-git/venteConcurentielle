@@ -2,13 +2,32 @@ import { React, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAdd, faBars } from '@fortawesome/free-solid-svg-icons';
 
+import Swal from 'sweetalert2'
+
 const View = ({ data, addToCart, type, onCategorieChange, refreshData }) => {
 
     const [quantities, setQuantities] = useState({});
     const [showcategory, setShowCategory] = useState(true);
 
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+
     const handleAddToCart = (prod) => {
         addToCart({ ...prod, quantity: quantities[prod.id] || 1 });
+        Toast.fire({
+            icon: "success",
+            title: "Ajouté"
+        });
+
     };
 
     const handleQuantityChange = (id, event) => {
@@ -22,7 +41,7 @@ const View = ({ data, addToCart, type, onCategorieChange, refreshData }) => {
 
     const handleClick = () => {
         setShowCategory(!showcategory)
-    }; 
+    };
 
     useEffect(() => {
         refreshData();
