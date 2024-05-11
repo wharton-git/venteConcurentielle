@@ -65,7 +65,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className='border-t border-gray-400 text-xs'>
-                        <div className='text-center'>
+                        <div className='h-10 flex items-center justify-center'>
                             &copy; CopyRight {year} R Market. Tous droits réservés.
                             Design Original de Wharton Aldrick
                         </div>
