@@ -112,12 +112,16 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
                         text: 'Oops! votre solde est insuffisant.',
                         icon: 'warning',
                         showDenyButton: true,
-                        denyButtonColor: "#197319",
+                        showCancelButton: true,
+                        cancelButtonColor: "#197319",
+                        cancelButtonText: 'Recharger',
                         confirmButtonText: "OK",
-                        denyButtonText: `Recharger`
+                        denyButtonText: `Autre Methode`
                     }).then((result) => {
-                        if (result.isDenied) {
+                        if (result.isDismissed) {
                             navigate("/user")
+                        }else if (result.isDenied) {
+                            setOtherPaid(true)
                         }
                     });
                 }
