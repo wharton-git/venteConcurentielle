@@ -11,7 +11,7 @@ import './Style/Css/Swipper.css'
 
 import { Autoplay, Pagination } from 'swiper/modules';
 import { faAdd, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { ArrowRightIcon, Award, PlusSquare, ShieldCheck, Tag } from 'lucide-react';
+import {  Award, ShieldCheck, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import ShopIllustration from './assets/images/Shopp Illustration noBg.png'

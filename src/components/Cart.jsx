@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard, faMobile, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AtSignIcon, HandCoinsIcon, MapPinIcon, UserRound } from 'lucide-react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Cookie from 'js-cookie';
 import Swal from 'sweetalert2';
 
@@ -11,7 +11,7 @@ import url from './../Api/http'
 
 import Loading from './Screen/Loading';
 
-const Cart = ({ items, removeFromCart, updateQuantity }) => {
+const Cart = ({ setItems, items, removeFromCart, updateQuantity }) => {
 
     const [infoUser, setInfoUser] = useState([])
     const [activeModal, setActiveModal] = useState(false)
@@ -24,6 +24,7 @@ const Cart = ({ items, removeFromCart, updateQuantity }) => {
 
     useEffect(() => {
         setErrorCart(false)
+
     }, [])
 
     const navigate = useNavigate()

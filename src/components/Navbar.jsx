@@ -64,13 +64,18 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
     }
 
     const addToCart = (prod) => {
-        setCartItem([...cartItem, prod])
-    }
+        setCartItem((prevItems) => {
+            const updatedCart = [...prevItems, prod];
+            localStorage.setItem('cartItem', JSON.stringify(updatedCart));
+            return updatedCart;
+        });
+    };
 
     const removeFromCart = (index) => {
         const newCartItems = [...cartItem];
         newCartItems.splice(index, 1);
         setCartItem(newCartItems);
+        localStorage.setItem('cartItem', JSON.stringify(newCartItems));
     };
 
     const updateQuantity = (index, quantity) => {
@@ -78,8 +83,9 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
             const newCartItems = [...cartItem];
             newCartItems[index].quantity = quantity;
             setCartItem(newCartItems);
+            localStorage.setItem('cartItem', JSON.stringify(newCartItems));
         } else {
-            alert("La quantité ne peut pas être négative");
+            alert("La quantité ne peut pas être négative"); //sweet
         }
     };
 
@@ -90,13 +96,20 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
         console.log("refreshData");
     }
 
+    const fetchCartItems = () => {
+        const cartItems = JSON.parse(localStorage.getItem('cartItem'));
+        setCartItem(cartItems);
+    }
     useEffect(() => {
-        fetchProduits()
-        fetchCategories()
-
+        fetchProduits();
+        fetchCategories();
+        fetchCartItems();
+    }, []);
+    
+    useEffect(() => {
         const total = cartItem.reduce((acc, item) => acc + item.quantity, 0);
         setTotalItems(total);
-    }, [cartItem])
+    }, [cartItem]);
 
     return (
         <>
@@ -105,7 +118,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
                     <div className="max-w-screen mx-auto flex justify-between items-center">
                         <div className="flex items-center">
                             <div className={`text-white mr-4`} onClick={() => { setSidebarOn(!sidebarOn) }} >
-                                <MenuIcon className={`${sidebarOn && `rotate-90`} transition-all`}/>
+                                <MenuIcon className={`${sidebarOn && `rotate-90`} transition-all`} />
                             </div>
                             <Link to='/' className="text-white md:text-xl font-bold transition-all">
                                 <span className=''>
@@ -139,7 +152,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
 
             <div className="mt-[64px]"></div>
 
-            <div className={`fixed top-0 pt-[64px] z-[2] w-screen h-screen bg-black bg-opacity-65 text-white ${!sidebarOn && `hidden`} `} onMouseEnter={() => {hideSidebar()}}>
+            <div className={`fixed top-0 pt-[64px] z-[2] w-screen h-screen bg-black bg-opacity-65 text-white ${!sidebarOn && `hidden`} `} onMouseEnter={() => { hideSidebar() }}>
             </div>
             <div className={`fixed top-0 pt-[64px] z-[3] bg-gray-800 w-60 h-full -translate-x-96 ${sidebarOn && `translate-x-0`} transition-all`}>
                 <Sidebar isUserLoggedIn={isUserLoggedIn} />
@@ -147,7 +160,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
 
             {route == 'home' && <Home />}
             {route == 'add' && <Add refresh={refreshData} />}
-            {route == 'view' && <View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} refreshData={refreshData}/>}
+            {route == 'view' && <View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} refreshData={refreshData} />}
             {route == 'cart' && <Cart items={cartItem} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />}
         </>
     );
