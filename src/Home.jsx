@@ -11,16 +11,16 @@ import './Style/Css/Swipper.css'
 
 import { Autoplay, Pagination } from 'swiper/modules';
 import { faAdd, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { ArrowRightIcon, Award, ShieldCheck, Tag } from 'lucide-react';
+import { ArrowRightIcon, Award, PlusSquare, ShieldCheck, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import ShopIllustration from './assets/images/Shopp Illustration noBg.png'
 import Footer from './components/Footer'
+import TopSelling from './components/TopSelling'
 
 function Home() {
 
     const [produits, setProduits] = useState([])
-    const [mostpurchased, setMostPurchased] = useState([])
 
     const fetchProduits = async () => {
         try {
@@ -31,18 +31,8 @@ function Home() {
         }
     }
 
-    const getMostPurchased = async () => {
-        try {
-            const purchased = await url.get('/mostpurchased')
-            setMostPurchased(purchased.data)
-        } catch (error) {
-            console.error('Erreur : ', error);
-        }
-    } 
-
     useEffect(() => {
         fetchProduits()
-        getMostPurchased()
     }, [])
 
     return (
@@ -81,30 +71,16 @@ function Home() {
                 </div>
             </div>
 
-<div className="">
-    <div className='m-10 shadow-xl rounded-lg p-3'>
-        <div>Top vente</div>
-        <div className='flex justify-between'>
-            {mostpurchased.map(best =>(
-                <div>
-                    <div className=''>
-                        <img src={"http://localhost:8000/images/" + best.image} alt="" />
-                        <div className=''>{best.designation}</div>
-                    </div>
-                </div>
-            ))}
-        </div>
-    </div>
-</div>
+            <TopSelling/>
 
-<div className="grid sm:grid-cols-2">
-    <div className='m-10 shadow-xl rounded-lg p-3'>
-        Chaussures
-    </div>
-    <div className='m-10 shadow-xl rounded-lg p-3'>
-        Accessoire
-    </div>
-</div>
+            <div className="grid sm:grid-cols-2">
+                <div className='m-10 shadow-xl rounded-lg p-3'>
+                    Chaussures
+                </div>
+                <div className='m-10 shadow-xl rounded-lg p-3'>
+                    Accessoire
+                </div>
+            </div>
 
             <div className=' m-10 shadow-xl rounded-lg p-3'>
                 <Link to='/view'>
