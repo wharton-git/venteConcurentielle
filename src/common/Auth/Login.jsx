@@ -45,7 +45,11 @@ const Login = ({ setIsUserLoggedIn }) => {
             })
             .catch(authError => {
                 console.log(authError);
-                setError('Identifiants incorrects. Veuillez réessayer.');
+                if (authError.response && authError.response.status === 500) {
+                    setError('Erreur côté serveur. Veuillez réessayer plus tard.');
+                } else {
+                    setError('Identifiants incorrects. Veuillez réessayer.');
+                }
             });
     }
 
@@ -72,7 +76,7 @@ const Login = ({ setIsUserLoggedIn }) => {
                     <div>
                         <div className='flex items-center'>
                             <Link to='/' className="py-2 mr-2 px-4 rounded-md shadow-md text-indigo-600 hover:text-white border border-indigo-600 hover:bg-indigo-600 transition-all">
-                                <HomeIcon size={20}/>
+                                <HomeIcon size={20} />
                             </Link>
                             <button type="submit" onClick={handleSubmit} className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white shadow-md bg-indigo-600 hover:bg-indigo-700">
                                 Connexion
