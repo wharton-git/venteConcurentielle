@@ -3,12 +3,12 @@ import url from './../../Api/http'
 import { useNavigate, Link } from 'react-router-dom';
 import Cookie from 'js-cookie'
 import { HomeIcon } from 'lucide-react';
+import Swal from 'sweetalert2'
 
 
 const Login = ({ setIsUserLoggedIn }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {
@@ -46,9 +46,19 @@ const Login = ({ setIsUserLoggedIn }) => {
             .catch(authError => {
                 console.log(authError);
                 if (authError.response && authError.response.status === 500) {
-                    setError('Erreur côté serveur. Veuillez réessayer plus tard.');
+                    Swal.fire({
+                        title: 'Erreur côté Serveur !',
+                        text: 'Veuillez réessayer plus tard.',
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    })
                 } else {
-                    setError('Identifiants incorrects. Veuillez réessayer.');
+                    Swal.fire({
+                        title: 'Erreur !',
+                        text: 'Identifiants incorrects. Veuillez réessayer.',
+                        icon: 'error',
+                        confirmButtonText: 'Réessayer'
+                    })
                 }
             });
     }
@@ -59,7 +69,6 @@ const Login = ({ setIsUserLoggedIn }) => {
             <div className="max-w-md w-full space-y-8">
                 <div>
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Connexion à votre compte</h2>
-                    {error && <p className="mt-2 text-center text-red-600">{error}</p>}
                 </div>
                 <form className="mt-8 space-y-6" onSubmit={e => e.preventDefault()}>
                     <div className="rounded-md shadow-sm -space-y-px">
