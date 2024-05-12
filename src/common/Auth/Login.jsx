@@ -54,7 +54,7 @@ const Login = ({ setIsUserLoggedIn }) => {
                     });
                     Toast.fire({
                         icon: "success",
-                        title: "Connenté avec succès"
+                        title: "Connecté avec succès"
                     });
                 navigate('/');
             })
