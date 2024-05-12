@@ -11,6 +11,7 @@ import Add from './Add'
 import View from './View'
 import Cart from './Cart'
 import Sidebar from './Sidebar'
+import Detail from './Detail';
 
 
 function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
@@ -162,6 +163,8 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
             {route == 'add' && <Add refresh={refreshData} />}
             {route == 'view' && <View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} refreshData={refreshData} />}
             {route == 'cart' && <Cart items={cartItem} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />}
+            {route == 'detail' && <Detail />}
+
         </>
     );
 }
