@@ -28,6 +28,7 @@ const Logout = ({ }) => {
             Cookie.remove('jwt')
             Cookie.remove('log')
             Cookie.remove('name')
+            localStorage.clear()
             window.location.href = '/login'
         }
     }
