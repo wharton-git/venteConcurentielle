@@ -9,9 +9,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './Style/Css/Swipper.css'
 
-import { Autoplay, Pagination } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 import { faAdd, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import {  Award, ShieldCheck, Tag } from 'lucide-react';
+import { Award, ShieldCheck, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import ShopIllustration from './assets/images/Shopp Illustration noBg.png'
@@ -71,7 +71,7 @@ function Home() {
                 </div>
             </div>
 
-            <TopSelling/>
+                <TopSelling />
 
             <div className="grid sm:grid-cols-2">
                 <div className='m-10 shadow-xl rounded-lg p-3'>

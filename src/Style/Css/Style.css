@@ -85,6 +85,20 @@
   box-sizing: border-box;
 }
 
+*::-webkit-scrollbar {
+  background-color: whitesmoke;
+  width: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #1f2937;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
 body {
   background-color: white;
   font-family: "Century Gothic", sans-serif;
