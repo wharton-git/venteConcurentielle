@@ -32,7 +32,7 @@ const RoutesX = () => {
                     <Route path={'/view'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'view'} />} />
                     <Route path={'/cart'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'cart'} />} />
                     <Route path={'/add'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'add'} />} />
-                    <Route path={'/detail'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'detail'} />} />
+                    <Route path={'/detail/:id'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'detail'} />} />
                     <Route path={'/user'} element={<User />} />
                     <Route path={'/login'} element={<Login setIsUserLoggedIn={setIsUserLoggedIn} />} />
                     <Route path={'/register'} element={<Register setIsUserLoggedIn={setIsUserLoggedIn} />} />
