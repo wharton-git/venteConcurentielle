@@ -28,6 +28,14 @@ function TopSellingComponent() {
         }
     }
 
+    const pagination = {
+        clickable: true,
+        dynamicBullets: true,
+        renderBullet: function (index, className) {
+            return '<span class="' + className + '">' + (index + 1) + '</span>';
+        },
+    };
+
     return (
         <div className="mx-10">
             <div className='uppercase text-xl font-extrabold mt-5'>
@@ -39,14 +47,19 @@ function TopSellingComponent() {
                     loop={false}
                     slidesPerView={1}
                     spaceBetween={10}
+                    pagination={pagination}
 
                     breakpoints={{
                         520: {
                             slidesPerView: 2,
                             spaceBetween: 20,
                         },
-                        768: {
+                        640: {
                             slidesPerView: 3,
+                            spaceBetween: 20,
+                        },
+                        768: {
+                            slidesPerView: 4,
                             spaceBetween: 40,
                         },
                     }}
@@ -57,15 +70,15 @@ function TopSellingComponent() {
                 >
                     {mostpurchased.map((best) => (
                         <SwiperSlide>
-                            <div className="p-2 w-4/5">
+                            <div className="p-2 w-4/5 mb-8">
                                 <div className="flex rounded-lg w-40 mx-auto h-64 dark:bg-gray-800 bg-teal-400 p-3 flex-col">
                                     <div className=''>
                                         <img src={"http://localhost:8000/images/" + best.image} alt="" className='rounded-md ' />
                                     </div>
                                     <div className="flex flex-col justify-between flex-grow">
                                         <p className="leading-relaxed text-base text-white dark:text-gray-300">{best.designation}</p>
-                                        <Link to='/detail' className='bg-white text-gray-800 rounded-lg flex items-center space-x-2 w-max px-2 py-1 mx-auto  hover:scale-110 transition-all'>
-                                            <Info/>
+                                        <Link to={`/detail/${best.id}`} className='bg-white text-gray-800 rounded-lg flex items-center space-x-2 w-max px-2 py-1 mx-auto  hover:scale-110 transition-all'>
+                                            <Info />
                                             <div>Info</div>
                                         </Link>
                                     </div>

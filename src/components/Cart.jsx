@@ -24,7 +24,6 @@ const Cart = ({ setItems, items, removeFromCart, updateQuantity }) => {
 
     useEffect(() => {
         setErrorCart(false)
-
     }, [])
 
     const navigate = useNavigate()
@@ -121,7 +120,7 @@ const Cart = ({ setItems, items, removeFromCart, updateQuantity }) => {
                     }).then((result) => {
                         if (result.isDismissed) {
                             navigate("/user")
-                        }else if (result.isDenied) {
+                        } else if (result.isDenied) {
                             setOtherPaid(true)
                         }
                     });
@@ -132,6 +131,19 @@ const Cart = ({ setItems, items, removeFromCart, updateQuantity }) => {
             alert(err);
         }
     };
+
+    const openPaymentModal = () => {
+        if (items.length == 0) {
+            Swal.fire({
+                title: 'Panier Vide',
+                text: 'Veuillez ajouter au moins un produits dans le panier.',
+                icon: 'info',
+            })
+
+        } else {
+            paymentModal()
+        }
+    }
 
     const sendCommandeRequests = async (id, date, prix) => {
         try {
@@ -176,7 +188,7 @@ const Cart = ({ setItems, items, removeFromCart, updateQuantity }) => {
     };
 
 
-    const openPaymentModal = async () => {
+    const paymentModal = async () => {
 
         for (const item of items) {
             if (item.quantity > item.stock) {
@@ -355,7 +367,7 @@ const Cart = ({ setItems, items, removeFromCart, updateQuantity }) => {
                 <h1 className='my-[3%] text-2xl font-bold text-center'>PANIER</h1>
                 <div className='py-3 rounded-lg md:mx-auto transition-all'>
                     <div className='sm:w-3/4 w-full mx-auto'>
-                        <div className='flex justify-between items-center m-3'>
+                        <div className='flex justify-between items-center m-3 '>
                             <div className=''>
                                 Sous Total :
                                 <span className='font-bold ml-2'>
@@ -366,44 +378,52 @@ const Cart = ({ setItems, items, removeFromCart, updateQuantity }) => {
                                 onClick={() => openPaymentModal()}
                             >Passer la commande</button>
                         </div>
-                        <div className='m-3'>
-                            <ul className=''>
-                                {items.map((item, index) => (
-                                    <li className='flex justify-between my-2 rounded-md shadow-lg' key={index}>
-                                        <div className='flex items-center'>
-                                            <div className='w-20 border border-gray-800 rounded-md'>
-                                                <img src={"http://localhost:8000/images/" + item.image} className='rounded-md' alt={item.designation} />
-                                            </div>
-                                            <div className='ml-3'>
-                                                <div>
-                                                    {item.designation}
+                        {
+                            (items.length != 0) ? (
+                                <div className='m-3'>
+                                    <ul className=''>
+                                        {items.map((item, index) => (
+                                            <li className='flex justify-between my-2 rounded-md shadow-lg' key={index}>
+                                                <div className='flex items-center'>
+                                                    <div className='w-20 border border-gray-800 rounded-md'>
+                                                        <img src={"http://localhost:8000/images/" + item.image} className='rounded-md' alt={item.designation} />
+                                                    </div>
+                                                    <div className='ml-3'>
+                                                        <div>
+                                                            {item.designation}
+                                                        </div>
+                                                        <div>
+                                                            <input
+                                                                type="number"
+                                                                name="qte"
+                                                                id="qte"
+                                                                className='rounded-lg text-black px-3 w-full'
+                                                                value={item.quantity}
+                                                                placeholder='Quantité'
+                                                                onChange={(e) => updateQuantity(index, parseInt(e.target.value))}
+                                                            />
+                                                        </div>
+                                                        <div className='flex justify-between'>
+                                                            <div className='mr-2'><u>P.U.</u> : {item.prix} $</div>
+                                                            <div className='ml-2'><u>Somme</u> : {item.prix * item.quantity} $</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <input
-                                                        type="number"
-                                                        name="qte"
-                                                        id="qte"
-                                                        className='rounded-lg text-black px-3 w-full'
-                                                        value={item.quantity}
-                                                        placeholder='Quantité'
-                                                        onChange={(e) => updateQuantity(index, parseInt(e.target.value))}
-                                                    />
+                                                <div className=' w-10 flex items-center text-white'>
+                                                    <button onClick={() => deleteCartItem(index)} className='bg-gray-800 rounded-r-md h-full w-full mx-auto'>
+                                                        <FontAwesomeIcon icon={faTrash} size='lg' />
+                                                    </button>
                                                 </div>
-                                                <div className='flex justify-between'>
-                                                    <div className='mr-2'><u>P.U.</u> : {item.prix} $</div>
-                                                    <div className='ml-2'><u>Somme</u> : {item.prix * item.quantity} $</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className=' w-10 flex items-center text-white'>
-                                            <button onClick={() => deleteCartItem(index)} className='bg-gray-800 rounded-r-md h-full w-full mx-auto'>
-                                                <FontAwesomeIcon icon={faTrash} size='lg' />
-                                            </button>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ) : (
+                                <div className='h-[50vh] text-5xl text-gray-200 flex items-center w-full justify-center'>
+                                    Panier Vide
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
             </div>
