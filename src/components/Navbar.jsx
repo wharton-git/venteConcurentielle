@@ -65,11 +65,20 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
     }
 
     const addToCart = (prod) => {
-        setCartItem((prevItems) => {
-            const updatedCart = [...prevItems, prod];
+        const existingIndex = cartItem.findIndex(item => item.id === prod.id);
+    
+        if (existingIndex !== -1) {
+            const updatedCart = [...cartItem];
+            updatedCart[existingIndex].quantity += prod.quantity;
+            setCartItem(updatedCart);
             localStorage.setItem('cartItem', JSON.stringify(updatedCart));
-            return updatedCart;
-        });
+        } else {
+            setCartItem(prevItems => {
+                const updatedCart = [...prevItems, prod];
+                localStorage.setItem('cartItem', JSON.stringify(updatedCart));
+                return updatedCart;
+            });
+        }
     };
 
     const removeFromCart = (index) => {
@@ -163,7 +172,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
             {route == 'add' && <Add refresh={refreshData} />}
             {route == 'view' && <View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} refreshData={refreshData} />}
             {route == 'cart' && <Cart items={cartItem} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />}
-            {route == 'detail' && <Detail />}
+            {route == 'detail' && <Detail addToCart={addToCart} />}
 
         </>
     );
