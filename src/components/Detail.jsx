@@ -65,7 +65,7 @@ const Detail = () => {
                 </div>
             </div>
             <div>
-                <button className='flex items-center bg-gray-800 text-white p-2 rounded-md shadow-lg shadow-gray-400 hover:shadow-gray-600 hover:scale-110 active:scale-100 active:bg-white active:text-black active:shadow-inner active:shadow-gray-500 transition-all'>
+                <button className='flex items-center space-x-2 bg-gray-800 text-white p-2 rounded-md shadow-lg shadow-gray-400 hover:shadow-gray-600 hover:scale-110 active:scale-100 active:bg-white active:text-black active:shadow-inner active:shadow-gray-500 transition-all'>
                     <div>
                         <ShoppingCart />
                     </div>
