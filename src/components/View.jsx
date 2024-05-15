@@ -75,9 +75,6 @@ const View = ({ data, addToCart, type, onCategorieChange, refreshData }) => {
                 <div className='cardProd transition-all grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full px-6 h-[82vh] overflow-y-scroll'>
                     {data.map((prod, index) => (
                         <div className='transition-all relative shadow-xl w-52 rounded-lg mx-auto my-6 bg-white h-max'>
-                            <div className='transition-all flex justify-between mx-3'>
-                                <div>50% off</div>
-                            </div>
                             <div className='transition-all w-20 m-auto hover:w-full'>
                                 <img src={"http://localhost:8000/images/" + prod.image} alt="" />
                             </div>

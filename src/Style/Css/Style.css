@@ -157,4 +157,100 @@ li {
   -webkit-animation: drop 2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
+.userNavAnimation_show .div {
+  animation: userNavAnimation_show 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  -webkit-animation: userNavAnimation_show 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  transform: translateX(-600px);
+  -webkit-transform: translateX(-600px);
+  -moz-transform: translateX(-600px);
+  -ms-transform: translateX(-600px);
+  -o-transform: translateX(-600px);
+}
+
+.userNavAnimation_hide .div {
+  animation: userNavAnimation_hide 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  -webkit-animation: userNavAnimation_hide 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.userNavAnimation_show .div:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.userNavAnimation_show .div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.userNavAnimation_show .div:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.userNavAnimation_show .div:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.userNavAnimation_show .div:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.userNavAnimation_show .div:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.userNavAnimation_hide .div:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.userNavAnimation_hide .div:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.userNavAnimation_hide .div:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.userNavAnimation_hide .div:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+.userNavAnimation_hide .div:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+.userNavAnimation_hide .div:nth-child(6) {
+  animation-delay: 0.3s;
+}
+
+@keyframes userNavAnimation_show {
+  from {
+    transform: translateX(-600px);
+    -webkit-transform: translateX(-600px);
+    -moz-transform: translateX(-600px);
+    -ms-transform: translateX(-600px);
+    -o-transform: translateX(-600px);
+  }
+  to {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+}
+@keyframes userNavAnimation_hide {
+  from {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+  to {
+    transform: translateX(-600px);
+    -webkit-transform: translateX(-600px);
+    -moz-transform: translateX(-600px);
+    -ms-transform: translateX(-600px);
+    -o-transform: translateX(-600px);
+  }
+}
+
 /*# sourceMappingURL=Style.css.map */

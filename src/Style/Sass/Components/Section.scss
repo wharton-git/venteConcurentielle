@@ -42,3 +42,64 @@
     animation: drop 2s cubic-bezier(0.19, 1, 0.22, 1);
     -webkit-animation: drop 2s cubic-bezier(0.19, 1, 0.22, 1);
 }
+
+.userNavAnimation_show .div {
+    animation: userNavAnimation_show 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    -webkit-animation: userNavAnimation_show 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    transform: translateX(-600px);
+    -webkit-transform: translateX(-600px);
+    -moz-transform: translateX(-600px);
+    -ms-transform: translateX(-600px);
+    -o-transform: translateX(-600px);
+}
+
+.userNavAnimation_hide .div {
+    animation: userNavAnimation_hide 2s cubic-bezier(0.19, 1, 0.22, 1) forwards ;
+    -webkit-animation: userNavAnimation_hide 2s cubic-bezier(0.19, 1, 0.22, 1) forwards ;
+}
+
+@for $i from 1 through 6 {
+    .userNavAnimation_show .div:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.1}s;
+    }
+}
+@for $i from 1 through 6 {
+    .userNavAnimation_hide .div:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.05}s;
+    }
+}
+
+@keyframes userNavAnimation_show {
+    from {
+        transform: translateX(-600px);
+        -webkit-transform: translateX(-600px);
+        -moz-transform: translateX(-600px);
+        -ms-transform: translateX(-600px);
+        -o-transform: translateX(-600px);
+    }
+
+    to {
+        transform: translateX(0);
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+    }
+}
+
+@keyframes userNavAnimation_hide {
+    from {
+        transform: translateX(0);
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+    }
+    to {
+        transform: translateX(-600px);
+        -webkit-transform: translateX(-600px);
+        -moz-transform: translateX(-600px);
+        -ms-transform: translateX(-600px);
+        -o-transform: translateX(-600px);
+    }
+}

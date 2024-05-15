@@ -33,7 +33,8 @@ const RoutesX = () => {
                     <Route path={'/cart'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'cart'} />} />
                     <Route path={'/add'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'add'} />} />
                     <Route path={'/detail/:id'} element={<Nav setIsUserLoggedIn={setIsUserLoggedIn} isUserLoggedIn={isUserLoggedIn} route={'detail'} />} />
-                    <Route path={'/user'} element={<User />} />
+                    <Route path={'/commande'} element={<User route={'commande'} />} />
+                    <Route path={'/user'} element={<User route={'user'} />} />
                     <Route path={'/login'} element={<Login setIsUserLoggedIn={setIsUserLoggedIn} />} />
                     <Route path={'/register'} element={<Register setIsUserLoggedIn={setIsUserLoggedIn} />} />
                 </Routes>
