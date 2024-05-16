@@ -171,7 +171,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
             {route == 'home' && <Home />}
             {route == 'add' && <Add refresh={refreshData} />}
             {route == 'view' && <View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} refreshData={refreshData} />}
-            {route == 'cart' && <Cart items={cartItem} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />}
+            {route == 'cart' && <Cart setItems={setCartItem} items={cartItem} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />}
             {route == 'detail' && <Detail addToCart={addToCart} />}
 
         </>

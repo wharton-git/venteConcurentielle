@@ -166,6 +166,9 @@ const Cart = ({ setItems, items, removeFromCart, updateQuantity }) => {
 
             console.log(response2.data);
             console.log('Commande passée avec succès');
+            
+            localStorage.clear();
+            setItems([]);
 
             Swal.fire({
                 title: 'Achat Effectué!',
