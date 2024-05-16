@@ -68,22 +68,3 @@
         animation-delay: #{$i * 0.05}s;
     }
 }
-
-.hideDetailsCom {
-    background: blue;
-    max-height: 0;
-    transition: all;
-    -webkit-transition: all;
-    -moz-transition: all;
-    -ms-transition: all;
-    -o-transition: all;
-}
-
-.showDetailsCom {
-    max-height: max-content;
-    transition: all;
-    -webkit-transition: all;
-    -moz-transition: all;
-    -ms-transition: all;
-    -o-transition: all;
-}
