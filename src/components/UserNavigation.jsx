@@ -55,32 +55,38 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
                 </div>
             )}
 
-            <div className='hidden sm:block absolute rounded-xl  text-white h-screen top-0 left-0 w-[30vw] max-w-52 '>
-                <div className='flex items-center space-x-2 p-3 text-base font-bold'>
-                    <div>
-                        <UserRoundCog />
+            <div className='hidden sm:block absolute text-white h-screen top-0 left-0 w-[30vw] max-w-52 py-4'>
+                <div className='border-r-2 border-white h-full'>
+                    <div className='mb-5'>
+                        <div className='p-4 space-y-3'>
+                            <div className='text-xl font-black'>
+                                Espace Comptes
+                            </div>
+                            <div className='text-xs font-bold'>
+                                Gérer vos paramètres de comptes et votre profil
+                            </div>
+                        </div>
+
                     </div>
+
                     <div>
-                        Espace Compte
-                    </div>
-                </div>
-                <div>
-                    {
-                        list.map(list => (
-                            <div className='div cursor-pointer'>
-                                <div onClick={() => goTo(list.route)} className='flex items-center p-2 rounded-lg w-5/6 mx-auto space-x-2 transition-all'>
-                                    <div>
-                                        {list.icon}
-                                    </div>
-                                    <div>
+                        {
+                            list.map(list => (
+                                <div className='div cursor-pointer'>
+                                    <div onClick={() => goTo(list.route)} className='flex items-center p-2 rounded-lg w-5/6 mx-auto space-x-2 transition-all'>
                                         <div>
-                                            {list.name}
+                                            {list.icon}
+                                        </div>
+                                        <div>
+                                            <div>
+                                                {list.name}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))
-                    }
+                            ))
+                        }
+                    </div>
                 </div>
             </div>
         </>
