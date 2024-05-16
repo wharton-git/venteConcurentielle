@@ -1,12 +1,13 @@
 import { UserRoundCog } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const UserNavigation = ({ navOpen, setNavOpen, list }) => {
 
 
     const navigate = useNavigate()
     const [animNav, setAnimNav] = useState(false)
+    const location = useLocation()
 
     useEffect(() => {
         if (navOpen) {
@@ -73,7 +74,10 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
                         {
                             list.map(list => (
                                 <div className='div cursor-pointer'>
-                                    <div onClick={() => goTo(list.route)} className='flex items-center p-2 rounded-lg w-5/6 mx-auto space-x-2 transition-all'>
+                                    <div
+                                        onClick={() => navigate(list.route)}
+                                        className={`flex items-center p-2 rounded-lg w-5/6 mx-auto space-x-2 transition-all ${location.pathname === list.route ? 'bg-gray-600' : ''}`}
+                                    >
                                         <div>
                                             {list.icon}
                                         </div>
