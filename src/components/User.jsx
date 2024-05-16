@@ -61,7 +61,7 @@ const User = ({ route }) => {
 
     const title = {
         commande: "Vos Commandes",
-        user: "Connexion et Sécurité",
+        user: "Vos Commandes",
         info: "Information personnelle",
         adresse: "Adresse",
         security: "Connexion et Sécurité",
@@ -70,7 +70,7 @@ const User = ({ route }) => {
 
     const descriptions = {
         commande: "Consulter l'historique de vos commandes.",
-        user: "Modifier vos informations personnelles.",
+        user: "Consulter l'historique de vos commandes.",
         info: "Modifier vos informations personelles.",
         adresse: "Modifier votre adresse de livraison.",
         security: "Modifier votre e-mail, mot de passe.",
