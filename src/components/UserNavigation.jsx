@@ -28,7 +28,7 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
     return (
         <>
             {navOpen && (
-                <div className='sm:hidden absolute w-screen h-screen bg-black bg-opacity-80 top-0 flex items-center'>
+                <div className='sm:hidden absolute z-20 w-screen h-screen bg-black bg-opacity-80 top-0 flex items-center'>
                     <div className='text-white absolute top-3 right-5 text-5xl font-bold' onClick={() => closeNav()}>&times;</div>
                     <div className={`space-y-3 text-xl w-full ${animNav && `userNavAnimation_show`} transition-all`}>
                         {
