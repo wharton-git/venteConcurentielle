@@ -17,9 +17,7 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
 
     const closeNav = () => {
         setAnimNav(false)
-        setTimeout(() => {
-            setNavOpen(false)
-        }, 600)
+        setNavOpen(false)
     }
 
     const goTo = (route) => {
@@ -32,7 +30,7 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
             {navOpen && (
                 <div className='sm:hidden absolute w-screen h-screen bg-black bg-opacity-80 top-0 flex items-center'>
                     <div className='text-white absolute top-3 right-5 text-5xl font-bold' onClick={() => closeNav()}>&times;</div>
-                    <div className={`space-y-3 text-xl w-full ${animNav ? `userNavAnimation_show` : `userNavAnimation_hide`} transition-all`}>
+                    <div className={`space-y-3 text-xl w-full ${animNav && `userNavAnimation_show`} transition-all`}>
                         {
                             list.map(list => (
                                 <div className='div cursor-pointer'>
@@ -70,13 +68,13 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
 
                     </div>
 
-                    <div>
+                    <div className='space-y-3'>
                         {
                             list.map(list => (
                                 <div className='div cursor-pointer'>
                                     <div
                                         onClick={() => navigate(list.route)}
-                                        className={`flex items-center p-2 rounded-lg w-5/6 mx-auto space-x-2 transition-all ${location.pathname === list.route ? 'bg-gray-600' : ''}`}
+                                        className={`flex items-center p-2 rounded-lg w-5/6 mx-auto space-x-2 transition-all ${location.pathname === list.route ? 'bg-gray-600' : ''} hover:bg-gray-500`}
                                     >
                                         <div>
                                             {list.icon}

@@ -79,6 +79,38 @@
     -o-transform: translateY(0);
   }
 }
+@keyframes userNavAnimation_show {
+  from {
+    transform: translateX(-600px);
+    -webkit-transform: translateX(-600px);
+    -moz-transform: translateX(-600px);
+    -ms-transform: translateX(-600px);
+    -o-transform: translateX(-600px);
+  }
+  to {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+}
+@keyframes userNavAnimation_hide {
+  from {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+  to {
+    transform: translateX(-600px);
+    -webkit-transform: translateX(-600px);
+    -moz-transform: translateX(-600px);
+    -ms-transform: translateX(-600px);
+    -o-transform: translateX(-600px);
+  }
+}
 * {
   margin: 0;
   padding: 0;
@@ -220,37 +252,23 @@ li {
   animation-delay: 0.3s;
 }
 
-@keyframes userNavAnimation_show {
-  from {
-    transform: translateX(-600px);
-    -webkit-transform: translateX(-600px);
-    -moz-transform: translateX(-600px);
-    -ms-transform: translateX(-600px);
-    -o-transform: translateX(-600px);
-  }
-  to {
-    transform: translateX(0);
-    -webkit-transform: translateX(0);
-    -moz-transform: translateX(0);
-    -ms-transform: translateX(0);
-    -o-transform: translateX(0);
-  }
+.hideDetailsCom {
+  background: blue;
+  max-height: 0;
+  transition: all;
+  -webkit-transition: all;
+  -moz-transition: all;
+  -ms-transition: all;
+  -o-transition: all;
 }
-@keyframes userNavAnimation_hide {
-  from {
-    transform: translateX(0);
-    -webkit-transform: translateX(0);
-    -moz-transform: translateX(0);
-    -ms-transform: translateX(0);
-    -o-transform: translateX(0);
-  }
-  to {
-    transform: translateX(-600px);
-    -webkit-transform: translateX(-600px);
-    -moz-transform: translateX(-600px);
-    -ms-transform: translateX(-600px);
-    -o-transform: translateX(-600px);
-  }
+
+.showDetailsCom {
+  max-height: max-content;
+  transition: all;
+  -webkit-transition: all;
+  -moz-transition: all;
+  -ms-transition: all;
+  -o-transition: all;
 }
 
 /*# sourceMappingURL=Style.css.map */

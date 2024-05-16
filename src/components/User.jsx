@@ -88,7 +88,7 @@ const User = ({ route }) => {
     const Component = components[route];
 
     return (
-        <div className='sm:pl-52 bg-gray-700 mt-0 h-screen text-white bg-gradient-to-tr from-gray-700 from-10% via-gray-800 via-50% to-gray-700 to-90%'>
+        <div className='sm:pl-52 bg-gray-700 mt-0 h-screen text-white bg-gradient-to-tr from-gray-600 from-10% via-gray-700 via-50% to-gray-600 to-90%'>
             <div>
                 <div className='sm:hidden' onClick={() => setNavOpen(true)}>
                     Menu
