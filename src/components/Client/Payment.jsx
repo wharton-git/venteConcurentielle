@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Commande = ({ title, desc }) => {
+const Payement = ({ title, desc }) => {
     return (
         <div>
             <div className='text-center'>
@@ -15,4 +15,4 @@ const Commande = ({ title, desc }) => {
     )
 }
 
-export default Commande
+export default Payement
