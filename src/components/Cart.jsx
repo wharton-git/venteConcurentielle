@@ -166,7 +166,7 @@ const Cart = ({ setItems, items, removeFromCart, updateQuantity }) => {
 
             console.log(response2.data);
             console.log('Commande passée avec succès');
-            
+
             localStorage.clear();
             setItems([]);
 
@@ -244,8 +244,11 @@ const Cart = ({ setItems, items, removeFromCart, updateQuantity }) => {
 
             {/* Loading Page*/}
 
+
             {loading && (
-                <Loading errorState={errorCart} loading={setLoading} setModal={handleDisactiveModal} />
+                <div className='absolute top-0 left-0 h-screen w-screen'>
+                    <Loading />
+                </div>
             )}
 
             {/* Modal de Payement */}

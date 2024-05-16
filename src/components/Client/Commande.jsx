@@ -3,13 +3,17 @@ import url from './../../Api/http';
 import Cookie from 'js-cookie';
 import { ChevronDown } from 'lucide-react';
 
+import Loading from './../Screen/Loading';
+
 const Commande = ({ title, desc }) => {
     const [user, setUser] = useState([]);
     const [commandes, setCommandes] = useState([]);
     const [openCommand, setOpenCommand] = useState(null);
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         getCommandeInfo();
+        setLoading(true)
     }, []);
 
     const getCommandeInfo = async () => {
@@ -24,8 +28,14 @@ const Commande = ({ title, desc }) => {
                 setUser(userFetch.data);
 
                 try {
+
                     const comm = await url.post('/commandes', { user_id: userFetch.data.id });
                     setCommandes(comm.data);
+
+                    setTimeout(() => {
+                        setLoading(false);
+                    }, 300);
+
                 } catch (error) {
                     console.log(error);
                 }
@@ -40,7 +50,16 @@ const Commande = ({ title, desc }) => {
     };
 
     return (
-        <div>
+        <div className='relative'>
+
+            {/* Loading Page*/}
+
+            {loading && (
+                <div className='absolute top-0 w-full h-screen'>
+                    <Loading />
+                </div>
+            )}
+
             <div className='text-center'>
                 <div className='uppercase text-2xl py-2 font-bold'>
                     {title}
