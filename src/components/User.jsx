@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CreditCard, Home, LockKeyhole, MapPin, TicketCheck, User2 } from 'lucide-react'
+import { CreditCard, EllipsisVertical, Home, LockKeyhole, MapPin, TicketCheck, User2 } from 'lucide-react'
 
 import UserNav from './UserNavigation'
 import Commande from './Client/Commande'
@@ -90,13 +90,13 @@ const User = ({ route }) => {
     return (
         <div className='sm:pl-52 bg-gray-700 mt-0 h-screen text-white bg-gradient-to-tr from-gray-600 from-10% via-gray-700 via-50% to-gray-600 to-90%'>
             <div>
-                <div className='sm:hidden' onClick={() => setNavOpen(true)}>
-                    Menu
+                <div className='sm:hidden absolute z-20 top-5 right-5 bg-gray-800 rounded-full shadow-md p-1 transition-all active:bg-white active:text-gray-800' onClick={() => setNavOpen(true)}>
+                    <EllipsisVertical/>
                 </div>
                 <UserNav navOpen={navOpen} setNavOpen={setNavOpen} list={list} />
             </div>
             <div>
-                <div className=''>
+                <div className='relative pt-10'>
                     <Component title={title[route]} desc={descriptions[route]}/>
                 </div>
             </div>

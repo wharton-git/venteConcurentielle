@@ -50,12 +50,12 @@ const Commande = ({ title, desc }) => {
     };
 
     return (
-        <div className='relative'>
+        <div className=''>
 
             {/* Loading Page*/}
 
             {loading && (
-                <div className='absolute top-0 w-full h-screen'>
+                <div className='absolute z-10 top-0 w-full h-screen'>
                     <Loading />
                 </div>
             )}
