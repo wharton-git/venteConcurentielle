@@ -80,7 +80,7 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
                                 <div className='div cursor-pointer'>
                                     <div
                                         onClick={() => navigate(list.route)}
-                                        className={`flex items-center p-2 rounded-lg w-5/6 mx-auto space-x-2 transition-all ${location.pathname === list.route ? 'bg-gray-600' : ''} hover:bg-gray-500`}
+                                        className={`flex items-center p-2 rounded-lg w-5/6 mx-auto space-x-2 transition-all ${location.pathname === list.route ? 'bg-gray-500' : ''} hover:bg-gray-400 active:bg-gray-500`}
                                     >
                                         <div>
                                             {list.icon}
@@ -100,7 +100,7 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
                         <div className='div cursor-pointer'>
                             <div
                                 onClick={() => navigate("/")}
-                                className={`flex items-center p-2 bg-gray-800 rounded-lg  space-x-2 transition-all`}
+                                className={`flex items-center p-2 bg-gray-800 hover:bg-gray-700 active:bg-gray-800 rounded-lg  space-x-2 transition-all`}
                             >
                                 <div>
                                     <Home />

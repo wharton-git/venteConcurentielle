@@ -43,7 +43,7 @@ function Home() {
                 <div className='relative overflow-x-hidden'>
                     <img src={ShopIllustration} alt="" className='shopIllustration mx-auto' />
                     <div className='ctaVoirArticle absolute w-screen bottom-10 text-center '>
-                        <Link to='/view' className='bg-gray-800 text-white px-3 py-2 rounded-md hover:text-[16px] shadow-lg shadow-gray-500 transition-all'>
+                        <Link to='/view' className='bg-gray-800 text-white px-3 py-2 rounded-md hover:text-[16px] shadow-lg shadow-gray-500 transition-all active:text-[14px]'>
                             Voir les articles . . .
                         </Link>
                     </div>

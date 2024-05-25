@@ -67,7 +67,7 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
                     sideElement.map((list, index) => (
                         <li className='' key={index}>
 
-                            <Link to={list.route} className={`flex items-center hover:bg-slate-50 hover:text-black hover:scale-110 w-full py-3 transition-all ${location.pathname === list.route && `bg-red-600`}`}>
+                            <Link to={list.route} className={`flex items-center hover:bg-slate-50 hover:text-black hover:scale-110 w-full py-3 transition-all ${location.pathname === list.route && `bg-slate-50 text-black`} active:scale-100`}>
                                 <div className='mx-3'>
                                     {list.icon}
                                 </div>
@@ -82,7 +82,7 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
             </ul>
             {infoCheck && (
                 <Link to='/user' className='cursor-pointer'>
-                    <div className='absolute bottom-10 mb-3'>
+                    <div className='absolute bottom-10 mb-3 active:scale-95 w-full transition-all'>
                         <div className=' text-white space-x-3 ml-3 flex items-center'>
                             <div className='border p-2.5 rounded-md bg-gray-700'>
                                 <User2Icon />
@@ -99,7 +99,7 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
                     </div>
                 </Link>
             )}
-            <div className="absolute bottom-0  w-60 h-10 grid items-center border-t-2">
+            <div className="absolute bottom-0 w-60 h-10 grid items-center border-t-2 active:scale-95 transition-all">
                 {isUserLoggedIn ? (
                     <div className=''>
                         <Logout />
