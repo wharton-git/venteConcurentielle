@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import url from "./Api/http"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 // Import Swiper styles
@@ -13,6 +12,9 @@ import { Pagination } from 'swiper/modules';
 import { faAdd, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Award, ShieldCheck, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+import url from "./Api/http"
+import baseUrl from './Api/baseUrl';
 
 import ShopIllustration from './assets/images/Shopp Illustration noBg.png'
 import Footer from './components/Footer'
@@ -122,7 +124,7 @@ function Home() {
                                         <div>50% off</div>
                                     </div>
                                     <div className='m-auto'>
-                                        <img src={"http://localhost:8000/images/" + prod.image} alt="" />
+                                        <img src={`${baseUrl}images/` + prod.image} alt="" />
                                     </div>
                                     <div className='mt-2 p-2 text-white bg-indigo-500 rounded-b-lg'>
                                         <div>

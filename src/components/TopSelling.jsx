@@ -10,6 +10,7 @@ import './../Style/Css/Swipper.css'
 import { Pagination } from 'swiper/modules';
 
 import url from "./../Api/http"
+import baseUrl from './../Api/baseUrl';
 import { Info } from 'lucide-react';
 
 function TopSellingComponent() {
@@ -73,7 +74,7 @@ function TopSellingComponent() {
                             <div className="p-2 w-4/5 mb-8">
                                 <div className="flex rounded-lg w-40 mx-auto h-64 dark:bg-gray-800 bg-teal-400 p-3 flex-col">
                                     <div className=''>
-                                        <img src={"http://localhost:8000/images/" + best.image} alt="" className='rounded-md ' />
+                                        <img src={`${baseUrl}images/` + best.image} alt="" className='rounded-md ' />
                                     </div>
                                     <div className="flex flex-col justify-between flex-grow">
                                         <p className="leading-relaxed text-base text-white dark:text-gray-300">{best.designation}</p>

@@ -4,6 +4,7 @@ import { ShoppingCart } from 'lucide-react';
 import Swal from 'sweetalert2'; // Assurez-vous d'importer Swal (SweetAlert2)
 
 import url from './../Api/http';
+import baseUrl from './../Api/baseUrl';
 
 const Detail = ({ addToCart }) => {
     const [detailProduits, setDetailProduits] = useState([]);
@@ -65,7 +66,7 @@ const Detail = ({ addToCart }) => {
             <div className='flex space-x-6'>
                 <div className='min-w-10 w-1/2 max-w-72'>
                     <img
-                        src={`http://localhost:8000/images/${detailProduits.image}`}
+                        src={`${baseUrl}images/${detailProduits.image}`}
                         alt={detailProduits.designation}
                         className='mx-auto rounded-lg border-4 border-gray-800'
                     />

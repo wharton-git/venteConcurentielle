@@ -4,6 +4,8 @@ import { faAdd, faBars } from '@fortawesome/free-solid-svg-icons';
 
 import Swal from 'sweetalert2'
 
+import baseUrl from './../Api/baseUrl';
+
 const View = ({ data, addToCart, type, onCategorieChange, refreshData }) => {
 
     const [quantities, setQuantities] = useState({});
@@ -76,7 +78,7 @@ const View = ({ data, addToCart, type, onCategorieChange, refreshData }) => {
                     {data.map((prod, index) => (
                         <div className='transition-all relative shadow-xl w-52 rounded-lg mx-auto my-6 bg-white h-max'>
                             <div className='transition-all w-20 m-auto hover:w-full'>
-                                <img src={"http://localhost:8000/images/" + prod.image} alt="" />
+                                <img src={`${baseUrl}images/` + prod.image} alt="" />
                             </div>
                             <div className='transition-all p-2 text-white bg-gray-800 rounded-b-lg '>
                                 <div className='flex justify-between'>
