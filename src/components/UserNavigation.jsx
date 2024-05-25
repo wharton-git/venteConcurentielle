@@ -1,4 +1,4 @@
-import { Home } from 'lucide-react'
+import { Home, LogOut } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -74,7 +74,7 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
                         </div>
                         <div className='div cursor-pointer'>
                             <div className='flex items-center p-2 text-black bg-white rounded-lg w-5/6 mx-auto space-x-2 transition-all'>
-                                <Logout />
+                                <Logout icon={<LogOut />} text={"Se déconnecter"} />
                             </div>
                         </div>
                     </div>
@@ -117,28 +117,26 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
                         }
                     </div>
 
-                    <div className='absolute bottom-0 w-full px-3 space-y-2'>
+                    <div className='absolute bottom-0 w-full px-3 space-x-2 flex'>
                         <div className='div cursor-pointer'>
                             <div
                                 onClick={() => navigate("/")}
-                                className={`flex items-center p-2 bg-gray-800 hover:bg-gray-700 active:bg-gray-800 rounded-lg  space-x-2 transition-all`}
+                                className={`flex items-center p-2 overflow-hidden max-w-10 hover:max-w-96 bg-gray-800 hover:bg-gray-700 active:bg-gray-800 rounded-lg  space-x-2 transition-all`}
                             >
                                 <div>
                                     <Home />
                                 </div>
                                 <div>
-                                    <div>
-                                        Revenir à l'accueil
-                                    </div>
+                                    Accueil
                                 </div>
                             </div>
                         </div>
                         <div className='div cursor-pointer'>
                             <div
                                 onClick={() => navigate("/")}
-                                className={`flex items-center overflow-hidden max-w-10 hover:max-w-96 bg-gray-800 hover:bg-gray-700 active:bg-gray-800 rounded-lg  space-x-2 transition-all`}
+                                className={`flex items-center overflow-clip max-w-10 hover:max-w-96 bg-gray-800 hover:bg-gray-700 active:bg-gray-800 rounded-full  space-x-2 transition-all`}
                             >
-                                <Logout />
+                                <Logout icon={<LogOut />} text={"Déconnexion"} />
                             </div>
                         </div>
                     </div>

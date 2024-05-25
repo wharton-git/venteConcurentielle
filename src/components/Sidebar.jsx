@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
-import { BoxIcon, HomeIcon, LogInIcon, ShoppingCart, User2Icon } from 'lucide-react';
+import { BoxIcon, HomeIcon, LogInIcon, LogOut, ShoppingCart, User2Icon } from 'lucide-react';
 
 import url from './../Api/http'
 import Cookie from 'js-cookie';
@@ -102,7 +102,7 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
             <div className="absolute bottom-0 w-60 h-10 grid items-center border-t-2 active:scale-95 transition-all">
                 {isUserLoggedIn ? (
                     <div className='text-white'>
-                        <Logout />
+                        <Logout icon={<LogOut/>} text={"Déconnexion"}/>
                     </div>
                 ) : (
                     <div className='text-white '>

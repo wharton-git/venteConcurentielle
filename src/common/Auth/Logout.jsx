@@ -2,9 +2,8 @@ import React from 'react';
 import url from './../../Api/http';
 import Cookie from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import { LogOutIcon } from 'lucide-react';
 
-const Logout = ({ }) => {
+const Logout = ({ icon, text }) => {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -33,17 +32,19 @@ const Logout = ({ }) => {
         }
     }
 
-return (
-    <button
-        className='flex space-x-2 items-center p-2 w-full'
-        onClick={handleLogout}
-    >
-        <LogOutIcon />
-        <div>
-            Déconnexion
-        </div>
-    </button>
-);
+    return (
+        <button
+            className='flex space-x-2 items-center p-2 w-full'
+            onClick={handleLogout}
+        >
+            <div>
+                {icon}
+            </div>
+            <div>
+                {text}
+            </div>
+        </button>
+    );
 }
 
 export default Logout;
