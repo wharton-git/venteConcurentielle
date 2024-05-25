@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { CreditCard, EllipsisVertical, Home, LockKeyhole, MapPin, TicketCheck, User2 } from 'lucide-react'
 
 import UserNav from './UserNavigation'

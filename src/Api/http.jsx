@@ -1,7 +1,8 @@
 import axios from 'axios'
+import baseUrl from './baseUrl'
 
 export default axios.create({
-    baseURL: 'http://192.168.88.15:8000/api/',
+    baseURL: `${baseUrl}api/`,
     headers: {
         "Content-type": "application/json"
     }

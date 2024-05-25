@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 
 import classe from './../Style/Css/style.module.css'
 import url from './../Api/http'
+import baseUrl from './../Api/baseUrl'
 
 import Loading from './Screen/Loading';
 
@@ -392,7 +393,7 @@ const Cart = ({ setItems, items, removeFromCart, updateQuantity }) => {
                                             <li className='flex justify-between my-2 rounded-md shadow-lg' key={index}>
                                                 <div className='flex items-center'>
                                                     <div className='w-20 border border-gray-800 rounded-md'>
-                                                        <img src={"http://localhost:8000/images/" + item.image} className='rounded-md' alt={item.designation} />
+                                                        <img src={`${baseUrl}images/` + item.image} className='rounded-md' alt={item.designation} />
                                                     </div>
                                                     <div className='ml-3'>
                                                         <div>
