@@ -35,7 +35,7 @@ const Logout = ({ }) => {
 
 return (
     <button
-        className='text-white flex space-x-2 items-center p-2 w-full'
+        className='flex space-x-2 items-center p-2 w-full'
         onClick={handleLogout}
     >
         <LogOutIcon />

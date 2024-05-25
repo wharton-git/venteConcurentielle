@@ -101,7 +101,7 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
             )}
             <div className="absolute bottom-0 w-60 h-10 grid items-center border-t-2 active:scale-95 transition-all">
                 {isUserLoggedIn ? (
-                    <div className=''>
+                    <div className='text-white'>
                         <Logout />
                     </div>
                 ) : (
