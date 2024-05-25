@@ -12,12 +12,6 @@ const User = ({ route }) => {
 
     const list = [
         {
-            "route": "/",
-            "name": "Accueil",
-            "icon": <Home />,
-            "description": "Retourner à l'accueil.",
-        },
-        {
             "route": "/commande",
             "name": "Vos Commande",
             "icon": <TicketCheck />,
@@ -51,7 +45,6 @@ const User = ({ route }) => {
 
     const components = {
         commande: Commande,
-        user: Commande,
         info: Info,
         adresse: Adress,
         security: Security,
@@ -60,7 +53,6 @@ const User = ({ route }) => {
 
     const title = {
         commande: "Vos Commandes",
-        user: "Vos Commandes",
         info: "Information personnelle",
         adresse: "Adresse",
         security: "Connexion et Sécurité",
@@ -69,7 +61,6 @@ const User = ({ route }) => {
 
     const descriptions = {
         commande: "Consulter l'historique de vos commandes.",
-        user: "Consulter l'historique de vos commandes.",
         info: "Modifier vos informations personelles.",
         adresse: "Modifier votre adresse de livraison.",
         security: "Modifier votre e-mail, mot de passe.",
@@ -86,8 +77,12 @@ const User = ({ route }) => {
 
     const Component = components[route];
 
+    if (!Component) {
+        return <div>Route not found</div>;
+    }
+
     return (
-        <div className='sm:pl-52 bg-gray-700 mt-0 h-screen text-white bg-gradient-to-tr from-gray-600 from-10% via-gray-700 via-50% to-gray-600 to-90%'>
+        <div className='sm:pl-52 mt-0 bg-black text-white h-screen w-screen fixed  bg-gradient-to-tr from-gray-600 from-10% via-gray-700 via-50% to-gray-600 to-90%'>
             <div>
                 <div className='sm:hidden absolute z-20 top-5 right-5 bg-gray-800 rounded-full shadow-md p-1 transition-all active:bg-white active:text-gray-800' onClick={() => setNavOpen(true)}>
                     <EllipsisVertical/>

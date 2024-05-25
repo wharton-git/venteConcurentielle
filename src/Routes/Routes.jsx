@@ -38,7 +38,7 @@ const RoutesX = () => {
                     <Route path={'/adresse'} element={<User route={'adresse'} />} />
                     <Route path={'/security'} element={<User route={'security'} />} />
                     <Route path={'/payment'} element={<User route={'payment'} />} />
-                    <Route path={'/user'} element={<User route={'user'} />} />
+                    <Route path={'/user'} element={<User route={'commande'} />} />
                     <Route path={'/login'} element={<Login setIsUserLoggedIn={setIsUserLoggedIn} />} />
                     <Route path={'/register'} element={<Register setIsUserLoggedIn={setIsUserLoggedIn} />} />
                 </Routes>

@@ -118,7 +118,7 @@
 }
 
 *::-webkit-scrollbar {
-  background-color: whitesmoke;
+  background-color: transparent;
   width: 10px;
 }
 

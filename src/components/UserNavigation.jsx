@@ -1,6 +1,6 @@
-import { UserRoundCog } from 'lucide-react'
+import { Home } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const UserNavigation = ({ navOpen, setNavOpen, list }) => {
 
@@ -14,6 +14,12 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
             setAnimNav(true)
         }
     })
+
+    useEffect(() => {
+        if (location.pathname === "/user") {
+            navigate("/commande")
+        }
+    }, [list])
 
     const closeNav = () => {
         setAnimNav(false)
@@ -55,7 +61,7 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
             )}
 
             <div className='hidden sm:block absolute text-white h-screen top-0 left-0 w-[30vw] max-w-52 py-4'>
-                <div className='border-r-2 border-white h-full'>
+                <div className='border-r-2 border-white h-full relative'>
                     <div className='mb-5'>
                         <div className='p-4 space-y-3'>
                             <div className='text-xl font-black'>
@@ -89,6 +95,25 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
                             ))
                         }
                     </div>
+
+                    <div className='absolute bottom-0 w-full px-3'>
+                        <div className='div cursor-pointer'>
+                            <div
+                                onClick={() => navigate("/")}
+                                className={`flex items-center p-2 bg-gray-800 rounded-lg  space-x-2 transition-all`}
+                            >
+                                <div>
+                                    <Home />
+                                </div>
+                                <div>
+                                    <div>
+                                        Revenir à l'accueil
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </>

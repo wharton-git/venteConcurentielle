@@ -68,7 +68,7 @@ const Commande = ({ title, desc }) => {
                     {desc}
                 </div>
 
-                <div className='max-h-[85vh] overflow-y-scroll px-10 my-10'>
+                <div className='max-h-[65vh] overflow-y-scroll px-10 my-10'>
                     <div className='overflow-clip rounded-lg space-y-1'>
                         {commandes.map((commande, index) => (
                             <div key={commande.id}>

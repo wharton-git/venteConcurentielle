@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import { BoxIcon, HomeIcon, LogInIcon, User2Icon } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { BoxIcon, HomeIcon, LogInIcon, ShoppingCart, User2Icon } from 'lucide-react';
 
 import url from './../Api/http'
 import Cookie from 'js-cookie';
@@ -11,6 +11,8 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
 
     const [userInfo, setUserInfo] = useState([])
     const [infoCheck, setInfoCheck] = useState(false)
+
+    const location = useLocation()
 
     useEffect(() => {
         getUserInfo();
@@ -47,11 +49,15 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
             "icon": <BoxIcon />,
         },
         {
+            "route": "/cart",
+            "name": "Panier",
+            "icon": <ShoppingCart />,
+        },
+        {
             "route": "/user",
             "name": "Mon Compte",
             "icon": <User2Icon />,
         },
-
     ]
 
     return (
@@ -61,7 +67,7 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
                     sideElement.map((list, index) => (
                         <li className='' key={index}>
 
-                            <Link to={list.route} className="flex items-center hover:bg-slate-50 hover:text-black hover:scale-110 w-full py-3 transition-all">
+                            <Link to={list.route} className={`flex items-center hover:bg-slate-50 hover:text-black hover:scale-110 w-full py-3 transition-all ${location.pathname === list.route && `bg-red-600`}`}>
                                 <div className='mx-3'>
                                     {list.icon}
                                 </div>
@@ -75,26 +81,28 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
 
             </ul>
             {infoCheck && (
-                <div className='absolute bottom-10 mb-3'>
-                    <div className=' text-white space-x-3 ml-3 flex items-center'>
-                        <div className='border p-2.5 rounded-md bg-gray-700'>
-                            <User2Icon />
-                        </div>
-                        <div className=''>
-                            <div className='text-[1.2rem]'>
-                                {userInfo.name}
+                <Link to='/user' className='cursor-pointer'>
+                    <div className='absolute bottom-10 mb-3'>
+                        <div className=' text-white space-x-3 ml-3 flex items-center'>
+                            <div className='border p-2.5 rounded-md bg-gray-700'>
+                                <User2Icon />
                             </div>
-                            <div className='text-[.7rem]'>
-                                {userInfo.email}
+                            <div className=''>
+                                <div className='text-[1.2rem]'>
+                                    {userInfo.name}
+                                </div>
+                                <div className='text-[.7rem]'>
+                                    {userInfo.email}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </Link>
             )}
             <div className="absolute bottom-0  w-60 h-10 grid items-center border-t-2">
                 {isUserLoggedIn ? (
                     <div className=''>
-                        <Logout  />
+                        <Logout />
                     </div>
                 ) : (
                     <div className='text-white '>
