@@ -34,7 +34,6 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
                 setInfoCheck(false)
             }
         }
-
     }
 
     const sideElement = [
