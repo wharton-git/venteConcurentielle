@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 
 
 const Login = ({ setIsUserLoggedIn }) => {
-    const [email, setEmail] = useState('');
+    const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate()
 
@@ -30,7 +30,7 @@ const Login = ({ setIsUserLoggedIn }) => {
 
     const handleLogin = () => {
         url.post('/auth/login', {
-            email: email,
+            login: login,
             password: password
         })
             .then(authResponse => {
@@ -89,7 +89,7 @@ const Login = ({ setIsUserLoggedIn }) => {
                     <div className="rounded-md shadow-sm -space-y-px">
                         <div>
                             <label htmlFor="email" className="sr-only">Adresse email</label>
-                            <input id="email" name="email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)} className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Adresse email" />
+                            <input id="login" name="login" type="text" autoComplete="text" required value={login} onChange={e => setLogin(e.target.value)} className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Adresse email" />
                         </div>
                         <div>
                             <label htmlFor="password" className="sr-only">Mot de passe</label>

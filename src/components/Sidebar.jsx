@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
-import { BoxIcon, HomeIcon, LogInIcon, LogOut, ShoppingCart, User2Icon } from 'lucide-react';
+import { BoxIcon, HomeIcon, LogIn, LogInIcon, LogOut, ShoppingCart, User2Icon } from 'lucide-react';
 
 import url from './../Api/http'
 import Cookie from 'js-cookie';
@@ -42,21 +42,33 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
             "route": "/",
             "name": "Accueil",
             "icon": <HomeIcon />,
+            "route_alt": "/",
+            "name_alt": "Accueil",
+            "icon_alt": <HomeIcon />,
         },
         {
             "route": "/view",
             "name": "Produits",
             "icon": <BoxIcon />,
+            "route_alt": "/view",
+            "name_alt": "Produits",
+            "icon_alt": <BoxIcon />,
         },
         {
             "route": "/cart",
             "name": "Panier",
             "icon": <ShoppingCart />,
+            "route_alt": "/cart",
+            "name_alt": "Panier",
+            "icon_alt": <ShoppingCart />,
         },
         {
             "route": "/user",
             "name": "Mon Compte",
             "icon": <User2Icon />,
+            "route_alt": "/login",
+            "name_alt": "Se Connecter",
+            "icon_alt": <LogIn />,
         },
     ]
 
@@ -66,15 +78,29 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
                 {
                     sideElement.map((list, index) => (
                         <li className='' key={index}>
+                            {
+                                isUserLoggedIn ? (
 
-                            <Link to={list.route} className={`flex items-center hover:bg-slate-50 hover:text-black hover:scale-110 w-full py-3 transition-all ${location.pathname === list.route && `bg-slate-50 text-black`} active:scale-100`}>
-                                <div className='mx-3'>
-                                    {list.icon}
-                                </div>
-                                <div>
-                                    {list.name}
-                                </div>
-                            </Link>
+                                    <Link to={list.route} className={`flex items-center hover:bg-slate-50 hover:text-black hover:scale-110 w-full py-3 transition-all ${location.pathname === list.route && `bg-slate-50 text-black`} active:scale-100`}>
+                                        <div className='mx-3'>
+                                            {list.icon}
+                                        </div>
+                                        <div>
+                                            {list.name}
+                                        </div>
+                                    </Link>
+                                ) : (
+
+                                    <Link to={list.route_alt} className={`flex items-center hover:bg-slate-50 hover:text-black hover:scale-110 w-full py-3 transition-all ${location.pathname === list.route && `bg-slate-50 text-black`} active:scale-100`}>
+                                        <div className='mx-3'>
+                                            {list.icon_alt}
+                                        </div>
+                                        <div>
+                                            {list.name_alt}
+                                        </div>
+                                    </Link>
+                                )
+                            }
                         </li>
                     ))
                 }
@@ -102,7 +128,7 @@ const Sidebar = ({ setIsUserLoggedIn, isUserLoggedIn }) => {
             <div className="absolute bottom-0 w-60 h-10 grid items-center border-t-2 active:scale-95 transition-all">
                 {isUserLoggedIn ? (
                     <div className='text-white'>
-                        <Logout icon={<LogOut/>} text={"Déconnexion"}/>
+                        <Logout icon={<LogOut />} text={"Déconnexion"} />
                     </div>
                 ) : (
                     <div className='text-white '>
