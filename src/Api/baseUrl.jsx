@@ -1,3 +1,3 @@
-const baseUrl = "http://127.0.0.1:8000/";
+const baseUrl = import.meta.env.VITE_BACK_URL;
 
 export default baseUrl;
