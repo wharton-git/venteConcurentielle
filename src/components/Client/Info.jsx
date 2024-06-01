@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Cookie from 'js-cookie';
 import url from './../../Api/http';
 import { Edit } from 'lucide-react';
+import Swal from 'sweetalert2'; // SweetAlert importé
 
 const Info = ({ title, desc }) => {
     const [userInfo, setUserInfo] = useState({
@@ -30,6 +31,11 @@ const Info = ({ title, desc }) => {
                 console.log(info.data);
             } catch (error) {
                 console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: 'Impossible de récupérer les informations de l\'utilisateur.',
+                });
             }
         }
     };
@@ -53,19 +59,24 @@ const Info = ({ title, desc }) => {
                 });
                 setEditable(false);
                 console.log('User updated successfully:', response.data);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Succès',
+                    text: 'Les informations de l\'utilisateur ont été mises à jour avec succès.',
+                });
             } catch (error) {
                 console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: 'Impossible de mettre à jour les informations de l\'utilisateur.',
+                });
             }
         }
     };
 
     const handleCancel = () => {
         setEditable(false);
-        setUserInfo({
-            name: '',
-            email: '',
-            numero_mobile: '',
-        });
         getUserInfo(); // Reset to original data
     }
 
