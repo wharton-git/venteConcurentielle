@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import iconVisa from "./../../assets/images/Visa Payment Card.svg";
 import iconMasterCard from "./../../assets/images/icons8-mastercard.svg";
-import { CreditCard, Edit } from 'lucide-react';
+import { CreditCard, Edit, Trash2 } from 'lucide-react';
 import Swal from 'sweetalert2';
 
 import Cookie from 'js-cookie';
 import url from '../../Api/http';
 
 const Payement = ({ title, desc }) => {
-    const [cardIsOn, setCardIsOn] = useState(true);
+    const [cardIsOn, setCardIsOn] = useState(false);
     const [cardNumber, setCardNumber] = useState('');
+    const [numero_mobile, set_numero_mobile] = useState({
+        1: '',
+        2: '',
+    });
     const [cardType, setCardType] = useState('');
     const [divFocus, setDivFocus] = useState(false);
     const [icon, setIcon] = useState(<CreditCard />);
@@ -17,10 +21,15 @@ const Payement = ({ title, desc }) => {
     const [codeCVV, setCodeCVV] = useState('');
     const [editable, setEditable] = useState(false);
     const [userInfo, setUserInfo] = useState({});
+    const [num_alt_Exist, set_num_alt_Exist] = useState(false);
 
     useEffect(() => {
         getUserInfo();
     }, []);
+
+    useEffect(() => {
+        verifyNum2(userInfo);
+    }, [userInfo]);
 
     const getUserInfo = async () => {
         const jwt = Cookie.get('jwt');
@@ -36,6 +45,10 @@ const Payement = ({ title, desc }) => {
                 const user = response.data;
                 setUserInfo(user);
                 setCardNumber(user.carte || '');
+                set_numero_mobile({
+                    1: user.numero_mobile || '',
+                    2: user.numero_mobile_2 || ''
+                });
                 handleCardNumberChange({ target: { value: user.carte || '' } });
                 console.log(response.data);
 
@@ -48,6 +61,10 @@ const Payement = ({ title, desc }) => {
                 });
             }
         }
+    };
+
+    const verifyNum2 = (info) => {
+        set_num_alt_Exist(info.numero_mobile_2 != null);
     };
 
     const removeSpaces = (str) => {
@@ -75,7 +92,7 @@ const Payement = ({ title, desc }) => {
     };
 
     const handleCodeCVVChange = (e) => {
-        const input = e.target.value.replace(/\D/g, ''); // Supprime tous les caractères non numériques
+        const input = e.target.value.replace(/\D/g, '');
         if (input.length <= 3) {
             setCodeCVV(input);
         }
@@ -83,48 +100,82 @@ const Payement = ({ title, desc }) => {
 
     const handleExpdateChange = (e) => {
         let input = e.target.value.replace(/\D/g, '');
-
         if (input.length > 2) {
             input = input.substring(0, 2) + '/' + input.substring(2);
         }
-
         setExpDate(input);
+    };
+
+    const handleChangeNumero = (e, index) => {
+        const value = e.target.value.replace(/\D/g, '');
+        set_numero_mobile(prevState => ({
+            ...prevState,
+            [index]: value
+        }));
     };
 
     const handleSave = async () => {
         const jwt = Cookie.get('jwt');
 
-        if (expDate === null || expDate === undefined || expDate === "") {
-            Swal.fire({
-                icon: 'error',
-                title: 'Erreur',
-                text: 'Veuillez renseigner une date d\'expiration valide.',
+        if (numero_mobile[1] === '' && numero_mobile[2] !== '') {
+            set_numero_mobile({
+                1: numero_mobile[2],
+                2: ''
             });
-            return;
         }
 
-        if (codeCVV === null || codeCVV === undefined || codeCVV === "") {
-            Swal.fire({
-                icon: 'error',
-                title: 'Erreur',
-                text: 'Veuillez renseigner un code CVV valide.',
-            });
-            return;
+        if (!num_alt_Exist) {
+            numero_mobile[2] = null;
+        } else if (!num_alt_Exist && numero_mobile[1] == "") {
+            numero_mobile[1] = null;
+            numero_mobile[2] = null;
         }
 
         const carteNum = removeSpaces(cardNumber);
 
         if (jwt) {
             try {
-                const response = await url.post(`/userCard/${userInfo.id}`,
-                    {
-                        carte: carteNum
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${jwt}`,
-                        }
-                    });
+                let response;
+                if (cardIsOn) {
+
+                    if (expDate === null || expDate === undefined || expDate === "") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur',
+                            text: 'Veuillez renseigner une date d\'expiration valide.',
+                        });
+                        return;
+                    }
+
+                    if (codeCVV === null || codeCVV === undefined || codeCVV === "") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur',
+                            text: 'Veuillez renseigner un code CVV valide.',
+                        });
+                        return;
+                    }
+
+                    response = await url.post(`/userCard/${userInfo.id}`,
+                        { carte: carteNum },
+                        {
+                            headers: {
+                                Authorization: `Bearer ${jwt}`,
+                            }
+                        });
+                } else {
+                    response = await url.post(`/userPhone/${userInfo.id}`,
+                        {
+                            numero_mobile: numero_mobile[1],
+                            numero_mobile_2: numero_mobile[2]
+                        },
+                        {
+                            headers: {
+                                Authorization: `Bearer ${jwt}`,
+                            }
+                        });
+                }
+
                 setEditable(false);
                 console.log('Mise à jour réussie:', response.data);
                 Swal.fire({
@@ -135,7 +186,7 @@ const Payement = ({ title, desc }) => {
 
                 setCodeCVV(null);
                 setExpDate(null);
-                
+
             } catch (error) {
                 console.error(error);
                 Swal.fire({
@@ -144,12 +195,27 @@ const Payement = ({ title, desc }) => {
                     text: 'Impossible de mettre à jour les informations de l\'utilisateur.',
                 });
             }
-            getUserInfo()
+            getUserInfo();
+        }
+    };
+
+    const handleDeleteNum = (index) => {
+        if (index === 1 && numero_mobile[2]) {
+            set_numero_mobile({
+                1: numero_mobile[2],
+                2: ''
+            });
+        } else {
+            set_numero_mobile({
+                ...numero_mobile,
+                [index]: ''
+            });
         }
     };
 
     const handleCancel = () => {
         setEditable(false);
+        set_num_alt_Exist(false);
         getUserInfo();
         setCodeCVV(null);
         setExpDate(null);
@@ -194,7 +260,7 @@ const Payement = ({ title, desc }) => {
                                 {desc}
                             </div>
                         </div>
-                        <div className=' p-4'>
+                        <div className='p-4'>
                             <div>
                                 <label className='block text-white'>Numéro de la carte</label>
                                 <div className={`flex items-center mt-2 bg-gray-800 space-x-2 overflow-clip ${divFocus && `mb-0 outline outline-1 rounded-md`}`}>
@@ -218,40 +284,36 @@ const Payement = ({ title, desc }) => {
                                 </div>
                             </div>
 
-                            {
-                                editable && (
-                                    <div>
-                                        <div className='text-yellow-500 mt-4'>
-                                            ** Nous n'enregistrerons pas les informations suivantes, ils servent juste à verifier votre Authenticité
-                                        </div>
-                                        <div className=''>
-                                            <label className='block text-white'>Date d'expiration</label>
-                                            <input
-                                                type='text'
-                                                placeholder='MM/AA'
-                                                maxLength={5}
-                                                onChange={handleExpdateChange}
-                                                value={expDate}
-                                                className='w-full p-2 mt-2 text-black disabled:bg-gray-800 disabled:text-white focus:outline focus:outline-1 focus:outline-white focus:rounded-md'
-                                            />
-                                        </div>
-                                        <div className='mt-4'>
-                                            <label className='block text-white'>Code de sécurité</label>
-                                            <input
-                                                type='text'
-                                                placeholder='CVV'
-                                                maxLength={3}
-                                                onChange={handleCodeCVVChange}
-                                                value={codeCVV}
-                                                className='w-full p-2 mt-2 text-black disabled:bg-gray-800 disabled:text-white focus:outline focus:outline-1 focus:outline-white focus:rounded-md'
-                                            />
-                                        </div>
+                            {editable && (
+                                <div>
+                                    <div className='text-yellow-500 mt-4'>
+                                        ** Nous n'enregistrerons pas les informations suivantes, ils servent juste à verifier votre Authenticité
                                     </div>
-                                )
-                            }
-
+                                    <div className=''>
+                                        <label className='block text-white'>Date d'expiration</label>
+                                        <input
+                                            type='text'
+                                            placeholder='MM/AA'
+                                            maxLength={5}
+                                            onChange={handleExpdateChange}
+                                            value={expDate}
+                                            className='w-full p-2 mt-2 text-black disabled:bg-gray-800 disabled:text-white focus:outline focus:outline-1 focus:outline-white focus:rounded-md'
+                                        />
+                                    </div>
+                                    <div className='mt-4'>
+                                        <label className='block text-white'>Code de sécurité</label>
+                                        <input
+                                            type='text'
+                                            placeholder='CVV'
+                                            maxLength={3}
+                                            onChange={handleCodeCVVChange}
+                                            value={codeCVV}
+                                            className='w-full p-2 mt-2 text-black disabled:bg-gray-800 disabled:text-white focus:outline focus:outline-1 focus:outline-white focus:rounded-md'
+                                        />
+                                    </div>
+                                </div>
+                            )}
                         </div>
-
                     </div>
                 ) : (
                     <div>
@@ -262,6 +324,68 @@ const Payement = ({ title, desc }) => {
                             <div className='hidden sm:block'>
                                 {desc}
                             </div>
+                        </div>
+                        <div className='mx-8'>
+                            <div className='flex items-center space-x-2'>
+                                <div className='w-full'>
+                                    <input
+                                        type="text"
+                                        name="numero_mobile"
+                                        className='py-2 px-6 font-bold w-full rounded-lg disabled:bg-gray-800 disabled:text-white text-black my-2 '
+                                        value={numero_mobile[1]}
+                                        onChange={(e) => handleChangeNumero(e, 1)}
+                                        disabled={!editable}
+                                    />
+                                </div>
+                                {
+                                    editable && (
+                                        <div>
+                                            <div onClick={() => handleDeleteNum(1)} className='bg-red-300 p-2 rounded-md transition-all'>
+                                                <Trash2 />
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            </div>
+                            {num_alt_Exist && (
+                                <div className='flex items-center space-x-2'>
+                                    <div className='w-full'>
+                                        <input
+                                            type="text"
+                                            name="numero_mobile_2"
+                                            className='py-2 px-6 font-bold w-full rounded-lg disabled:bg-gray-800 disabled:text-white text-black my-2 '
+                                            value={numero_mobile[2]}
+                                            onChange={(e) => handleChangeNumero(e, 2)}
+                                            disabled={!editable}
+                                        />
+                                    </div>
+                                    {
+                                        editable && (
+                                            <div>
+                                                <div onClick={() => handleDeleteNum(2)} className='bg-red-300 p-2 rounded-md transition-all'>
+                                                    <Trash2 />
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                </div>
+                            )}
+                            {!editable && (
+                                <div>
+                                    <div>
+                                        {!num_alt_Exist && (
+                                            <button className='underline text-gray-400'
+                                                onClick={() => {
+                                                    set_num_alt_Exist(true);
+                                                    setEditable(true)
+                                                }}
+                                            >
+                                                Ajouter un autre numero
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}
@@ -277,19 +401,17 @@ const Payement = ({ title, desc }) => {
                     </div>
                 )}
 
-                {
-                    !editable && (
-                        <div>
-                            <button
-                                onClick={() => setEditable(true)}
-                                className='flex px-3 py-2 bg-gray-700 rounded-lg space-x-2'
-                            >
-                                <Edit />
-                                <span>{userInfo.carte ? 'Modifier' : 'Ajouter'}</span>
-                            </button>
-                        </div>
-                    )
-                }
+                {!editable && (
+                    <div>
+                        <button
+                            onClick={() => setEditable(true)}
+                            className='flex px-3 py-2 bg-gray-700 rounded-lg space-x-2'
+                        >
+                            <Edit />
+                            <span>{userInfo.carte ? 'Modifier' : 'Ajouter'}</span>
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );
