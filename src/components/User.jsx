@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CreditCard, EllipsisVertical, Home, LockKeyhole, MapPin, TicketCheck, User2 } from 'lucide-react'
+import { Coins, CreditCard, EllipsisVertical, Home, LockKeyhole, MapPin, TicketCheck, User2 } from 'lucide-react'
 
 import UserNav from './UserNavigation'
 import Commande from './Client/Commande'
@@ -7,6 +7,7 @@ import Info from './Client/Info'
 import Adress from './Client/Adresse'
 import Security from './Client/Security'
 import Payment from './Client/Payment'
+import Solde from './Client/Solde'
 
 const User = ({ route }) => {
 
@@ -36,6 +37,12 @@ const User = ({ route }) => {
             "description": "Modifier votre adresse de livraison.",
         },
         {
+            "route": "/solde",
+            "name": "Solde",
+            "icon": <Coins />,
+            "description": "Modifier vos informations de payement.",
+        },
+        {
             "route": "/payment",
             "name": "Payement",
             "icon": <CreditCard />,
@@ -48,6 +55,7 @@ const User = ({ route }) => {
         info: Info,
         adresse: Adress,
         security: Security,
+        solde : Solde,
         payment: Payment,
     };
 
@@ -56,6 +64,7 @@ const User = ({ route }) => {
         info: "Information personnelle",
         adresse: "Adresse",
         security: "Connexion et Sécurité",
+        solde: "Solde",
         payment: "Payement",
     }
 
@@ -64,6 +73,7 @@ const User = ({ route }) => {
         info: "Modifier vos informations personelles.",
         adresse: "Modifier votre adresse de livraison.",
         security: "Modifier votre nom d'utilisateur, mot de passe.",
+        solde: "Déposer ou Retirer votre argent.",
         payment: "Modifier vos informations de payement.",
     };
 
