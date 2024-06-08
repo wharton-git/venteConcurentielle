@@ -148,46 +148,59 @@ const Cart = ({ setItems, items, removeFromCart, updateQuantity }) => {
 
     const sendCommandeRequests = async (id, date, prix) => {
         try {
-            const response = await url.post('/commande', {
-                user_id: id,
-                date_commande: date,
-                prix_commande: prix
-            });
+            
+            const soldeMoins = await url.post(`/subSolde/${id}`, { subSolde: prix })
 
-            const commandeId = response.data.id;
+            try {
+                const response = await url.post('/commande', {
+                    user_id: id,
+                    date_commande: date,
+                    prix_commande: prix
+                });
+    
+                const commandeId = response.data.id;
+    
+                const detailsCommande = items.map(item => ({
+                    id_com: commandeId,
+                    article: item.designation,
+                    qte: item.quantity,
+                    prix_article: item.prix * item.quantity,
+                }));
+    
+                const response2 = await url.post('/detailCommande', detailsCommande);
+    
+                console.log(response2.data);
+                console.log('Commande passée avec succès');
+    
+                localStorage.clear();
+                setItems([]);
+    
+                Swal.fire({
+                    title: 'Achat Effectué!',
+                    text: 'Commande passée avec succès',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate('/');
+                    }
+                });
+            } catch (err) {
+                console.log(err);
+                Swal.fire({
+                    title: 'Erreur',
+                    text: 'Erreur de validation du commande',
+                    icon: 'error',
+                })
+            }
 
-            const detailsCommande = items.map(item => ({
-                id_com: commandeId,
-                article: item.designation,
-                qte: item.quantity,
-                prix_article: item.prix * item.quantity,
-            }));
-
-            const response2 = await url.post('/detailCommande', detailsCommande);
-
-            console.log(response2.data);
-            console.log('Commande passée avec succès');
-
-            localStorage.clear();
-            setItems([]);
-
-            Swal.fire({
-                title: 'Achat Effectué!',
-                text: 'Commande passée avec succès',
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    navigate('/');
-                }
-            });
-        } catch (err) {
-            console.log(err);
-            Swal.fire({
-                title: 'Erreur',
-                text: 'Erreur de validation du commande',
-                icon: 'error',
-            })
+        } catch (error) {
+            console.log(error);
+                Swal.fire({
+                    title: 'Erreur',
+                    text: 'Une Erreur est survenue, veuillez réessayer !',
+                    icon: 'error',
+                })
         }
     };
 
