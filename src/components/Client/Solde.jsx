@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import url from './../../Api/http'
 import Cookie from 'js-cookie'
 import Swal from 'sweetalert2'
+import { CircleArrowLeft, CircleDollarSign } from 'lucide-react'
 
 const Solde = ({ title, desc }) => {
 
@@ -10,7 +11,7 @@ const Solde = ({ title, desc }) => {
     const [subSolde, setSubSolde] = useState(0);
     const [userInfo, setUserInfo] = useState("")
     const [soldeSep, setSoldeSep] = useState({ entier: '', decimal: '' });
-    const [isWithdraw, setIsWithdraw] = useState(true);
+    const [isWithdraw, setIsWithdraw] = useState(false);
     const [depositSelected, setDepositSelected] = useState(null);
     const [withdrawSelected, setWithdrawSelected] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState({
@@ -165,8 +166,9 @@ const Solde = ({ title, desc }) => {
                     {desc}
                 </div>
             </div>
-            <div className='rounded-md bg-gray-800'>
-                <div className='text-center py-12'>
+
+            <div className='rounded-md mx-5 my-4 overflow-clip bg-gray-900'>
+                <div className='text-center py-6'>
                     <div className='relative'>
                         <span className='text-6xl'>
                             {soldeSep.entier}
@@ -179,150 +181,186 @@ const Solde = ({ title, desc }) => {
                         </span>
                     </div>
                 </div>
-                <div className='w-full flex justify-evenly'>
-                    <div
-                        onClick={() => setIsWithdraw(false)}
-                        className={`w-full text-center p-2 active:bg-gray-600 cursor-pointer ${!isWithdraw ? 'bg-gray-800' : 'bg-gray-700'}`}
-                    >
-                        Deposer
-                    </div>
-                    <div
-                        onClick={() => setIsWithdraw(true)}
-                        className={`w-full text-center p-2 active:bg-gray-600 cursor-pointer ${isWithdraw ? 'bg-gray-800' : 'bg-gray-700'}`}
-                    >
-                        Retirer
-                    </div>
-                </div>
-                <div>
-                    {!isWithdraw ? (
-                        <div>
-                            <div>
-                                <input
-                                    type="text"
-                                    name="amount"
-                                    id="amount"
-                                    className='text-black'
-                                    placeholder='Entre la Somme à déposer'
-                                    value={addSolde}
-                                    onChange={handleChangeAddSolde}
-                                />
-                            </div>
-                            <div>
-                                <div>
-                                    ** La liste de vos methodes de payement s'affiche ici. <br />
-                                    Veuillez en selectionner une pour le dépôt.
-                                </div>
-                                <div>
-                                    <div>
-                                        <div>Carte de Crédit / Débit</div>
-                                        {
-                                            paymentMethod.card && (
-                                                <div
-                                                    className={`bg-blue-500 px-4 py-2 rounded-md mx-3 my-1 ${depositSelected === 1 && `bg-red-500`}`}
-                                                    onClick={() => selectDeposit(1)}>
-                                                    {paymentMethod.card}
-                                                </div>
-                                            )
-                                        }
-                                    </div>
-                                    <div>
-                                        <div>Mobile Money</div>
-                                        {
-                                            paymentMethod.mobile && (
-                                                <div
-                                                    className={`bg-blue-500 px-4 py-2 rounded-md mx-3 my-1 ${depositSelected === 2 && `bg-red-500`}`}
-                                                    onClick={() => selectDeposit(2)}>
-                                                    {paymentMethod.mobile}
-                                                </div>
-                                            )
-                                        }
-                                        {
-                                            paymentMethod.mobile_alt && (
-                                                <div
-                                                    className={`bg-blue-500 px-4 py-2 rounded-md mx-3 my-1 ${depositSelected === 3 && `bg-red-500`}`}
-                                                    onClick={() => selectDeposit(3)}
-                                                >
-                                                    {paymentMethod.mobile_alt}
-                                                </div>
-                                            )
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <button
-                                    className=''
-                                    onClick={() => deposit()}
-                                >
-                                    Déposer
-                                </button>
-                            </div>
+                <div className='bg-gray-800 p-2'>
+                    <div className='w-full flex justify-evenly'>
+                        <div
+                            onClick={() => setIsWithdraw(false)}
+                            className={`w-full text-center p-2 active:bg-gray-600 cursor-pointer ${!isWithdraw && 'border-b-2'} transition-all`}
+                        >
+                            Deposer
                         </div>
-                    ) : (
-                        <div>
-                            <div>
-                                <input
-                                    type="text"
-                                    name="amount"
-                                    id="amount"
-                                    className='text-black'
-                                    placeholder='Entre la Somme à déposer'
-                                    value={subSolde}
-                                    onChange={handleChangeSubSolde}
-                                />
-                            </div>
-                            <div>
-                                <div>
-                                    ** La liste de vos methodes de payement s'affiche ici. <br />
-                                    Veuillez en selectionner une pour le Retrait.
-                                </div>
-                                <div>
-                                    <div>
-                                        <div>Carte de Crédit / Débit</div>
-                                        {
-                                            paymentMethod.card && (
-                                                <div
-                                                    className={`bg-blue-500 px-4 py-2 rounded-md mx-3 my-1 ${withdrawSelected === 1 && `bg-red-500`}`}
-                                                    onClick={() => selectWithdraw(1)}>
-                                                    {paymentMethod.card}
-                                                </div>
-                                            )
-                                        }
-                                    </div>
-                                    <div>
-                                        <div>Mobile Money</div>
-                                        {
-                                            paymentMethod.mobile && (
-                                                <div
-                                                    className={`bg-blue-500 px-4 py-2 rounded-md mx-3 my-1 ${withdrawSelected === 2 && `bg-red-500`}`}
-                                                    onClick={() => selectWithdraw(2)}>
-                                                    {paymentMethod.mobile}
-                                                </div>
-                                            )
-                                        }
-                                        {
-                                            paymentMethod.mobile_alt && (
-                                                <div
-                                                    className={`bg-blue-500 px-4 py-2 rounded-md mx-3 my-1 ${withdrawSelected === 3 && `bg-red-500`}`}
-                                                    onClick={() => selectWithdraw(3)}
-                                                >
-                                                    {paymentMethod.mobile_alt}
-                                                </div>
-                                            )
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <button
-                                    className=''
-                                    onClick={() => withdraw()}
-                                >
-                                    Retirer
-                                </button>
-                            </div>
+                        <div
+                            onClick={() => setIsWithdraw(true)}
+                            className={`w-full text-center p-2 active:bg-gray-600 cursor-pointer ${isWithdraw && 'border-b-2'} transition-all`}
+                        >
+                            Retirer
                         </div>
-                    )}
+                    </div>
+                    <div>
+                        {!isWithdraw ? (
+                            <div>
+                                <div className='w-3/5 mx-auto'>
+                                    <div>Entrer le montant à deposer : ( en $ )</div>
+                                    <input
+                                        type="text"
+                                        name="amount"
+                                        id="amount"
+                                        className='py-2 px-6 font-bold w-full shadow-gray-700 text-black shadow-inner rounded-lg disabled:bg-gray-800 my-2'
+                                        placeholder='Entre la Somme à déposer'
+                                        value={addSolde}
+                                        onChange={handleChangeAddSolde}
+                                    />
+                                </div>
+                                <div>
+                                    <div className='text-xs text-yellow-300 text-center'>
+                                        ** La liste de vos methodes de payement s'affiche ici. <br />
+                                        Veuillez en selectionner une pour le <u>dépôt</u>.
+                                    </div>
+                                    <div className='mx-auto px-5'>
+                                        <div>
+                                            <div>Carte de Crédit / Débit</div>
+                                            {
+                                                paymentMethod.card && (
+                                                    <div className='flex h-7 rounded-lg overflow-clip w-full'>
+                                                        <div className={`h-full w-3 ${depositSelected === 1 ? `bg-gray-500` : `bg-gray-900`}`}>
+                                                        </div>
+                                                        <div
+                                                            className={`py-1 px-3 bg-gray-900 w-full`}
+                                                            onClick={() => selectDeposit(1)}
+                                                        >
+                                                            {paymentMethod.card}
+                                                        </div>
+                                                    </div>)
+                                            }
+                                        </div>
+                                        <div>
+                                            <div>Mobile Money</div>
+                                            {
+                                                paymentMethod.mobile && (
+                                                    <div className='flex h-7 rounded-lg overflow-clip w-full'>
+                                                        <div className={`h-full w-3 ${depositSelected === 2 ? `bg-gray-500` : `bg-gray-900`}`}>
+                                                        </div>
+                                                        <div
+                                                            className={`py-1 px-3 bg-gray-900 w-full`}
+                                                            onClick={() => selectDeposit(2)}
+                                                        >
+                                                            {paymentMethod.mobile}
+                                                        </div>
+                                                    </div>)
+                                            }
+                                            {
+                                                paymentMethod.mobile_alt && (
+                                                    <div className='flex h-7 rounded-lg overflow-clip w-full'>
+                                                        <div className={`h-full w-3 ${depositSelected === 3 ? `bg-gray-500` : `bg-gray-900`}`}>
+                                                        </div>
+                                                        <div
+                                                            className={`py-1 px-3 bg-gray-900 w-full `}
+                                                            onClick={() => selectDeposit(3)}
+                                                        >
+                                                            {paymentMethod.mobile_alt}
+                                                        </div>
+                                                    </div>)
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button
+                                        className='flex items-center active:scale-95 active:bg-gray-950 px-3 py-2 m-4 bg-gray-900 rounded-lg space-x-2'
+                                        onClick={() => deposit()}
+                                    >
+                                        <div>
+                                            <CircleDollarSign />
+                                        </div>
+                                        <div>
+                                            Déposer
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <div>
+                                <div className='w-3/5 mx-auto'>
+                                    <div>Entrer le montant à retirer : ( en $ )</div>
+                                    <input
+                                        type="text"
+                                        name="amount"
+                                        id="amount"
+                                        className='py-2 px-6 font-bold w-full shadow-gray-700 text-black shadow-inner rounded-lg disabled:bg-gray-800 my-2'
+                                        placeholder='Entre la Somme à retirer'
+                                        value={subSolde}
+                                        onChange={handleChangeSubSolde}
+                                    />
+                                </div>
+                                <div>
+                                    <div className='text-xs text-yellow-300 text-center'>
+                                        ** La liste de vos methodes de payement s'affiche ici. <br />
+                                        Veuillez en selectionner une pour le <u>Retrait</u>.
+                                    </div>
+                                    <div className='mx-auto px-5'>
+                                        <div>
+                                            <div>Carte de Crédit / Débit</div>
+                                            {
+                                                paymentMethod.card && (
+                                                    <div className='flex h-7 rounded-lg overflow-clip w-full'>
+                                                        <div className={`h-full w-3 ${withdrawSelected === 1 ? `bg-gray-500` : `bg-gray-900`}`}>
+                                                        </div>
+                                                        <div
+                                                            className={`py-1 px-3 bg-gray-900 w-full`}
+                                                            onClick={() => selectWithdraw(1)}
+                                                        >
+                                                            {paymentMethod.card}
+                                                        </div>
+                                                    </div>)
+                                            }
+                                        </div>
+                                        <div>
+                                            <div>Mobile Money</div>
+                                            {
+                                                paymentMethod.mobile && (
+                                                    <div className='flex h-7 rounded-lg overflow-clip w-full'>
+                                                        <div className={`h-full w-3 ${withdrawSelected === 2 ? `bg-gray-500` : `bg-gray-900`}`}>
+                                                        </div>
+                                                        <div
+                                                            className={`py-1 px-3 bg-gray-900 w-full`}
+                                                            onClick={() => selectWithdraw(2)}
+                                                        >
+                                                            {paymentMethod.mobile}
+                                                        </div>
+                                                    </div>)
+                                            }
+                                            {
+                                                paymentMethod.mobile_alt && (
+                                                    <div className='flex h-7 rounded-lg overflow-clip w-full'>
+                                                        <div className={`h-full w-3 ${withdrawSelected === 3 ? `bg-gray-500` : `bg-gray-900`}`}>
+                                                        </div>
+                                                        <div
+                                                            className={`py-1 px-3 bg-gray-900 w-full `}
+                                                            onClick={() => selectWithdraw(3)}
+                                                        >
+                                                            {paymentMethod.mobile_alt}
+                                                        </div>
+                                                    </div>)
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button
+                                        className='flex items-center active:scale-95 active:bg-gray-950 px-3 py-2 m-4 bg-gray-900 rounded-lg space-x-2'
+                                        onClick={() => withdraw()}
+                                    >
+                                        <div>
+                                            <CircleArrowLeft />
+                                        </div>
+                                        <div>
+                                            Retirer
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
