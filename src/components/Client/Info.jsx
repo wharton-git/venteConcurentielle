@@ -91,7 +91,7 @@ const Info = ({ title, desc }) => {
                 </div>
             </div>
 
-            <div className='bg-gray-900 w-3/4 mx-auto rounded-lg py-4 shadow-lg'>
+            <div className='bg-gray-900 w-3/4 mx-auto my-4 rounded-lg py-4 shadow-lg'>
                 <form className={`mx-4 text-base ${editable && `text-black`}`}>
                     <div>
                         <div className='text-white'>
@@ -101,7 +101,7 @@ const Info = ({ title, desc }) => {
                             <input
                                 type="text"
                                 name="name"
-                                className='py-2 px-6 font-bold w-full rounded-lg disabled:bg-gray-800 shadow-lg my-2'
+                                className='py-2 px-6 font-bold w-full shadow-gray-950 shadow-inner rounded-lg disabled:bg-gray-800 my-2'
                                 value={userInfo.name}
                                 disabled={!editable}
                                 onChange={handleChange}
@@ -116,7 +116,7 @@ const Info = ({ title, desc }) => {
                             <input
                                 type="email"
                                 name="email"
-                                className='py-2 px-6 font-bold w-full rounded-lg disabled:bg-gray-800 shadow-lg my-2'
+                                className='py-2 px-6 font-bold w-full shadow-gray-950 shadow-inner rounded-lg disabled:bg-gray-800 my-2'
                                 value={userInfo.email}
                                 disabled={!editable}
                                 onChange={handleChange}
@@ -131,7 +131,7 @@ const Info = ({ title, desc }) => {
                             <input
                                 type="text"
                                 name="numero_mobile"
-                                className='py-2 px-6 font-bold w-full rounded-lg disabled:bg-gray-800 shadow-lg my-2'
+                                className='py-2 px-6 font-bold w-full shadow-gray-950 shadow-inner rounded-lg disabled:bg-gray-800 my-2'
                                 value={userInfo.numero_mobile}
                                 disabled={!editable}
                                 onChange={handleChange}
@@ -141,22 +141,22 @@ const Info = ({ title, desc }) => {
 
                     {/* Button save and cancel */}
                     {editable && (
-                        <div className='flex justify-between mt-4'>
-                            <button type="button" onClick={handleSave} className='bg-blue-500 text-white px-4 py-2 rounded-lg'>
-                                Enregistrer
-                            </button>
-                            <button type="button" onClick={handleCancel} className='bg-red-500 text-white px-4 py-2 rounded-lg'>
+                        <div className='flex justify-end space-x-2 mt-4'>
+                            <button type="button" onClick={handleCancel} className='bg-gray-800 active:scale-95 active:bg-gray-950 transition-all text-white px-4 py-2 rounded-lg'>
                                 Annuler
+                            </button>
+                            <button type="button" onClick={handleSave} className='bg-gray-950 active:scale-95 active:bg-black transition-all text-white px-4 py-2 rounded-lg'>
+                                Enregistrer
                             </button>
                         </div>
                     )}
                 </form>
 
-                <div className='m-2'>
+                <div className='m-4'>
                     {!editable && (
                         <button
                             onClick={() => setEditable(true)}
-                            className='flex px-3 py-2 bg-gray-700 rounded-lg space-x-2'
+                            className='flex items-center active:scale-95 active:bg-gray-950 px-3 py-2 bg-gray-800 rounded-lg space-x-2'
                         >
                             <Edit />
                             <span>Modifier</span>

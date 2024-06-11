@@ -116,7 +116,7 @@ const Security = ({ title, desc }) => {
 
                 {/* Edit Login Part */}
                 <div className='bg-gray-800 rounded-lg'>
-                    <div className='flex justify-between cursor-pointer py-4 px-5 rounded-lg shadow-lg bg-gray-900' onClick={() => toggleSection('login')}>
+                    <div className={`flex justify-between cursor-pointer py-4 px-5 rounded-lg ${openSection === "login" && `shadow-gray-950 shadow-md`} bg-gray-900 transition-all`} onClick={() => toggleSection('login')}>
                         <div>Connexion</div>
                         <div className={`${openSection === 'login' ? 'rotate-180' : ''} transition-all`}><ChevronDown /></div>
                     </div>
@@ -131,7 +131,7 @@ const Security = ({ title, desc }) => {
                                     <input
                                         type="email"
                                         name="email"
-                                        className='py-2 px-6 text-white shadow-gray-900 font-bold w-full rounded-lg disabled:bg-gray-800 shadow-inner my-2'
+                                        className='py-2 px-6 text-white shadow-gray-950 font-bold w-full rounded-lg disabled:bg-gray-800 shadow-inner my-2'
                                         value={userInfo.email}
                                         disabled
                                         onChange={handleChange}
@@ -152,7 +152,7 @@ const Security = ({ title, desc }) => {
                                     <input
                                         type="text"
                                         name="login"
-                                        className='py-2 px-6 font-bold w-full shadow-gray-900 shadow-inner rounded-lg disabled:bg-gray-800 my-2'
+                                        className='py-2 px-6 font-bold w-full shadow-gray-950 shadow-inner rounded-lg disabled:bg-gray-800 my-2'
                                         value={userInfo.login}
                                         disabled={editableSection !== 'login'}
                                         onChange={handleChange}
@@ -189,7 +189,7 @@ const Security = ({ title, desc }) => {
 
                 {/* Edit Password Part */}
                 <div className='bg-gray-800 rounded-lg'>
-                    <div className='flex justify-between cursor-pointer py-4 px-5 shadow-lg rounded-lg bg-gray-900' onClick={() => toggleSection('password')}>
+                    <div className={`flex justify-between cursor-pointer py-4 px-5 rounded-lg ${openSection === "password" && `shadow-gray-950 shadow-md`} bg-gray-900 transition-all`} onClick={() => toggleSection('password')}>
                         <div>Mot de passe</div>
                         <div className={`${openSection === 'password' ? 'rotate-180' : ''} transition-all`}><ChevronDown /></div>
                     </div>
@@ -207,7 +207,7 @@ const Security = ({ title, desc }) => {
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         name="password"
-                                        className='py-2 px-6 font-bold w-full shadow-gray-900 shadow-inner rounded-lg disabled:bg-gray-800 my-2'
+                                        className='py-2 px-6 font-bold w-full shadow-gray-950 shadow-inner rounded-lg disabled:bg-gray-800 my-2'
                                         value={userInfo.password}
                                         disabled={editableSection !== 'password'}
                                         onChange={handleChange}
@@ -222,7 +222,7 @@ const Security = ({ title, desc }) => {
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         name="confirmPassword"
-                                        className='py-2 px-6 font-bold w-full shadow-gray-900 shadow-inner rounded-lg disabled:bg-gray-800 my-2'
+                                        className='py-2 px-6 font-bold w-full shadow-gray-950 shadow-inner rounded-lg disabled:bg-gray-800 my-2'
                                         value={userInfo.confirmPassword}
                                         disabled={editableSection !== 'password'}
                                         onChange={handleChange}
