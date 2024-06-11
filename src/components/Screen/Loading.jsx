@@ -8,7 +8,7 @@ const Loading = () => {
 
     return (
 
-        <div className='absolute z-20 top-0 flex items-center bg-black bg-opacity-85 h-full w-full'>
+        <div className='absolute z-20 top-0 flex items-center bg-black bg-opacity-95 h-full w-full'>
             <div className="mx-auto">
                 <div>
                     <svg className="cart" role="img" aria-label="Shopping cart line animation" viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
@@ -30,6 +30,7 @@ const Loading = () => {
                         </g>
                     </svg>
                 </div>
+                <div>Récupération des informations ...</div>
             </div>
         </div>
     )
