@@ -167,7 +167,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
                 <Sidebar isUserLoggedIn={isUserLoggedIn} />
             </div>
 
-            {route == 'home' && <Home />}
+            {route == 'home' && <Home addToCart={addToCart}/>}
             {route == 'add' && <Add refresh={refreshData} />}
             {route == 'view' && <View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} refreshData={refreshData} />}
             {route == 'cart' && <Cart setItems={setCartItem} items={cartItem} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />}

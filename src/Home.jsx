@@ -12,6 +12,7 @@ import { Pagination } from 'swiper/modules';
 import { faAdd, faChevronRight, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { Award, Info, ShieldCheck, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import url from "./Api/http"
 import baseUrl from './Api/baseUrl';
@@ -20,7 +21,7 @@ import ShopIllustration from './assets/images/Shopp Illustration noBg.png'
 import Footer from './components/Footer'
 import TopSelling from './components/TopSelling'
 
-function Home() {
+function Home({addToCart}) {
 
     const [produits, setProduits] = useState([])
     const [customQuantity, setCustomQuantity] = useState({});
@@ -38,6 +39,26 @@ function Home() {
     useEffect(() => {
         fetchProduits()
     }, [])
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+
+    const handleAddToCart = (prod) => {
+        addToCart({ ...prod, quantity: quantities[prod.id] || 1 });
+        Toast.fire({
+            icon: "success",
+            title: "Ajouté"
+        });
+    };
 
     const handleQuantityChange = (id, value) => {
         const newQuantities = { ...quantities, [id]: value };
