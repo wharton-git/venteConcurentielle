@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
-import { MenuIcon } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+import { MenuIcon } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 import url from './../Api/http'
 
 import Home from './../Home'
-import Add from './Add'
 import View from './View'
 import Cart from './Cart'
 import Sidebar from './Sidebar'
-import Detail from './Detail';
+import Detail from './Detail'
 
 
 function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {

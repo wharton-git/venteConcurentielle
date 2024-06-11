@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import Routes from './Routes/Routes'
 
 import './Style/Css/Style.css'
+import { Coins } from 'lucide-react';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
   return (
     <>
       <Routes />
+      <Coins/>
     </>
   );
 }

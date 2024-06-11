@@ -1,7 +1,7 @@
-import { React, useEffect, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { React, useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd, faBars, faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import baseUrl from './../Api/baseUrl';
 
 import { Link } from 'react-router-dom';
@@ -11,6 +11,8 @@ const View = ({ data, addToCart, type, onCategorieChange, refreshData }) => {
     const [quantities, setQuantities] = useState({});
     const [showcategory, setShowCategory] = useState(true);
     const [customQuantity, setCustomQuantity] = useState({});
+
+    useEffect(() => {}, [data]);
 
     const Toast = Swal.mixin({
         toast: true,
@@ -47,7 +49,7 @@ const View = ({ data, addToCart, type, onCategorieChange, refreshData }) => {
         const value = event.target.value;
         if (value === '10+') {
             setCustomQuantity({ ...customQuantity, [id]: '' });
-            handleQuantityChange(id, 10); // Set default quantity to 10 initially
+            handleQuantityChange(id, 10);
         } else {
             setCustomQuantity({ ...customQuantity, [id]: null });
             handleQuantityChange(id, parseInt(value));
@@ -56,7 +58,7 @@ const View = ({ data, addToCart, type, onCategorieChange, refreshData }) => {
 
     const handleCategories = (e) => {
         onCategorieChange(e.target.value)
-    }
+    };
 
     const handleClick = () => {
         setShowCategory(!showcategory)
@@ -92,28 +94,33 @@ const View = ({ data, addToCart, type, onCategorieChange, refreshData }) => {
                 <div className='cardProd transition-all grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full px-6 h-[82vh] overflow-y-scroll'>
                     {data.map((prod, index) => (
                         <div className='transition-all relative shadow-xl w-52 rounded-lg mx-auto my-6 bg-white h-max' key={index}>
+                            {prod.reduction && (
+                                <div className='absolute -right-3 -top-3 bg-gray-600 text-white flex items-center justify-center rounded-full w-10 h-10'>
+                                    <p>-{prod.reduction}%</p>
+                                </div>
+                            )}
                             <div className='transition-all'>
                                 <img src={`${baseUrl}images/` + prod.image} alt="" className='h-40 w-40 object-contain mx-auto' />
                             </div>
-                            <div className='transition-all p-2 text-white bg-gray-800 rounded-b-lg '>
+                            <div className='transition-all p-2 text-white bg-gray-800 rounded-b-lg'>
                                 <div className='space-y-3 mx-3 mb-3'>
                                     <div className='flex justify-between items-center'>
                                         <div>
                                             <div>
-                                                <span className='text-2xl font-bold'> {prod.prix} </span> $
+                                                <span className='text-2xl font-bold'>{prod.prix}</span> $
                                             </div>
-                                            <div >
+                                            <div>
                                                 <u>Stock :</u> <span>{prod.stock}</span>
                                             </div>
                                         </div>
                                         <div>
-                                            <Link to={`/detail/${prod.id}`} className='bg-white text-gray-800 rounded-lg max-w-10 overflow-hidden hover:max-w-96 flex items-center space-x-2 px-2 py-1 mx-auto  hover:scale-110 transition-all'>
+                                            <Link to={`/detail/${prod.id}`} className='bg-white text-gray-800 rounded-lg max-w-10 overflow-hidden hover:max-w-96 flex items-center space-x-2 px-2 py-1 mx-auto hover:scale-110 transition-all'>
                                                 <div><Info /></div>
                                                 <div>Info</div>
                                             </Link>
                                         </div>
                                     </div>
-                                    <div className=' text-base font-bold h-12 line-clamp-2 whitespace-normal overflow-hidden text-ellipsis'>
+                                    <div className='text-base font-bold h-12 line-clamp-2 whitespace-normal overflow-hidden text-ellipsis'>
                                         {prod.designation}
                                     </div>
                                 </div>
@@ -142,7 +149,7 @@ const View = ({ data, addToCart, type, onCategorieChange, refreshData }) => {
                                             <option value="10+">10+</option>
                                         </select>
                                     )}
-                                    <button className='transition-all border-2 rounded-md border-white p-1 ' onClick={() => handleAddToCart(prod)}>
+                                    <button className='transition-all border-2 rounded-md border-white p-1' onClick={() => handleAddToCart(prod)}>
                                         <FontAwesomeIcon icon={faCartPlus} size='2xl' color='white' />
                                     </button>
                                 </div>
@@ -151,19 +158,8 @@ const View = ({ data, addToCart, type, onCategorieChange, refreshData }) => {
                     ))}
                 </div>
             </div>
-            {/* test
-            <div className='grid grid-cols-6 pb-40 '>
-                {data.map((item, index) => (
-                    <div className='w-40' key={index}>
-                        <img src={`${baseUrl}images/` + item.image} alt="" className='h-60 w-60 object-contain' />
-                        <div className='h-10 whitespace-normal line-clamp-2 bg-green-300 overflow-hidden text-ellipsis'>
-                            {item.description}
-                        </div>
-                    </div>
-                ))}
-            </div> */}
         </>
-    )
+    );
 }
 
-export default View
+export default View;

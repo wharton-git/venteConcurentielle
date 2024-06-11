@@ -8,8 +8,9 @@ import baseUrl from './../Api/baseUrl';
 
 const Detail = ({ addToCart }) => {
     const [detailProduits, setDetailProduits] = useState([]);
-    const [quantity, setQuantity] = useState(1); // État local pour la quantité
-    const [isCustomQuantity, setIsCustomQuantity] = useState(false); // État local pour indiquer si la quantité personnalisée est activée
+    const [quantity, setQuantity] = useState(1); 
+    const [isCustomQuantity, setIsCustomQuantity] = useState(false);
+    const [fakeRealPrice, setFakeRealPrice] = useState(0);
 
     const { id } = useParams();
 
@@ -29,8 +30,9 @@ const Detail = ({ addToCart }) => {
         fetchDetailProduits();
     }, []);
 
+
     const handleAddToCart = (prod) => {
-        addToCart({ ...prod, quantity }); // Utilisez la quantité actuelle définie dans l'état local
+        addToCart({ ...prod, quantity }); 
         Toast.fire({
             icon: "success",
             title: "Ajouté"
@@ -78,11 +80,22 @@ const Detail = ({ addToCart }) => {
                     <div className='sm:space-y-4'>
                         <div className='space-x-4 text-base'>
                             <span className='underline'>Prix :</span>
-                            <span className='font-bold'>{detailProduits.prix} $</span>
+                            <span className='font-bold'>
+                                {detailProduits.prix} $
+                            </span>
+                            {detailProduits.reduction &&
+                                <span>
+                                    ( -{detailProduits.reduction}% today)
+                                </span>
+                            }
                         </div>
                         <div className='space-x-4 text-base'>
                             <span className='underline'>Disponible :</span>
                             <span className='font-bold'>{detailProduits.stock}</span>
+                        </div>
+                        <div className='space-x-4 text-base'>
+                            <span className='underline'>Couleur :</span>
+                            <span className='font-bold'>{detailProduits.couleur}</span>
                         </div>
                         <div className='space-x-4 text-base'>
                             <span className='underline'>Details :</span>
