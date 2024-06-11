@@ -112,17 +112,17 @@ const Security = ({ title, desc }) => {
                 </div>
             </div>
 
-            <div className='bg-gray-900 w-3/4 mx-auto rounded-lg py-4 shadow-lg'>
+            <div className='w-3/4 mx-auto rounded-lg py-4 my-5 space-y-4'>
 
                 {/* Edit Login Part */}
-                <div>
-                    <div className='flex justify-between cursor-pointer' onClick={() => toggleSection('login')}>
+                <div className='bg-gray-800 rounded-lg'>
+                    <div className='flex justify-between cursor-pointer py-4 px-5 rounded-lg shadow-lg bg-gray-900' onClick={() => toggleSection('login')}>
                         <div>Connexion</div>
                         <div className={`${openSection === 'login' ? 'rotate-180' : ''} transition-all`}><ChevronDown /></div>
                     </div>
 
-                    <div className={`transition-all overflow-hidden ${openSection === 'login' ? 'max-h-96' : 'max-h-0'}`}>
-                        <form className={`mx-4 text-base ${editableSection === 'login' && 'text-black'}`}>
+                    <div className={`transition-all overflow-hidden  shadow-lg rounded-lg ${openSection === 'login' ? 'max-h-96' : 'max-h-0'}`}>
+                        <form className={`mx-4 text-base py-3 ${editableSection === 'login' && 'text-black'}`}>
                             <div>
                                 <div className='text-white'>
                                     <label htmlFor="email">E-mail</label>
@@ -131,7 +131,7 @@ const Security = ({ title, desc }) => {
                                     <input
                                         type="email"
                                         name="email"
-                                        className='py-2 px-6 text-white font-bold w-full rounded-lg disabled:bg-gray-800 shadow-lg my-2'
+                                        className='py-2 px-6 text-white shadow-gray-900 font-bold w-full rounded-lg disabled:bg-gray-800 shadow-inner my-2'
                                         value={userInfo.email}
                                         disabled
                                         onChange={handleChange}
@@ -152,7 +152,7 @@ const Security = ({ title, desc }) => {
                                     <input
                                         type="text"
                                         name="login"
-                                        className='py-2 px-6 font-bold w-full rounded-lg disabled:bg-gray-800 shadow-lg my-2'
+                                        className='py-2 px-6 font-bold w-full shadow-gray-900 shadow-inner rounded-lg disabled:bg-gray-800 my-2'
                                         value={userInfo.login}
                                         disabled={editableSection !== 'login'}
                                         onChange={handleChange}
@@ -162,25 +162,25 @@ const Security = ({ title, desc }) => {
 
                             {/* Button save and cancel Login */}
                             {editableSection === 'login' && (
-                                <div className='flex justify-between mt-4'>
-                                    <button type="button" onClick={handleSaveLogin} className='bg-blue-500 text-white px-4 py-2 rounded-lg'>
-                                        Enregistrer
-                                    </button>
-                                    <button type="button" onClick={handleCancel} className='bg-red-500 text-white px-4 py-2 rounded-lg'>
+                                <div className='flex justify-end space-x-2 mt-4'>
+                                    <button type="button" onClick={handleCancel} className='bg-gray-900 active:scale-95 active:bg-gray-950 transition-all text-white px-4 py-2 rounded-lg'>
                                         Annuler
+                                    </button>
+                                    <button type="button" onClick={handleSaveLogin} className='bg-gray-950 active:scale-95 active:bg-black transition-all text-white px-4 py-2 rounded-lg'>
+                                        Enregistrer
                                     </button>
                                 </div>
                             )}
                         </form>
 
-                        <div className='m-2'>
+                        <div className='m-4'>
                             {editableSection !== 'login' && (
                                 <button
                                     onClick={() => setEditableSection('login')}
-                                    className='flex px-3 py-2 bg-gray-700 rounded-lg space-x-2'
+                                    className='flex items-center active:scale-95 active:bg-gray-950 px-3 py-2 bg-gray-900 rounded-lg space-x-2'
                                 >
-                                    <Edit />
-                                    <span>Modifier</span>
+                                    <Edit size={18} />
+                                    <div>Modifier</div>
                                 </button>
                             )}
                         </div>
@@ -188,14 +188,14 @@ const Security = ({ title, desc }) => {
                 </div>
 
                 {/* Edit Password Part */}
-                <div>
-                    <div className='flex justify-between cursor-pointer' onClick={() => toggleSection('password')}>
+                <div className='bg-gray-800 rounded-lg'>
+                    <div className='flex justify-between cursor-pointer py-4 px-5 shadow-lg rounded-lg bg-gray-900' onClick={() => toggleSection('password')}>
                         <div>Mot de passe</div>
                         <div className={`${openSection === 'password' ? 'rotate-180' : ''} transition-all`}><ChevronDown /></div>
                     </div>
 
-                    <div className={`transition-all overflow-hidden ${openSection === 'password' ? 'max-h-96' : 'max-h-0'}`}>
-                        <form className={`mx-4 text-base ${editableSection === 'password' && 'text-black'}`}>
+                    <div className={`transition-all overflow-hidden shadow-lg rounded-lg ${openSection === 'password' ? 'max-h-96' : 'max-h-0'}`}>
+                        <form className={`mx-4 text-base py-3 ${editableSection === 'password' && 'text-black'}`}>
                             <div>
                                 <div className='text-white flex items-center'>
                                     <label htmlFor="password">Nouveau mot de passe</label>
@@ -207,7 +207,7 @@ const Security = ({ title, desc }) => {
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         name="password"
-                                        className='py-2 px-6 font-bold w-full rounded-lg disabled:bg-gray-800 shadow-lg my-2'
+                                        className='py-2 px-6 font-bold w-full shadow-gray-900 shadow-inner rounded-lg disabled:bg-gray-800 my-2'
                                         value={userInfo.password}
                                         disabled={editableSection !== 'password'}
                                         onChange={handleChange}
@@ -222,7 +222,7 @@ const Security = ({ title, desc }) => {
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         name="confirmPassword"
-                                        className='py-2 px-6 font-bold w-full rounded-lg disabled:bg-gray-800 shadow-lg my-2'
+                                        className='py-2 px-6 font-bold w-full shadow-gray-900 shadow-inner rounded-lg disabled:bg-gray-800 my-2'
                                         value={userInfo.confirmPassword}
                                         disabled={editableSection !== 'password'}
                                         onChange={handleChange}
@@ -232,25 +232,25 @@ const Security = ({ title, desc }) => {
 
                             {/* Button save and cancel Password */}
                             {editableSection === 'password' && (
-                                <div className='flex justify-between mt-4'>
-                                    <button type="button" onClick={handleSavePassword} className='bg-blue-500 text-white px-4 py-2 rounded-lg'>
-                                        Enregistrer
-                                    </button>
-                                    <button type="button" onClick={handleCancel} className='bg-red-500 text-white px-4 py-2 rounded-lg'>
+                                <div className='flex justify-end space-x-2 mt-4'>
+                                    <button type="button" onClick={handleCancel} className='bg-gray-900 active:scale-95 active:bg-gray-950 transition-all text-white px-4 py-2 rounded-lg'>
                                         Annuler
+                                    </button>
+                                    <button type="button" onClick={handleSavePassword} className='bg-gray-950 active:scale-95 active:bg-black transition-all text-white px-4 py-2 rounded-lg'>
+                                        Enregistrer
                                     </button>
                                 </div>
                             )}
                         </form>
 
-                        <div className='m-2'>
+                        <div className='m-4'>
                             {editableSection !== 'password' && (
                                 <button
                                     onClick={() => setEditableSection('password')}
-                                    className='flex px-3 py-2 bg-gray-700 rounded-lg space-x-2'
+                                    className='flex items-center active:scale-95 active:bg-gray-950 px-3 py-2 bg-gray-900 rounded-lg space-x-2'
                                 >
-                                    <Edit />
-                                    <span>Modifier</span>
+                                    <Edit size={18} />
+                                    <div>Modifier</div>
                                 </button>
                             )}
                         </div>
