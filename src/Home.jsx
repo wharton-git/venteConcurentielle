@@ -9,8 +9,8 @@ import 'swiper/css/navigation';
 import './Style/Css/Swipper.css'
 
 import { Pagination } from 'swiper/modules';
-import { faAdd, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { Award, ShieldCheck, Tag } from 'lucide-react';
+import { faAdd, faChevronRight, faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { Award, Info, ShieldCheck, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import url from "./Api/http"
@@ -23,6 +23,8 @@ import TopSelling from './components/TopSelling'
 function Home() {
 
     const [produits, setProduits] = useState([])
+    const [customQuantity, setCustomQuantity] = useState({});
+    const [quantities, setQuantities] = useState({});
 
     const fetchProduits = async () => {
         try {
@@ -36,6 +38,28 @@ function Home() {
     useEffect(() => {
         fetchProduits()
     }, [])
+
+    const handleQuantityChange = (id, value) => {
+        const newQuantities = { ...quantities, [id]: value };
+        setQuantities(newQuantities);
+    };
+
+    const handleCustomQuantityChange = (id, event) => {
+        const value = parseInt(event.target.value) || '';
+        setCustomQuantity({ ...customQuantity, [id]: value });
+        handleQuantityChange(id, value);
+    };
+
+    const handleSelectChange = (id, event) => {
+        const value = event.target.value;
+        if (value === '10+') {
+            setCustomQuantity({ ...customQuantity, [id]: '' });
+            handleQuantityChange(id, 10);
+        } else {
+            setCustomQuantity({ ...customQuantity, [id]: null });
+            handleQuantityChange(id, parseInt(value));
+        }
+    };
 
     return (
         <>
@@ -73,7 +97,7 @@ function Home() {
                 </div>
             </div>
 
-                <TopSelling />
+            <TopSelling />
 
             <div className="grid sm:grid-cols-2">
                 <div className='m-10 shadow-xl rounded-lg p-3'>
@@ -91,7 +115,7 @@ function Home() {
                     </span>
                     <FontAwesomeIcon icon={faChevronRight} size='xs' />
                 </Link>
-                <div className='w-5/6 m-auto px-4 py-2'>
+                <div className=' m-auto px-4 py-2'>
                     <Swiper
 
                         loop={true}
@@ -104,11 +128,11 @@ function Home() {
                                 spaceBetween: 20,
                             },
                             768: {
-                                slidesPerView: 4,
+                                slidesPerView: 3,
                                 spaceBetween: 40,
                             },
                             1024: {
-                                slidesPerView: 5,
+                                slidesPerView: 3,
                                 spaceBetween: 50,
                             },
                         }}
@@ -119,33 +143,68 @@ function Home() {
                     >
                         {produits.map((prod, index) => (
                             <SwiperSlide>
-                                <div className='relative shadow-xl w-52 rounded-lg'>
-                                    <div className='flex justify-between mx-3'>
-                                        <div>50% off</div>
+                                <div className='transition-all relative shadow-xl w-52 rounded-lg mx-auto my-6 bg-white h-max' key={index}>
+                                    {prod.reduction && (
+                                        <div className='absolute -right-3 -top-3 bg-gray-600 text-white flex items-center justify-center rounded-full w-10 h-10'>
+                                            <p>-{prod.reduction}%</p>
+                                        </div>
+                                    )}
+                                    <div className='transition-all'>
+                                        <img src={`${baseUrl}images/` + prod.image} alt="" className='object-contain py-3' />
                                     </div>
-                                    <div className='m-auto'>
-                                        <img src={`${baseUrl}images/` + prod.image} alt="" />
-                                    </div>
-                                    <div className='mt-2 p-2 text-white bg-indigo-500 rounded-b-lg'>
-                                        <div>
-                                            {prod.designation}
+                                    <div className='transition-all p-2 text-white bg-gray-800 rounded-b-lg'>
+                                        <div className='space-y-3 mx-3 mb-3'>
+                                            <div className='flex justify-between items-center'>
+                                                <div>
+                                                    <div>
+                                                        <span className='text-2xl font-bold'>{prod.prix}</span> $
+                                                    </div>
+                                                    <div>
+                                                        <u>Stock :</u> <span>{prod.stock}</span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <Link to={`/detail/${prod.id}`} className='bg-white text-gray-800 rounded-lg max-w-10 overflow-hidden hover:max-w-96 flex items-center space-x-2 px-2 py-1 mx-auto hover:scale-110 transition-all'>
+                                                        <div><Info /></div>
+                                                        <div>Info</div>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                            <div className='text-base font-bold h-12 line-clamp-2 whitespace-normal overflow-hidden text-ellipsis'>
+                                                {prod.designation}
+                                            </div>
                                         </div>
-                                        <div className='flex justify-between mx-3'>
-                                            <div>Prix :</div>
-                                            <div>$ {prod.prix}</div>
-                                        </div>
-                                        <div className='flex justify-between mx-3'>
-                                            <div>Stock :</div>
-                                            <div> {prod.stock}</div>
-                                        </div>
-                                        <div className='flex justify-between mx-3'>
-                                            <button className='border-2 rounded-md border-white px-2 py-1'>
-                                                <FontAwesomeIcon icon={faAdd} color='white' />
+                                        <div className='transition-all flex justify-between mx-2'>
+                                            {customQuantity[prod.id] === '' ? (
+                                                <input
+                                                    type="number"
+                                                    name="qte"
+                                                    id="qte"
+                                                    className='mr-4 w-full rounded-lg text-black px-3 border-b-2 border-gray-500 bg-white'
+                                                    placeholder='Quantité'
+                                                    value={customQuantity[prod.id]}
+                                                    onChange={(event) => handleCustomQuantityChange(prod.id, event)} // Gérer le changement de quantité
+                                                />
+                                            ) : (
+                                                <select
+                                                    name="qte"
+                                                    id="qte"
+                                                    className='mr-4 w-full rounded-lg text-black px-3 border-b-2 border-gray-500 bg-white'
+                                                    value={quantities[prod.id] || ''}
+                                                    onChange={(event) => handleSelectChange(prod.id, event)}
+                                                >
+                                                    {[...Array(10)].map((_, i) => (
+                                                        <option key={i} value={i + 1}>{i + 1}</option>
+                                                    ))}
+                                                    <option value="10+">10+</option>
+                                                </select>
+                                            )}
+                                            <button className='transition-all border-2 rounded-md border-white p-1' onClick={() => handleAddToCart(prod)}>
+                                                <FontAwesomeIcon icon={faCartPlus} size='xl' color='white' />
                                             </button>
-                                            <input type="number" name="qte" id="qte" className='mx-4 w-full rounded-lg text-black px-3' placeholder='Quantité' />
-
                                         </div>
                                     </div>
+
                                 </div>
                             </SwiperSlide>
                         ))}
