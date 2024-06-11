@@ -340,7 +340,7 @@ const Payement = ({ title, desc }) => {
                                 {
                                     editable && (
                                         <div>
-                                            <div onClick={() => handleDeleteNum(1)} className='bg-red-300 p-2 rounded-md transition-all'>
+                                            <div onClick={() => handleDeleteNum(1)} className='bg-red-400 p-2 active:shadow-red-900 shadow-inner rounded-md transition-all'>
                                                 <Trash2 />
                                             </div>
                                         </div>
@@ -362,7 +362,7 @@ const Payement = ({ title, desc }) => {
                                     {
                                         editable && (
                                             <div>
-                                                <div onClick={() => handleDeleteNum(2)} className='bg-red-300 p-2 rounded-md transition-all'>
+                                                <div onClick={() => handleDeleteNum(2)} className='bg-red-400 p-2 active:shadow-red-900 shadow-inner rounded-md transition-all'>
                                                     <Trash2 />
                                                 </div>
                                             </div>
@@ -391,21 +391,21 @@ const Payement = ({ title, desc }) => {
                 )}
 
                 {editable && (
-                    <div className='flex justify-between mt-4'>
-                        <button type="button" onClick={handleSave} className='bg-blue-500 text-white px-4 py-2 rounded-lg'>
-                            Enregistrer
-                        </button>
-                        <button type="button" onClick={handleCancel} className='bg-red-500 text-white px-4 py-2 rounded-lg'>
+                    <div className='flex justify-end space-x-2 p-4'>
+                        <button type="button" onClick={handleCancel} className='bg-gray-800 active:scale-95 active:bg-gray-950 transition-all text-white px-4 py-2 rounded-lg'>
                             Annuler
+                        </button>
+                        <button type="button" onClick={handleSave} className='bg-gray-950 active:scale-95 active:bg-black transition-all text-white px-4 py-2 rounded-lg'>
+                            Enregistrer
                         </button>
                     </div>
                 )}
 
                 {!editable && (
-                    <div>
+                    <div className='p-4'>
                         <button
                             onClick={() => setEditable(true)}
-                            className='flex px-3 py-2 bg-gray-700 rounded-lg space-x-2'
+                            className='flex items-center active:scale-95 active:bg-gray-950 px-3 py-2 bg-gray-800 rounded-lg space-x-2'
                         >
                             <Edit />
                             <span>{userInfo.carte ? 'Modifier' : 'Ajouter'}</span>
