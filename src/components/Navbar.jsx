@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import { MenuIcon, User2, UserCheck2, UserRoundCog } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import Cookie from 'js-cookie'
 
 import url from './../Api/http'
 
@@ -11,6 +12,7 @@ import View from './View'
 import Cart from './Cart'
 import Sidebar from './Sidebar'
 import Detail from './Detail'
+import Solde from './Client/Solde'
 
 
 function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
@@ -22,8 +24,24 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
     const [categories, setCategories] = useState([])
     const [totalItems, setTotalItems] = useState(0)
     const [sidebarOn, setSidebarOn] = useState(false)
+    const [userSolde, setUserSolde] = useState({
+        solde: ""
+    })
 
     const displayTotalItems = isNaN(totalItems) ? 0 : totalItems;
+
+
+    useEffect(() => {
+        fetchProduits();
+        fetchCategories();
+        fetchCartItems();
+    }, []);
+
+    useEffect(() => {
+        const total = cartItem.reduce((acc, item) => acc + item.quantity, 0);
+        setTotalItems(total);
+        getSolde()
+    }, [cartItem]);
 
     const handleInputChange = (e) => {
         handleSearchChange(e.target.value)
@@ -33,6 +51,26 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
         setSidebarOn(false)
     }
 
+    const getSolde = async () => {
+        try {
+            const jwt = Cookie.get('jwt')
+            if (jwt) {
+                try {
+                    const info = await url.post('/auth/me', {}, {
+                        headers: {
+                            Authorization: 'bearer ' + jwt,
+                        }
+                    });
+                    setUserSolde(info.data);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        } catch (error) {
+
+        }
+    }
+
     const fetchCategories = () => {
         url.post('/type')
             .then(res => {
@@ -40,7 +78,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
             })
             .catch(e => console.log(e))
     }
-    const fetchProduits = () => {
+    const fetchProduits = async () => {
         url.get('/all')
             .then(res => {
                 setProduits(res.data)
@@ -109,21 +147,12 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
         const cartItems = JSON.parse(localStorage.getItem('cartItem'));
         setCartItem(cartItems);
     }
-    useEffect(() => {
-        fetchProduits();
-        fetchCategories();
-        fetchCartItems();
-    }, []);
 
-    useEffect(() => {
-        const total = cartItem.reduce((acc, item) => acc + item.quantity, 0);
-        setTotalItems(total);
-    }, [cartItem]);
 
     return (
         <>
             <div className='fixed z-10 top-0 shadow-md' onMouseLeave={() => { setIsMobileMenuOpen(false) }}>
-                <nav className="bg-gray-800 w-screen p-4">
+                <nav className="bg-gray-800 w-screen p-4 relative">
                     <div className="max-w-screen mx-auto flex justify-between items-center">
                         <div className="flex items-center">
                             <div className={`text-white mr-4`} onClick={() => { setSidebarOn(!sidebarOn) }} >
@@ -160,7 +189,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
                                                 Identifiez-vous
                                             </div>
                                         </Link>
-                                    ):(
+                                    ) : (
                                         <Link to="/user" className='flex items-center space-x-2'>
                                             <div>
                                                 <UserCheck2 />
@@ -170,7 +199,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
                                             </div>
                                         </Link>
                                     )
-                                }
+                                    }
                                 </div>
                                 <div className=''>
                                     <Link to='/cart' className="text-white relative px-3">
@@ -181,6 +210,13 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
                             </div>
                         </div>
                     </div>
+                    {
+                        isUserLoggedIn && (
+                            <div className='absolute py-1 px-2 -z-10 -bottom-6 right-2 bg-green-600 rounded-lg text-white'>
+                                {userSolde.solde} $
+                            </div>
+                        )
+                    }
                 </nav>
             </div>
 
