@@ -96,6 +96,19 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
                     </div>
 
                     <div className='space-y-3'>
+                        <div className='div ml-4 cursor-pointer'>
+                            <div
+                                onClick={() => navigate("/")}
+                                className={`flex items-center p-2 overflow-hidden max-w-10 hover:max-w-32 bg-gray-900 hover:bg-gray-800 active:bg-gray-800 rounded-lg  space-x-2 transition-all`}
+                            >
+                                <div>
+                                    <Home />
+                                </div>
+                                <div>
+                                    Accueil
+                                </div>
+                            </div>
+                        </div>
                         {
                             list.map(list => (
                                 <div className='div cursor-pointer'>
@@ -118,23 +131,11 @@ const UserNavigation = ({ navOpen, setNavOpen, list }) => {
                     </div>
 
                     <div className='absolute bottom-0 w-full px-3 space-x-2 flex'>
+
                         <div className='div cursor-pointer'>
                             <div
                                 onClick={() => navigate("/")}
-                                className={`flex items-center p-2 overflow-hidden max-w-10 hover:max-w-96 bg-gray-800 hover:bg-gray-700 active:bg-gray-800 rounded-lg  space-x-2 transition-all`}
-                            >
-                                <div>
-                                    <Home />
-                                </div>
-                                <div>
-                                    Accueil
-                                </div>
-                            </div>
-                        </div>
-                        <div className='div cursor-pointer'>
-                            <div
-                                onClick={() => navigate("/")}
-                                className={`flex items-center overflow-clip max-w-10 hover:max-w-96 bg-gray-800 hover:bg-gray-700 active:bg-gray-800 rounded-full  space-x-2 transition-all`}
+                                className={`flex items-center overflow-clip max-w-10 hover:max-w-96 bg-gray-900 hover:bg-gray-800 active:bg-gray-800 rounded-full  space-x-2 transition-all`}
                             >
                                 <Logout icon={<LogOut />} text={"Déconnexion"} />
                             </div>

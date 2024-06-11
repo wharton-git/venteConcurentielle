@@ -14,7 +14,7 @@ const User = ({ route }) => {
     const list = [
         {
             "route": "/commande",
-            "name": "Vos Commande",
+            "name": "Vos Commandes",
             "icon": <TicketCheck />,
             "description": "Consulter l'historique de vos commandes.",
         },
