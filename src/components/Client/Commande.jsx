@@ -69,11 +69,11 @@ const Commande = ({ title, desc }) => {
                 </div>
 
                 <div className='max-h-[65vh] overflow-y-scroll px-10 my-10'>
-                    <div className='overflow-clip rounded-lg space-y-1'>
+                    <div className='overflow-clip rounded-lg space-y-0.5'>
                         {commandes.map((commande, index) => (
                             <div key={commande.id}>
                                 <div
-                                    className='flex bg-gray-900 cursor-pointer items-center justify-between px-4 py-2 hover:bg-gray-700'
+                                    className='flex bg-gray-900 cursor-pointer items-center justify-between px-4 py-2 active:bg-gray-950'
                                     onClick={() => toggleOpenCommand(index)}
                                 >
                                     <p>Date: {commande.date}</p>
@@ -84,15 +84,14 @@ const Commande = ({ title, desc }) => {
                                 </div>
 
                                 <div className={`overflow-hidden max-h-0 bg-gray-800 ${openCommand === index && `max-h-96`} transition-all`}>
-                                    <div className='grid grid-cols-3 border-b mx-6 uppercase font-bold'>
+                                    <div className='grid grid-cols-3 border-b py-2 mx-6 uppercase font-bold'>
                                         <p>Article</p>
                                         <p>Quantité</p>
                                         <p>Prix</p>
                                     </div>
                                     {commande.lines.map(ligne => (
                                         <div key={ligne.id}>
-                                            <div className='grid grid-cols-3 items-center mx-4 border-b-2 border-gray-500 border-opacity-40'>
-
+                                            <div className='grid grid-cols-3 items-center mx-4 py-2 border-b-2 border-gray-500 border-opacity-40'>
                                                 <p>{ligne.article}</p>
                                                 <p>{ligne.qte}</p>
                                                 <p> {ligne.prix} $</p>
