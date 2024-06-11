@@ -4,6 +4,8 @@ import Cookie from 'js-cookie'
 import Swal from 'sweetalert2'
 import { CircleArrowLeft, CircleDollarSign } from 'lucide-react'
 
+import Loading from './../Screen/Loading';
+
 const Solde = ({ title, desc }) => {
 
     const [solde, setSolde] = useState(0);
@@ -14,6 +16,7 @@ const Solde = ({ title, desc }) => {
     const [isWithdraw, setIsWithdraw] = useState(false);
     const [depositSelected, setDepositSelected] = useState(null);
     const [withdrawSelected, setWithdrawSelected] = useState(null);
+    const [loading, setLoading] = useState(false)
     const [paymentMethod, setPaymentMethod] = useState({
         card: "",
         mobile: "",
@@ -22,6 +25,7 @@ const Solde = ({ title, desc }) => {
 
     useEffect(() => {
         getUserInfo()
+        setLoading(true)
     }, [])
 
     useEffect(() => {
@@ -59,6 +63,11 @@ const Solde = ({ title, desc }) => {
                         Authorization: `Bearer ${jwt}`,
                     }
                 });
+
+                setTimeout(() => {
+                    setLoading(false);
+                }, 300);
+
                 setUserInfo(response.data);
                 setSolde(response.data.solde);
                 console.log(response.data);
@@ -158,6 +167,15 @@ const Solde = ({ title, desc }) => {
 
     return (
         <div>
+
+            {/* Loading Page*/}
+
+            {loading && (
+                <div className='absolute z-10 top-0 w-full h-screen'>
+                    <Loading />
+                </div>
+            )}
+
             <div className='text-center'>
                 <div className='uppercase text-2xl py-2 font-bold'>
                     {title}

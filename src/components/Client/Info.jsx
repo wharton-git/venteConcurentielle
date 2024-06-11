@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Cookie from 'js-cookie';
 import url from './../../Api/http';
 import { Edit } from 'lucide-react';
-import Swal from 'sweetalert2'; // SweetAlert importé
+import Swal from 'sweetalert2';
+
+import Loading from './../Screen/Loading';
 
 const Info = ({ title, desc }) => {
     const [userInfo, setUserInfo] = useState({
@@ -11,9 +13,11 @@ const Info = ({ title, desc }) => {
         numero_mobile: '',
     });
     const [editable, setEditable] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         getUserInfo();
+        setLoading(true)
     }, []);
 
     const getUserInfo = async () => {
@@ -27,6 +31,11 @@ const Info = ({ title, desc }) => {
                         Authorization: 'bearer ' + jwt,
                     }
                 });
+
+                setTimeout(() => {
+                    setLoading(false);
+                }, 300);
+
                 setUserInfo(info.data);
                 console.log(info.data);
             } catch (error) {
@@ -82,6 +91,15 @@ const Info = ({ title, desc }) => {
 
     return (
         <div>
+
+            {/* Loading Page*/}
+
+            {loading && (
+                <div className='absolute z-10 top-0 w-full h-screen'>
+                    <Loading />
+                </div>
+            )}
+
             <div className='text-center'>
                 <div className='uppercase text-2xl py-2 font-bold'>
                     {title}

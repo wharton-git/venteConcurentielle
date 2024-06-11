@@ -6,9 +6,11 @@ import Swal from 'sweetalert2';
 
 import Cookie from 'js-cookie';
 import url from '../../Api/http';
+import Loading from './../Screen/Loading';
 
 const Payement = ({ title, desc }) => {
-    const [cardIsOn, setCardIsOn] = useState(false);
+    const [cardIsOn, setCardIsOn] = useState(true);
+    const [loading, setLoading] = useState(false)
     const [cardNumber, setCardNumber] = useState('');
     const [numero_mobile, set_numero_mobile] = useState({
         1: '',
@@ -25,6 +27,7 @@ const Payement = ({ title, desc }) => {
 
     useEffect(() => {
         getUserInfo();
+        setLoading(true)
     }, []);
 
     useEffect(() => {
@@ -42,6 +45,11 @@ const Payement = ({ title, desc }) => {
                         Authorization: `Bearer ${jwt}`,
                     }
                 });
+
+                setTimeout(() => {
+                    setLoading(false);
+                }, 300);
+
                 const user = response.data;
                 setUserInfo(user);
                 setCardNumber(user.carte || '');
@@ -223,6 +231,15 @@ const Payement = ({ title, desc }) => {
 
     return (
         <div>
+
+            {/* Loading Page*/}
+
+            {loading && (
+                <div className='absolute z-10 top-0 w-full h-screen'>
+                    <Loading />
+                </div>
+            )}
+
             <div className='text-center'>
                 <div className='uppercase text-2xl py-2 font-bold'>
                     {title}

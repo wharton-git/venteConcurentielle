@@ -4,6 +4,8 @@ import url from './../../Api/http';
 import { Edit, Trash2 } from 'lucide-react';
 import Swal from 'sweetalert2';
 
+import Loading from './../Screen/Loading';
+
 const Adresse = ({ title, desc }) => {
     const [userInfo, setUserInfo] = useState({
         adresse: '',
@@ -11,9 +13,11 @@ const Adresse = ({ title, desc }) => {
     });
     const [editable, setEditable] = useState(false);
     const [adrAltExist, setAdrAltExist] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         getUserInfo();
+        setLoading(true)
     }, []);
 
     useEffect(() => {
@@ -31,6 +35,11 @@ const Adresse = ({ title, desc }) => {
                         Authorization: `Bearer ${jwt}`,
                     }
                 });
+
+                setTimeout(() => {
+                    setLoading(false);
+                }, 300);
+
                 setUserInfo(response.data);
                 console.log(response.data);
 
@@ -124,6 +133,15 @@ const Adresse = ({ title, desc }) => {
 
     return (
         <div>
+
+            {/* Loading Page*/}
+
+            {loading && (
+                <div className='absolute z-10 top-0 w-full h-screen'>
+                    <Loading />
+                </div>
+            )}
+
             <div className='text-center'>
                 <div className='uppercase text-2xl py-2 font-bold'>
                     {title}
