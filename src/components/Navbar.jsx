@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
-import { MenuIcon } from 'lucide-react'
+import { MenuIcon, User2, UserCheck2, UserRoundCog } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import url from './../Api/http'
@@ -65,7 +65,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
 
     const addToCart = (prod) => {
         const existingIndex = cartItem.findIndex(item => item.id === prod.id);
-    
+
         if (existingIndex !== -1) {
             const updatedCart = [...cartItem];
             updatedCart[existingIndex].quantity += prod.quantity;
@@ -114,7 +114,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
         fetchCategories();
         fetchCartItems();
     }, []);
-    
+
     useEffect(() => {
         const total = cartItem.reduce((acc, item) => acc + item.quantity, 0);
         setTotalItems(total);
@@ -129,7 +129,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
                             <div className={`text-white mr-4`} onClick={() => { setSidebarOn(!sidebarOn) }} >
                                 <MenuIcon className={`${sidebarOn && `rotate-90`} transition-all`} />
                             </div>
-                            <Link to='/' className="text-white md:text-xl font-bold transition-all">
+                            <Link to='/' className="text-white hidden sm:block md:text-xl font-bold transition-all">
                                 <span className=''>
                                     R. Market
                                 </span>
@@ -137,9 +137,9 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
                         </div>
                         <div className="flex items-center">
                             <div className="flex items-center">
-                                <div className=" relative bg-transparent rounded-full mr-5">
+                                <div className=" relative bg-transparent rounded-full">
                                     <input type="text" placeholder="Recherche..."
-                                        className="peer text-white cursor-pointer relative z-10 h-8 rounded-full border bg-transparent outline-none sm:pl-6 pl-2 w-24 sm:w-80 transition-all focus:cursor-text focus:border-gray-100 focus:pr-4"
+                                        className="peer text-white cursor-pointer relative z-10 h-8 rounded-full border bg-transparent outline-none sm:pl-6 pl-2 w-32 sm:w-80 transition-all focus:cursor-text focus:border-gray-100 focus:pr-4"
                                         onChange={handleInputChange}
                                     />
                                     <Link to='/view'>
@@ -147,10 +147,35 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
                                             className='text-white cursor-pointer px-3' />
                                     </Link>
                                 </div>
-                                <div className='mr-5'>
-                                    <Link to='/cart' className="text-white relative">
+                                <div className='sm:mx-2 text-white'>
+                                    |
+                                </div>
+                                <div className=' px-2 text-white'>
+                                    {!isUserLoggedIn ? (
+                                        <Link to="/login" className='flex items-center space-x-2'>
+                                            <div>
+                                                <User2 />
+                                            </div>
+                                            <div className='hidden md:block transition-all'>
+                                                Identifiez-vous
+                                            </div>
+                                        </Link>
+                                    ):(
+                                        <Link to="/user" className='flex items-center space-x-2'>
+                                            <div>
+                                                <UserCheck2 />
+                                            </div>
+                                            <div className='hidden md:block transition-all'>
+                                                Mon Compte
+                                            </div>
+                                        </Link>
+                                    )
+                                }
+                                </div>
+                                <div className=''>
+                                    <Link to='/cart' className="text-white relative px-3">
                                         <FontAwesomeIcon icon={faShoppingBag} size='xl' />
-                                        <span className='absolute text-xs left-2 bottom-0 px-1 bg-red-300 rounded-full' id='compteur-card'>{displayTotalItems}</span>
+                                        <span className='absolute text-xs left-6 top-0 px-1 bg-red-300 rounded-full' id='compteur-card'>{displayTotalItems}</span>
                                     </Link>
                                 </div>
                             </div>
@@ -167,7 +192,7 @@ function Navbar({ setIsUserLoggedIn, isUserLoggedIn, route }) {
                 <Sidebar isUserLoggedIn={isUserLoggedIn} />
             </div>
 
-            {route == 'home' && <Home addToCart={addToCart}/>}
+            {route == 'home' && <Home addToCart={addToCart} />}
             {route == 'add' && <Add refresh={refreshData} />}
             {route == 'view' && <View data={filtredData} addToCart={addToCart} type={categories} onCategorieChange={handleCategoriesChange} refreshData={refreshData} />}
             {route == 'cart' && <Cart setItems={setCartItem} items={cartItem} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />}
