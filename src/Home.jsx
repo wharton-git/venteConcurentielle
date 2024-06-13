@@ -21,7 +21,7 @@ import ShopIllustration from './assets/images/Shopp Illustration noBg.png'
 import Footer from './components/Footer'
 import TopSelling from './components/TopSelling'
 
-function Home({addToCart}) {
+function Home({ addToCart }) {
 
     const [produits, setProduits] = useState([])
     const [customQuantity, setCustomQuantity] = useState({});
@@ -99,23 +99,24 @@ function Home({addToCart}) {
                             <div><Award className='text-blue-500 mr-2' size={30} /></div>
                             <div>Qualité Garantie</div>
                         </div>
-                        <div className='ml-10'>Produits rigoureusement sélectionnés pour leur qualité supérieure.</div>
+                        <div className='ml-10'>Nos produits sont sélectionnés avec soin pour garantir une qualité exceptionnelle.</div>
                     </div>
                     <div className=''>
                         <div className='flex items-center text-xl font-bold uppercase'>
                             <div><Tag className='text-orange-600 mr-2' size={30} /></div>
-                            <div>Offre Journalière</div>
+                            <div>Offres Quotidiennes</div>
                         </div>
-                        <div className='ml-10'>Produits rigoureusement sélectionnés pour leur qualité supérieure.</div>
+                        <div className='ml-10'>Profitez de nos offres exclusives mises à jour chaque jour.</div>
                     </div>
                     <div className=''>
                         <div className='flex items-center text-xl font-bold uppercase'>
                             <div><ShieldCheck className='text-green-600 mr-2' size={30} /></div>
-                            <div>Payement Sécurisé</div>
+                            <div>Paiement Sécurisé</div>
                         </div>
-                        <div className='ml-10'>Produits rigoureusement sélectionnés pour leur qualité supérieure.</div>
+                        <div className='ml-10'>Effectuez vos achats en toute tranquillité grâce à notre système de paiement sécurisé.</div>
                     </div>
                 </div>
+
             </div>
 
             <TopSelling />

@@ -85,7 +85,7 @@ const Detail = ({ addToCart }) => {
                             </span>
                             {detailProduits.reduction &&
                                 <span>
-                                    ( -{detailProduits.reduction}% today)
+                                    ( -{detailProduits.reduction}% aujourd'hui)
                                 </span>
                             }
                         </div>

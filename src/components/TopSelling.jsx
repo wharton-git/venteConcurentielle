@@ -72,16 +72,32 @@ function TopSellingComponent() {
                     {mostpurchased.map((best) => (
                         <SwiperSlide>
                             <div className="p-2 w-4/5 mb-8">
-                                <div className="flex rounded-lg w-40 mx-auto h-64 dark:bg-gray-800 bg-teal-400 p-3 flex-col">
-                                    <div className=''>
-                                        <img src={`${baseUrl}images/` + best.image} alt="" className='rounded-md ' />
+                                <div className="transition-all relative shadow-xl w-52 rounded-lg mx-auto my-6 bg-white h-max">
+                                <div className='transition-all'>
+                                        <img src={`${baseUrl}images/` + best.image} alt="" className='object-contain py-3' />
                                     </div>
-                                    <div className="flex flex-col justify-between flex-grow">
-                                        <p className="leading-relaxed text-base text-white dark:text-gray-300">{best.designation}</p>
-                                        <Link to={`/detail/${best.id}`} className='bg-white text-gray-800 rounded-lg flex items-center space-x-2 w-max px-2 py-1 mx-auto  hover:scale-110 transition-all'>
-                                            <Info />
-                                            <div>Info</div>
-                                        </Link>
+                                    <div className='transition-all p-2 text-white bg-gray-800 rounded-b-lg'>
+                                        <div className='space-y-3 mx-3 mb-3'>
+                                            <div className='flex justify-between items-center'>
+                                                <div>
+                                                    <div>
+                                                        <span className='text-2xl font-bold'>{best.prix}</span> $
+                                                    </div>
+                                                    <div>
+                                                        <u>Stock :</u> <span>{best.stock}</span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <Link to={`/detail/${best.id}`} className='bg-white text-gray-800 rounded-lg max-w-10 overflow-hidden hover:max-w-96 flex items-center space-x-2 px-2 py-1 mx-auto hover:scale-110 transition-all'>
+                                                        <div><Info /></div>
+                                                        <div>Info</div>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                            <div className='text-base font-bold h-12 line-clamp-2 whitespace-normal overflow-hidden text-ellipsis'>
+                                                {best.designation}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
